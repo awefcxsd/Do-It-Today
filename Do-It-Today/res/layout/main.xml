@@ -61,7 +61,7 @@
 
     		<RadioButton
     		    android:id="@+id/radio_button4"
-    		    style="@style/main_tab_bottom"
+    		    style="@style/main_tab_bottom_right"
     		    android:drawableTop="@drawable/icon_5_n"
     		    android:gravity="center" />
 
