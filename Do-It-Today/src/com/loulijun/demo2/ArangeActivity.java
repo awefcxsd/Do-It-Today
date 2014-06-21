@@ -9,9 +9,7 @@ public class ArangeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TextView textView=new TextView(this);
-		textView.setText("¨·«í¼y«Ü¼o");
-		setContentView(textView);
+		setContentView(R.layout.arrange);
 	}
 	
 }
