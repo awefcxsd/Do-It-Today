@@ -57,10 +57,11 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	        		.setIndicator(getResources().getString(R.string.more), getResources().getDrawable(R.drawable.icon_5_n))
 	        		.setContent(iMore));
     }
-   
+  
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		
 		switch(checkedId){
 		case R.id.radio_button0:
 			this.tabhost.setCurrentTabByTag("iHome");
@@ -79,6 +80,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 			break;
 		}
 	}
+	
     
     
 }
