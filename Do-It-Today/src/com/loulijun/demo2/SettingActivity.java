@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class NewsActivity extends Activity {
+public class SettingActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		TextView textView=new TextView(this);
-		textView.setText("7");
+		textView.setText("4");
 		setContentView(textView);
 	}
 	

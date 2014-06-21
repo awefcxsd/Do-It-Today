@@ -1,24 +1,16 @@
-/**
- * 
- */
-package com.flysnow.sina.weibo;
+package com.loulijun.demo2;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-/**
- * 靽⊥Activity
- * @author 憌��
- * @since 2011-3-8
- */
-public class NewsActivity extends Activity {
+public class ListActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		TextView textView=new TextView(this);
-		textView.setText("8");
+		textView.setText("6");
 		setContentView(textView);
 	}
 	

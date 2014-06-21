@@ -1,24 +1,16 @@
-/**
- * 
- */
-package com.flysnow.sina.weibo;
+package com.loulijun.demo2;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-/**
- * ï¿½î°¬æ£Activity
- * @author æ†Œîµ¨î­’ï¿½îºŸï¿½
- * @since 2011-3-8
- */
-public class SearchActivity extends Activity {
+public class ArangeActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		TextView textView=new TextView(this);
-		textView.setText("9");
+		textView.setText("¨·«í¼y«Ü¼o");
 		setContentView(textView);
 	}
 	
