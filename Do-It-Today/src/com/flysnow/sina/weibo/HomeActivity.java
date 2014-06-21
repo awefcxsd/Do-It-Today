@@ -12,6 +12,8 @@ import android.widget.TextView;
  * @author 憌��
  * @since 2011-3-8
  */
+
+//HEY
 public class HomeActivity extends Activity {
 
 	@Override
