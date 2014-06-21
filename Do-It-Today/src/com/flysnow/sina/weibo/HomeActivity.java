@@ -13,7 +13,7 @@ import android.widget.TextView;
  * @since 2011-3-8
  */
 
-//HEY hello hui
+//HEY hello hui 123
 public class HomeActivity extends Activity {
 
 	@Override
