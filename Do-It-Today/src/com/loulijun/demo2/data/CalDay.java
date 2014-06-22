@@ -15,7 +15,7 @@ public class CalDay implements Serializable{
 	public CalEvent[] calArray;
 	
 	public CalDay(){
-
+		calArray =new CalEvent[24];
 	}
 	
 	

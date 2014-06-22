@@ -18,6 +18,24 @@ public class CalMapEvent implements Serializable{
 
 	}
 	
+	public void addDayEvent(Date date, CalDay calDay){
+		calMap.put(date, calDay);
+	}
+	
+	public boolean isExist(Date date)
+	{
+		return calMap.containsKey(date);
+	}
+	
+	public CalDay getDayEvent(Date date)
+	{
+		if(calMap.containsKey(date))
+		{
+			return (CalDay) calMap.get(date);
+		}
+		
+		return new CalDay();
+	}
 	
 	
 	
