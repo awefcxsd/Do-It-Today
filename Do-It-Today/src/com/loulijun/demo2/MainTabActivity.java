@@ -29,6 +29,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
                 
         GlobalV global= ((GlobalV)getApplicationContext());
         global.flexList.readFromFile(runing);
+        global.freeTime.readFromFile(runing);
         
         setContentView(R.layout.main);
         mainTab=(RadioGroup)findViewById(R.id.main_tab);
