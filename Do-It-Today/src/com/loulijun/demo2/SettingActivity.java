@@ -6,6 +6,7 @@ import com.loulijun.demo2.setting.gridAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -44,6 +45,13 @@ public class SettingActivity extends Activity {
 
 		});
 
+	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		Log.d("Setting", "isOnPause");
+		super.onPause();
 	}
 
 }
