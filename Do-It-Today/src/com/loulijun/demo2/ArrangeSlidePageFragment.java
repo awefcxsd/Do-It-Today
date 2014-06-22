@@ -58,7 +58,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 			data.add(i + ":00");
 		}
 		
-		adapter = new ArrangeListAdapter(getActivity(), position, data);
+		adapter = new ArrangeListAdapter(getActivity(), position, data,getActivity());
 		
 
 		listView.setAdapter(adapter);
@@ -67,6 +67,15 @@ public class ArrangeSlidePageFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
+				AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+				dialog.setTitle("Title"); //設定dialog 的title顯示內容
+				dialog.setCancelable(false); //關閉 Android 系統的主要功能鍵(menu,home等...)
+				dialog.setPositiveButton("收到！", new DialogInterface.OnClickListener() {  
+				    public void onClick(DialogInterface dialog, int which) {  
+				      // 按下"收到"以後要做的事情
+				    }  
+				}); 
+				dialog.show();
 			}
 
 		});
