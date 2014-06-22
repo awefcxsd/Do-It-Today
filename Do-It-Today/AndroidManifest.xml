@@ -45,6 +45,10 @@
             android:name=".SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
+        <service
+            android:enabled="true"
+            android:name=".PriorityService"/>
+
         
     </application>
 

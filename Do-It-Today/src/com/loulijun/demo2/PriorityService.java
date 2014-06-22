@@ -55,7 +55,7 @@ public class PriorityService extends IntentService {
 		@Override
 		public int compare(CalEvent lhs, CalEvent rhs) {
 			// TODO Auto-generated method stub
-			return (lhs.priority > rhs.priority)? 1 : 0;
+			return (lhs.priority < rhs.priority)? 1 : -1;
 		}
 	}
 

@@ -35,8 +35,14 @@ public class CalEvent implements Serializable{
 		Calendar now = Calendar.getInstance();
 		long diffInTimeMillis = now.getTimeInMillis() - deadline.getTimeInMillis();
 		long diffInTime = TimeUnit.MILLISECONDS.toSeconds(diffInTimeMillis);
+		double emrgencyFactor;
 		
-		double emrgencyFactor = duration / diffInTime;
+		if(diffInTime > duration){
+			emrgencyFactor = duration / (diffInTime+1) ;
+		}
+		else {
+			emrgencyFactor = 0;
+		}
 		priority = importance + emrgencyFactor*10; 
 		
 	}

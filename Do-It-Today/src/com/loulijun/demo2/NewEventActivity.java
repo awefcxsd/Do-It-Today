@@ -107,7 +107,7 @@ public class NewEventActivity extends Activity {
 
 	public class ResponseReceiver extends BroadcastReceiver {
 		   public static final String ACTION_RESP =    
-		      "com.mamlambo.intent.action.MESSAGE_PROCESSED";
+		      "com.loulijun.demo2.intent.action.MESSAGE_PROCESSED";
 		    
 		   @Override
 		    public void onReceive(Context context, Intent intent) {
