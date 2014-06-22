@@ -12,8 +12,12 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.loulijun.demo2.MainTabActivity;
+import com.loulijun.demo2.PriorityService;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 public class ListOfEvent implements Serializable{
 	public ArrayList<CalEvent> list;
@@ -92,7 +96,6 @@ public class ListOfEvent implements Serializable{
 	public void add(CalEvent event){
 		if(list!=null)
 		list.add(event);
-		maintainList();
 	}
 	
 	public void SortByDate(){
@@ -100,11 +103,6 @@ public class ListOfEvent implements Serializable{
 		
 	}
 	
-	public void maintainList()
-	{
-		
-		
-		
-	}
+	
 	
 }
