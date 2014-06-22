@@ -10,10 +10,16 @@ import java.util.GregorianCalendar;
 
 
 
+
+
+
 import com.loulijun.demo2.data.CalEvent;
 import com.loulijun.demo2.data.ListOfEvent;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -76,6 +82,8 @@ public class NewEventActivity extends Activity {
 		global.flexList.add(event);
 		global.flexList.saveToFile(runing);
 		
+		maintainList();
+		
 	}
 	
 	public void Debug(View cvView){
@@ -84,4 +92,15 @@ public class NewEventActivity extends Activity {
 		TextView output = (TextView) findViewById(R.id.textView3);
 		output.setText(readList.debug());
 	}
+	
+
+	public void maintainList()
+	{
+		String strInputMsg = "maintainList";
+		Intent msgIntent = new Intent(this, PriorityService.class);
+		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+		startService(msgIntent);
+	}
+    
+
 }

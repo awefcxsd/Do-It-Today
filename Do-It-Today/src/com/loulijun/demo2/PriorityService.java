@@ -1,5 +1,10 @@
 package com.loulijun.demo2;
 
+import java.util.Collections;
+import java.util.Comparator;
+
+import com.loulijun.demo2.data.CalEvent;
+
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -21,12 +26,27 @@ public class PriorityService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		String msg = intent.getStringExtra(PARAM_IN_MSG);
+		GlobalV global= ((GlobalV)getApplicationContext());
+		for(CalEvent calevent : global.flexList.list)
+		{
+			calevent.calPriority();
+		}
 		
+		Collections.sort(global.flexList.list, new CalEventComparator());
 		
 	}
 	
 
-	
+	class CalEventComparator implements Comparator<CalEvent> {
+
+
+		@Override
+		public int compare(CalEvent lhs, CalEvent rhs) {
+			// TODO Auto-generated method stub
+			return (lhs.priority > rhs.priority)? 1 : 0;
+		}
+	}
+
 	
 	
 	

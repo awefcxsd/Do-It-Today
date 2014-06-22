@@ -10,10 +10,10 @@ public class CalEvent implements Serializable{
 	public String type;
 	public String title;
 	public String description;
-	long duration;
+	public long duration;
 	public Calendar deadline;
-	double importance=0;
-	double priority = 0;
+	public double importance=0;
+	public double priority = 0;
 	
 	public CalEvent(String t,String d,long timN,Calendar dead, double i){
 		title=t;

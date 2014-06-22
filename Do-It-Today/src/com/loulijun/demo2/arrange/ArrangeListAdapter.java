@@ -2,12 +2,15 @@ package com.loulijun.demo2.arrange;
 
 import java.util.ArrayList;
 
+import com.loulijun.demo2.PriorityService;
 import com.loulijun.demo2.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 //here's our beautiful adapter
@@ -87,5 +91,21 @@ public class ArrangeListAdapter extends ArrayAdapter<String> {
 	    	notifyDataSetChanged();
 	    }
 	}
+	
+
+	public class ResponseReceiver extends BroadcastReceiver {
+		   public static final String ACTION_RESP =    
+		      "com.mamlambo.intent.action.MESSAGE_PROCESSED";
+		    
+		   @Override
+		    public void onReceive(Context context, Intent intent) {
+		       
+		       String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
+		       if(text == "DataChange")
+		       {
+		    	   notifyDataSetChanged();
+		       }
+		    }
+		}
 
 }

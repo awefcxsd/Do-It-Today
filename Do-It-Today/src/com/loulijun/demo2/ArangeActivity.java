@@ -4,6 +4,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ArangeActivity extends FragmentActivity {
@@ -24,7 +28,7 @@ public class ArangeActivity extends FragmentActivity {
      * and next wizard steps.
      */
     private ViewPager mPager;
-
+    ListView listView;
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -69,4 +73,6 @@ public class ArangeActivity extends FragmentActivity {
             return POSITION_NONE;
         }
     }
+    
+
 }
