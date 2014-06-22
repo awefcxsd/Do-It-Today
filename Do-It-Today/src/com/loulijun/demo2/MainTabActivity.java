@@ -23,9 +23,18 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	private Intent iMore;
 	Activity runing = this;
 	
+	public void setFont(String string) {
+    	SpannableString s;
+    	s = new SpannableString((CharSequence)string);
+        s.setSpan(new TypefaceSpan(this, "RobotoCondensed-Light.ttf"), 0, s.length(),
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getActionBar().setTitle(s);
+    }
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setFont(" Plan");
                 
         GlobalV global= ((GlobalV)getApplicationContext());
         global.flexList.readFromFile(runing);
@@ -51,23 +60,15 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	        	.setIndicator(getResources().getString(R.string.main_list), getResources().getDrawable(R.drawable.icon_3_n))
 	        	.setContent(iInfo));
 		
-		iSearch = new Intent(this,SearchActivity.class);
+		iSearch = new Intent(this, SettingActivity.class);
 		tabhost.addTab(tabhost.newTabSpec("iSearch")
 	        	.setIndicator(getResources().getString(R.string.main_setting), getResources().getDrawable(R.drawable.icon_4_n))
 	        	.setContent(iSearch));
 		
-		iMore = new Intent(this, SettingActivity.class);
+		iMore = new Intent(this, SearchActivity.class);
 		 tabhost.addTab(tabhost.newTabSpec("iMore")
 	        		.setIndicator(getResources().getString(R.string.more), getResources().getDrawable(R.drawable.icon_5_n))
 	        		.setContent(iMore));
-    }
-  
-    public void setFont(String string) {
-    	SpannableString s;
-    	s = new SpannableString((CharSequence)string);
-        s.setSpan(new TypefaceSpan(this, "RobotoCondensed-Light.ttf"), 0, s.length(),
-        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        getActionBar().setTitle(s);
     }
     
 	@Override

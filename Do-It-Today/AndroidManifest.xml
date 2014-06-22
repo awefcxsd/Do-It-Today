@@ -13,7 +13,6 @@
         android:name=".GlobalV"
         android:allowBackup="true"
         android:icon="@drawable/icon"
-        android:label="@string/main_plan"
         android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name=".MainTabActivity"
