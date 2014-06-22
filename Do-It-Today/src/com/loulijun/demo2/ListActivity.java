@@ -10,12 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loulijun.demo2.data.*;
+import com.loulijun.demo2.list.ListListAdapter;
 
 public class ListActivity extends Activity {
 
 	private ListView listView;
 
-	private ArrayAdapter<String> adapter;
+	private ArrayAdapter<CalEvent> adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,17 +28,9 @@ public class ListActivity extends Activity {
 		listView = (ListView) findViewById(R.id.EventList);
 
 		// ²M³æ°}¦C
+		GlobalV global= ((GlobalV)getApplicationContext());
+		adapter = new ListListAdapter(this, 0, global.flexList.list);
 
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1);
-		adapter.add("¬õ¨§");
-		adapter.add("¶Â¨§");
-		adapter.add("ºñ¨§");
-		adapter.add("ªá¨§");
-		adapter.add("¤ò¨§");
-		adapter.add("¤g¨§");
-		adapter.add("¨¡ÀY");
-		adapter.add("¦a¥Ê");
 
 		listView.setAdapter(adapter);
 

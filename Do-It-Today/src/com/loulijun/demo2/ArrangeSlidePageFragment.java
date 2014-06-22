@@ -58,7 +58,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 			data.add(i + ":00");
 		}
 		
-		adapter = new ArrangeListAdapter(getActivity(), position, data,getActivity());
+		adapter = new ArrangeListAdapter(getActivity(), 0, data,getActivity());
 		
 
 		listView.setAdapter(adapter);

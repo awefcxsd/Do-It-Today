@@ -7,11 +7,11 @@ import java.util.concurrent.TimeUnit;
 
 public class CalEvent implements Serializable{
 	
-	String type;
-	String title;
-	String description;
+	public String type;
+	public String title;
+	public String description;
 	long duration;
-	Calendar deadline;
+	public Calendar deadline;
 	double importance=0;
 	double priority = 0;
 	
