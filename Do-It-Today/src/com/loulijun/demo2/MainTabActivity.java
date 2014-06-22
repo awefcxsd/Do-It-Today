@@ -22,7 +22,6 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         
         GlobalV global= ((GlobalV)getApplicationContext());
         global.flexList.readFromFile(runing);

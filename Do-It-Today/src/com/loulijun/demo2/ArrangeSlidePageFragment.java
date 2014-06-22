@@ -1,7 +1,10 @@
 package com.loulijun.demo2;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import com.loulijun.demo2.arrange.ArrangeListAdapter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -48,12 +51,15 @@ public class ArrangeSlidePageFragment extends Fragment {
 		output.setText(date);
 
 		listView = (ListView) rootView.findViewById(R.id.DateEventList);
-
-		adapter = new ArrayAdapter<String>(this.getActivity(),
-				android.R.layout.simple_list_item_1);
+		
+		
+		ArrayList<String> data=new ArrayList<String>();
 		for (int i = 0; i < 24; i++) {
-			adapter.add(i + ":00");
+			data.add(i + ":00");
 		}
+		
+		adapter = new ArrangeListAdapter(getActivity(), position, data);
+		
 
 		listView.setAdapter(adapter);
 
@@ -61,7 +67,6 @@ public class ArrangeSlidePageFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-	
 			}
 
 		});

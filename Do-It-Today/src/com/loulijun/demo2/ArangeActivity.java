@@ -64,5 +64,9 @@ public class ArangeActivity extends FragmentActivity {
         public int getCount() {
             return NUM_PAGES;
         }
+        
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
     }
 }
