@@ -80,6 +80,4 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		}
 	}
 	
-    
-    
 }
