@@ -39,16 +39,26 @@ public class gridAdapter extends ArrayAdapter<String> {
 		}
 
 		GlobalV global = ((GlobalV) context.getApplicationContext());
-		if (global.freeTime.freeTime[position % 7][position / 7]) {
-			convertView.setBackgroundColor(Color.argb(125,75,236,90));
-		} else {
-			convertView.setBackgroundColor(Color.argb(255,255,255,255));
-		}
 
-		TextView Week = (TextView) convertView.findViewById(R.id.Week);
-		Week.setText(getday(position % 7));
+	
+			if (global.freeTime.freeTime[position % 7][position / 7]) {
+				convertView.setBackgroundColor(Color.argb(125, 75, 236, 90));
+			} else {
+				convertView.setBackgroundColor(Color.argb(255, 255, 255, 255));
+			}
+			TextView Week = (TextView) convertView.findViewById(R.id.Week);
+			Week.setText(position / 7 + ":00");
+		
+
+		
+		
+		
+		
+		
+		
+		
 		TextView Time = (TextView) convertView.findViewById(R.id.Time);
-		Time.setText(position / 7 + ":00");
+		Time.setText("");
 
 		return convertView;
 	}
