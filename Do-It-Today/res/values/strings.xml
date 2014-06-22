@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Do It Today</string>
-    <string name="main_home">Plan</string>
+    <string name="main_plan">Plan</string>
     <string name="main_add">Add</string>
-    <string name="main_my_info">List</string>
-    <string name="menu_search">Setting</string>
+    <string name="main_list">List</string>
+    <string name="main_setting">Setting</string>
     <string name="more">More</string>
     
 </resources>

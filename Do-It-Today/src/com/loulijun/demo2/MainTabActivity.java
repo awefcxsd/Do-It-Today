@@ -2,10 +2,13 @@ package com.loulijun.demo2;
 
 import com.loulijun.demo2.data.ListOfEvent;
 
+import android.R.string;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.Window;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
@@ -19,10 +22,11 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	private Intent iSearch;
 	private Intent iMore;
 	Activity runing = this;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+                
         GlobalV global= ((GlobalV)getApplicationContext());
         global.flexList.readFromFile(runing);
         
@@ -33,7 +37,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         
         iHome = new Intent(this, ArangeActivity.class);
         tabhost.addTab(tabhost.newTabSpec("iHome")
-        		.setIndicator(getResources().getString(R.string.main_home), getResources().getDrawable(R.drawable.icon_1_n))
+        		.setIndicator(getResources().getString(R.string.main_plan), getResources().getDrawable(R.drawable.icon_1_n))
         		.setContent(iHome));
         
 		iNews = new Intent(this, NewEventActivity.class);
@@ -43,12 +47,12 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		
 		iInfo = new Intent(this, ListActivity.class);
 		tabhost.addTab(tabhost.newTabSpec("iInfo")
-	        	.setIndicator(getResources().getString(R.string.main_my_info), getResources().getDrawable(R.drawable.icon_3_n))
+	        	.setIndicator(getResources().getString(R.string.main_list), getResources().getDrawable(R.drawable.icon_3_n))
 	        	.setContent(iInfo));
 		
 		iSearch = new Intent(this,SearchActivity.class);
 		tabhost.addTab(tabhost.newTabSpec("iSearch")
-	        	.setIndicator(getResources().getString(R.string.menu_search), getResources().getDrawable(R.drawable.icon_4_n))
+	        	.setIndicator(getResources().getString(R.string.main_setting), getResources().getDrawable(R.drawable.icon_4_n))
 	        	.setContent(iSearch));
 		
 		iMore = new Intent(this, SettingActivity.class);
@@ -57,24 +61,36 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	        		.setContent(iMore));
     }
   
-
+    public void setFont(String string) {
+    	SpannableString s;
+    	s = new SpannableString((CharSequence)string);
+        s.setSpan(new TypefaceSpan(this, "RobotoCondensed-Light.ttf"), 0, s.length(),
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getActionBar().setTitle(s);
+    }
+    
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		
 		switch(checkedId){
 		case R.id.radio_button0:
+			setFont(" Plan");
 			this.tabhost.setCurrentTabByTag("iHome");
 			break;
 		case R.id.radio_button1:
+			setFont(" New Event");
 			this.tabhost.setCurrentTabByTag("iNews");
 			break;
 		case R.id.radio_button2:
+			setFont(" List View");
 			this.tabhost.setCurrentTabByTag("iInfo");
 			break;
 		case R.id.radio_button3:
+			setFont(" Setting");
 			this.tabhost.setCurrentTabByTag("iSearch");
 			break;
 		case R.id.radio_button4:
+			setFont(" Info");
 			this.tabhost.setCurrentTabByTag("iMore");
 			break;
 		}
