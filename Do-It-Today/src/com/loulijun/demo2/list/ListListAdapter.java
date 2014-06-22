@@ -23,7 +23,7 @@ public class ListListAdapter extends ArrayAdapter<CalEvent> {
 	public ListListAdapter(Context context, int resource, ArrayList<CalEvent> list) {
 		super(context, resource,list);
 		// TODO Auto-generated constructor stub
-		this.mContext = mContext;
+		this.mContext = context;
 		this.list=list;
 	}
     @Override
@@ -36,9 +36,11 @@ public class ListListAdapter extends ArrayAdapter<CalEvent> {
 					false);
 		}
 
+		convertView.setBackgroundColor(Color.argb(255, 255, 255-(int)list.get(position).importance, 255-(int)list.get(position).importance));
+		
 		// object item based on the position
 		String title = list.get(position).title;
-		String deadline = list.get(position).deadline.get(Calendar.YEAR)+"/"+list.get(position).deadline.get(Calendar.MONTH)+"/"+list.get(position).deadline.get(Calendar.DATE);
+		String deadline = list.get(position).deadline.get(Calendar.YEAR)+"/"+(list.get(position).deadline.get(Calendar.MONTH)+1)+"/"+list.get(position).deadline.get(Calendar.DATE);
 		// get the TextView and then set the text (item name) and tag (item ID)
 		// values
 
