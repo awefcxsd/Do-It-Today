@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 
 
+
 import com.loulijun.demo2.data.CalEvent;
 import com.loulijun.demo2.data.ListOfEvent;
 
@@ -14,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -113,13 +115,12 @@ public class NewEventActivity extends Activity {
 		    public void onReceive(Context context, Intent intent) {
 		       
 		       String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
-		       if(text == "DataChange")
-		       {
+		      Log.d("NEW EVENT", text);
 		    	   	ListOfEvent readList = new ListOfEvent("flexList");
 		   			readList.readFromFile(runing);
 		   			TextView output = (TextView) findViewById(R.id.textView3);
 		   			output.setText(readList.debug());
-		       }
+		      
 		    }
 		}
 

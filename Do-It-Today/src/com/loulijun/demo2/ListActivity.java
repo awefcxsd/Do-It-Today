@@ -6,9 +6,13 @@ import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
 import com.loulijun.demo2.data.*;
 import com.loulijun.demo2.list.ListListAdapter;
 
@@ -29,7 +34,7 @@ public class ListActivity extends Activity {
 	private ListView listView;
 
 	private ArrayAdapter<CalEvent> adapter;
-
+	private ResponseReceiver receiver;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -39,6 +44,14 @@ public class ListActivity extends Activity {
 
 		listView = (ListView) findViewById(R.id.EventList);
 
+		
+
+		IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        receiver = new ResponseReceiver();
+        registerReceiver(receiver, filter);
+		
+		
 		// ²M³æ°}¦C
 		GlobalV global = ((GlobalV) getApplicationContext());
 		adapter = new ListListAdapter(this, 0, global.flexList.list);
@@ -106,8 +119,9 @@ public class ListActivity extends Activity {
 								global.flexList.saveToFile(ListActivity.this);
 								
 								maintainList();
-								adapter.notifyDataSetChanged();
+								
 							}
+							
 							public void maintainList()
 							{
 								String strInputMsg = "maintainList";
@@ -124,4 +138,20 @@ public class ListActivity extends Activity {
 		});
 
 	}
+
+	public class ResponseReceiver extends BroadcastReceiver {
+		   public static final String ACTION_RESP =    
+		      "com.loulijun.demo2.intent.action.MESSAGE_PROCESSED";
+		    
+		   @Override
+		    public void onReceive(Context context, Intent intent) {
+		       
+		       String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
+		       Log.d("ListActivity", text);
+		       adapter.notifyDataSetChanged();
+		     
+		    }
+		}
+
+    
 }
