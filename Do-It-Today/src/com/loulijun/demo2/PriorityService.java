@@ -3,6 +3,9 @@ package com.loulijun.demo2;
 import java.util.Collections;
 import java.util.Comparator;
 
+
+
+import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
 import com.loulijun.demo2.data.CalEvent;
 
 import android.app.IntentService;
@@ -34,6 +37,15 @@ public class PriorityService extends IntentService {
 		
 		Collections.sort(global.flexList.list, new CalEventComparator());
 		
+		
+		// processing done here¡K.
+		Intent broadcastIntent = new Intent();
+		broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
+		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+		
+		String resultTxt = "DataChange";
+		broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
+		sendBroadcast(broadcastIntent);
 	}
 	
 

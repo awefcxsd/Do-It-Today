@@ -5,14 +5,6 @@ import java.util.GregorianCalendar;
 
 
 
-
-
-
-
-
-
-
-
 import com.loulijun.demo2.data.CalEvent;
 import com.loulijun.demo2.data.ListOfEvent;
 
@@ -20,6 +12,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
@@ -30,10 +23,19 @@ import android.widget.TextView;
 public class NewEventActivity extends Activity {
 	
 	Activity runing = this;
+	private ResponseReceiver receiver;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add);
+		
+		IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        receiver = new ResponseReceiver();
+        registerReceiver(receiver, filter);
+		
+		
+		
 		
 		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
 		seekBar.setProgress(0);
@@ -101,6 +103,26 @@ public class NewEventActivity extends Activity {
 		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 		startService(msgIntent);
 	}
+	
+
+	public class ResponseReceiver extends BroadcastReceiver {
+		   public static final String ACTION_RESP =    
+		      "com.mamlambo.intent.action.MESSAGE_PROCESSED";
+		    
+		   @Override
+		    public void onReceive(Context context, Intent intent) {
+		       
+		       String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
+		       if(text == "DataChange")
+		       {
+		    	   	ListOfEvent readList = new ListOfEvent("flexList");
+		   			readList.readFromFile(runing);
+		   			TextView output = (TextView) findViewById(R.id.textView3);
+		   			output.setText(readList.debug());
+		       }
+		    }
+		}
+
     
 
 }

@@ -93,19 +93,4 @@ public class ArrangeListAdapter extends ArrayAdapter<String> {
 	}
 	
 
-	public class ResponseReceiver extends BroadcastReceiver {
-		   public static final String ACTION_RESP =    
-		      "com.mamlambo.intent.action.MESSAGE_PROCESSED";
-		    
-		   @Override
-		    public void onReceive(Context context, Intent intent) {
-		       
-		       String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
-		       if(text == "DataChange")
-		       {
-		    	   notifyDataSetChanged();
-		       }
-		    }
-		}
-
 }

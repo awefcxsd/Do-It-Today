@@ -26,7 +26,7 @@ public class CalEvent implements Serializable{
 	
 	public String debug(){
 		String out="";
-		out=title+"\n"+description+"\n"+duration+"\n"+importance+"\n"+deadline.getTime().toString();
+		out=title+"\n"+description+"\n"+duration+"\n"+importance+"\n"+priority+"\n"+deadline.getTime().toString();
 		return out;
 	}
 	
