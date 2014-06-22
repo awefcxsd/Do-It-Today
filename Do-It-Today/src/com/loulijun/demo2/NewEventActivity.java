@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 
 
 
+
 import com.loulijun.demo2.data.CalEvent;
 import com.loulijun.demo2.data.ListOfEvent;
 
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class NewEventActivity extends Activity {
@@ -27,7 +29,30 @@ public class NewEventActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add);
 		
+		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
+		seekBar.setProgress(0);
+		seekBar.setMax(100);
 		
+		final TextView seekBarValue = (TextView)findViewById(R.id.seekbarvalue);
+		
+		
+		seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+		    @Override
+		    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		        seekBarValue.setText(String.valueOf(progress));
+		    }
+
+		    @Override
+		    public void onStartTrackingTouch(SeekBar seekBar) {
+
+		    }
+
+		    @Override
+		    public void onStopTrackingTouch(SeekBar seekBar) {
+
+		    }
+		});
 		
 	}
 	public void AddEvent(View cvView) {
@@ -40,9 +65,13 @@ public class NewEventActivity extends Activity {
 		Calendar deadline = new GregorianCalendar();
 		deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
 
+		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
+		
+		
+		
 		CalEvent event = new CalEvent(title.getText().toString(), description
 				.getText().toString(), Long.parseLong(timeNeed.getText()
-				.toString()), deadline);
+				.toString()), deadline, seekBar.getProgress());
 
 		global.flexList.add(event);
 		global.flexList.saveToFile(runing);

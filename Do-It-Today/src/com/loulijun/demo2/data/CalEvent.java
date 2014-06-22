@@ -15,17 +15,18 @@ public class CalEvent implements Serializable{
 	double importance=0;
 	double priority = 0;
 	
-	public CalEvent(String t,String d,long timN,Calendar dead){
+	public CalEvent(String t,String d,long timN,Calendar dead, double i){
 		title=t;
 		description=d;
 		duration=TimeUnit.HOURS.toSeconds(timN);
 		deadline=dead;
+		importance=i;
 	}
 	
 	
 	public String debug(){
 		String out="";
-		out=title+"\n"+description+"\n"+duration+"\n"+deadline.getTime().toString();
+		out=title+"\n"+description+"\n"+duration+"\n"+importance+"\n"+deadline.getTime().toString();
 		return out;
 	}
 	
