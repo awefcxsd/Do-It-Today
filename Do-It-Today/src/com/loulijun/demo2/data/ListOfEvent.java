@@ -92,9 +92,17 @@ public class ListOfEvent implements Serializable{
 	public void add(CalEvent event){
 		if(list!=null)
 		list.add(event);
+		maintainList();
 	}
 	
 	public void SortByDate(){
+		
+		
+	}
+	
+	public void maintainList()
+	{
+		
 		
 		
 	}

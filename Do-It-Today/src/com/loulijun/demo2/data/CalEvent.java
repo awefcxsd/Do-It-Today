@@ -37,7 +37,7 @@ public class CalEvent implements Serializable{
 		long diffInTime = TimeUnit.MILLISECONDS.toSeconds(diffInTimeMillis);
 		
 		double emrgencyFactor = duration / diffInTime;
-		priority = importance*10 + emrgencyFactor; 
+		priority = importance + emrgencyFactor*10; 
 		
 	}
 	
