@@ -116,8 +116,6 @@ public class ListActivity extends Activity {
 										.toString()), deadline, seekBar.getProgress());
 
 								global.flexList.add(event);
-								global.flexList.saveToFile(ListActivity.this);
-								
 								maintainList();
 								
 							}
@@ -130,7 +128,24 @@ public class ListActivity extends Activity {
 								startService(msgIntent);
 							}
 						});
-				
+				dialog.setNeutralButton("Delete",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								GlobalV global= ((GlobalV)getApplicationContext());
+								global.flexList.list.remove(position);
+								maintainList();
+								
+							}
+							
+							public void maintainList()
+							{
+								String strInputMsg = "maintainList";
+								Intent msgIntent = new Intent(ListActivity.this, PriorityService.class);
+								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+								startService(msgIntent);
+							}
+						});
 				dialog.setNegativeButton("Cancel", null);
 				dialog.show();
 			}
