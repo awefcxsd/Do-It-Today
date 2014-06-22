@@ -84,7 +84,6 @@ public class NewEventActivity extends Activity {
 				.toString()), deadline, seekBar.getProgress());
 
 		global.flexList.add(event);
-		global.flexList.saveToFile(runing);
 		
 		maintainList();
 		

@@ -16,6 +16,7 @@ import com.loulijun.demo2.MainTabActivity;
 import com.loulijun.demo2.PriorityService;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 
@@ -28,7 +29,7 @@ public class ListOfEvent implements Serializable{
 		list.size();
 	}
 
-	public void saveToFile(Activity runing) {
+	public void saveToFile(Service runing) {
 		FileOutputStream fout = null;
 		ObjectOutputStream oos = null;
 		try {

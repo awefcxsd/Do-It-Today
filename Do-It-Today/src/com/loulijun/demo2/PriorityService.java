@@ -36,7 +36,7 @@ public class PriorityService extends IntentService {
 		}
 		
 		Collections.sort(global.flexList.list, new CalEventComparator());
-		
+		global.flexList.saveToFile(this);
 		
 		// processing done here¡K.
 		Intent broadcastIntent = new Intent();
