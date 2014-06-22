@@ -41,7 +41,7 @@ public class NewEventActivity extends Activity {
 		deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
 
 		CalEvent event = new CalEvent(title.getText().toString(), description
-				.getText().toString(), Double.parseDouble(timeNeed.getText()
+				.getText().toString(), Long.parseLong(timeNeed.getText()
 				.toString()), deadline);
 
 		global.flexList.add(event);
