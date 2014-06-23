@@ -15,7 +15,7 @@ public class CalEvent implements Serializable{
 	public double importance=0;
 	public double priority = 0;
 	public boolean isEmpty;
-	
+	public double emrgencyFactor = 0;
 	
 	public CalEvent(String t,String d,long timN,Calendar dead, double i){
 		title=t;
@@ -44,19 +44,20 @@ public class CalEvent implements Serializable{
 	
 	public void calPriority()
 	{
-		Calendar now = Calendar.getInstance();
-		long diffInTimeMillis = now.getTimeInMillis() - deadline.getTimeInMillis();
-		long diffInTime = TimeUnit.MILLISECONDS.toSeconds(diffInTimeMillis);
-		double emrgencyFactor;
+		if(!isEmpty){
+			Calendar now = Calendar.getInstance();
+			long diffInTimeMillis = now.getTimeInMillis() - deadline.getTimeInMillis();
+			long diffInTime = TimeUnit.MILLISECONDS.toSeconds(diffInTimeMillis);
+			
 		
-		if(diffInTime > duration){
-			emrgencyFactor = duration / (diffInTime+1) ;
+			if(diffInTime > duration){
+				emrgencyFactor = duration / (diffInTime+1) ;
+			}
+			else {
+				emrgencyFactor = 1;
+			}
+			priority = importance + emrgencyFactor*10; 
 		}
-		else {
-			emrgencyFactor = 0;
-		}
-		priority = importance + emrgencyFactor*10; 
-		
 	}
 	
 	

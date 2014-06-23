@@ -1,12 +1,20 @@
 package com.loulijun.demo2;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
 
 
+
+
+
+import java.util.Date;
+
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
 import com.loulijun.demo2.data.CalEvent;
+import com.loulijun.demo2.data.ListOfEvent;
 
 import android.app.IntentService;
 import android.content.ContentValues;
@@ -37,6 +45,15 @@ public class PriorityService extends IntentService {
 		
 	}
 	
+	public void reAssignTask()
+	{
+		reArrangeList();
+		GlobalV global= ((GlobalV)getApplicationContext());
+		ArrayList<CalEvent> flexibleList = global.flexList.list;
+		Calendar today = Calendar.getInstance();
+		
+	}
+	
 
 	public void reArrangeList()
 	{
@@ -59,6 +76,8 @@ public class PriorityService extends IntentService {
 		
 		
 	}
+	
+	
 	
 	
 	class CalEventComparator implements Comparator<CalEvent> {
