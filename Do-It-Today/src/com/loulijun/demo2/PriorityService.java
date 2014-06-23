@@ -17,6 +17,7 @@ import java.util.Map;
 
 
 
+
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
 import com.loulijun.demo2.data.CalDay;
 import com.loulijun.demo2.data.CalEvent;
@@ -54,7 +55,9 @@ public class PriorityService extends IntentService {
 		else if(msg.equals("reAssignTask"))
 		{
 			
-			Date finalDate = new Date(Calendar.getInstance().getTime().getTime() + 60*24*60*60*1000);
+			long days = (long) (60*60*24*1000);
+			days *= 60;
+			Date finalDate = new Date(Calendar.getInstance().getTime().getTime() + days);
 			reAssignTask(finalDate);
 		}
 		
@@ -71,9 +74,6 @@ public class PriorityService extends IntentService {
 			flexibleList.add((CalEvent)calEvent.clone());
 		}
 		
-		
-		global.freeTime.calculateFreeMap();
-		
 		List<Map<Integer,Integer>> thisFreeMaps =  global.freeTime.freeMaps;  
 		FixedEventList fixedList = global.fixedList;
 		Map<Integer,Integer> freeTimesInDay;
@@ -89,7 +89,7 @@ public class PriorityService extends IntentService {
 		endDateCalendar.setTime(finalDate);
 		Calendar today = Calendar.getInstance();
 		long days = (endDateCalendar.getTimeInMillis() - today.getTimeInMillis())/(24 * 60 * 60 * 1000); 
-		
+		Log.d("Days", Long.toString(days));
 		int count = 0;
 		//Everyday
 		for(long i=0; i<=days && count<maxEventNum ;++i)
@@ -100,15 +100,15 @@ public class PriorityService extends IntentService {
 			
 			//free time of that day
 			
-			Log.d("dayWeek",Integer.toString(dayWeek));
+			//Log.d("dayWeek",Integer.toString(dayWeek));
 			
 			freeTimesInDay = thisFreeMaps.get(dayWeek-1);
 			for(Map.Entry<Integer, Integer> hoursPair : freeTimesInDay.entrySet())
 			{
 				int start = hoursPair.getKey().intValue();
 				int dur =  hoursPair.getValue().intValue();
-				Log.d("start",Integer.toString(start));
-				Log.d("dur",Integer.toString(dur));
+				//Log.d("start",Integer.toString(start));
+				//Log.d("dur",Integer.toString(dur));
 				
 				for(int hour = start ; hour < (start + dur) && count<maxEventNum ; ++hour)
 				{
@@ -123,14 +123,14 @@ public class PriorityService extends IntentService {
 							count++;
 						}
 					
-						calDay.calArray[start] = flexibleList.get(eventNum);
+						calDay.calArray[hour] = flexibleList.get(eventNum);
 						flexibleList.get(eventNum).duration -= (60*60);
 					}
 					else 
 					{
 						eventNum = (eventNum+1) % maxEventNum;;
 						//add fixed time in another function?
-						calDay.calArray[start] = eventOfHour;
+						calDay.calArray[hour] = eventOfHour;
 					}
 				}
 				

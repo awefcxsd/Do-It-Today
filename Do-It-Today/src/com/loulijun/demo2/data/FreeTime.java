@@ -37,11 +37,13 @@ public class FreeTime implements Serializable{
 	
 	public void calculateFreeMap()
 	{
+		freeMaps.clear();
 		boolean isFirst = true;
 		Integer start = new Integer(0);
 		Integer duration = new Integer(0);
 		for(int i=0;i<7;++i)
 		{
+			freeMaps.add(new HashMap<Integer,Integer>());
 			for(int j=0;j<24;++j)
 			{
 				if(freeTime[i][j])
@@ -51,9 +53,25 @@ public class FreeTime implements Serializable{
 						start = new Integer(j);
 						isFirst = false;
 						duration = new Integer(1);
+						if(j==23)
+						{
+							isFirst=true;
+							//add to map
+							freeMaps.get(i).put(start, duration);
+							start =new Integer(0);
+							duration = new Integer(0);
+						}
 					}
 					else {
 						duration = new Integer(duration.intValue()+1);
+						if(j==23)
+						{
+							isFirst=true;
+							//add to map
+							freeMaps.get(i).put(start, duration);
+							start =new Integer(0);
+							duration = new Integer(0);
+						}
 					}
 				}
 				else 
@@ -69,7 +87,10 @@ public class FreeTime implements Serializable{
 				}
 				
 			}
+			
+			
 		}
+		
 		
 	}
 	
