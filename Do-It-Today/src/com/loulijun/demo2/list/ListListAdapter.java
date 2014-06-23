@@ -36,7 +36,7 @@ public class ListListAdapter extends ArrayAdapter<CalEvent> {
 					false);
 		}
 
-		convertView.setBackgroundColor(Color.argb(255, 255, 255-(int)list.get(position).importance, 255-(int)(list.get(position).emrgencyFactor*255)));
+		convertView.setBackgroundColor(Color.argb(255, 255, 255-(int)(list.get(position).importance*2), 255-(int)(list.get(position).emrgencyFactor*255)));
 		
 		// object item based on the position
 		String title = list.get(position).title;

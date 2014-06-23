@@ -6,6 +6,7 @@ import com.loulijun.demo2.R;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,9 @@ public class ChartFragment extends Fragment {
 			Button btn = new Button(this.getActivity());
 			btn.setId(i);
 			final int id_ = btn.getId();
+			btn.setBackground(getResources().getDrawable(R.drawable.roundedbutton));
 			btn.setText("");
-			btn.setBackgroundColor(Color.rgb(255, 0, 0));
+			btn.setBackgroundColor(Color.rgb(255, 200-(int)(global.flexList.list.get(i).importance*2), 200-(int)(global.flexList.list.get(i).emrgencyFactor*200)));
 			layout.addView(btn, params);
 			Button btn1 = ((Button) rootView.findViewById(id_));
 			btn1.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +50,10 @@ public class ChartFragment extends Fragment {
 					TextView text=(TextView) rootView.findViewById(R.id.textViewT);
 					String title=global.flexList.list.get(id_).title;
 					text.setText(title);
+					
 				}
 			});
+			Log.d("",global.flexList.list.get(i).title);
 		}
 
 		for (int i = 1; i <= 20; i++) {

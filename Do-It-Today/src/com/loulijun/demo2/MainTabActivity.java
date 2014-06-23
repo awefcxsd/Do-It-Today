@@ -41,6 +41,12 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         global.freeTime.readFromFile(runing);
         global.fixedList.readFromFile(runing);
         
+        
+        //DEBUG!!!!
+        AutoGenerateEvent.generate(global);
+        
+        
+        
         setContentView(R.layout.main);
         mainTab=(RadioGroup)findViewById(R.id.main_tab);
         mainTab.setOnCheckedChangeListener(this);
