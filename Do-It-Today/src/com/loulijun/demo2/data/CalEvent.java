@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import android.util.Log;
+
 public class CalEvent implements Serializable{
 	
 	public String type;
@@ -51,13 +53,15 @@ public class CalEvent implements Serializable{
 			
 		
 			if(diffInTime > duration){
-				emrgencyFactor = duration / (diffInTime+1) ;
+				emrgencyFactor = (double)(duration) / (double)(diffInTime+1) ;
 			}
 			else {
 				emrgencyFactor = 1;
 			}
 			priority = importance + emrgencyFactor*10; 
+			
 		}
+		Log.d("CalPri",Double.toString(emrgencyFactor));
 	}
 	
 	
