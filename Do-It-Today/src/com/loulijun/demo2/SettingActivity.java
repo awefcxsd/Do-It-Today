@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.loulijun.demo2.setting.gridAdapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,6 +52,12 @@ public class SettingActivity extends Activity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		Log.d("Setting", "isOnPause");
+		
+		String strInputMsg = "reAssignTask";
+		Intent msgIntent = new Intent(this, PriorityService.class);
+		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+		startService(msgIntent);
+		
 		super.onPause();
 	}
 

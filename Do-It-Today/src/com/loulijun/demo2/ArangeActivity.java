@@ -3,10 +3,14 @@ package com.loulijun.demo2;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
+import com.loulijun.demo2.data.ListOfEvent;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +33,7 @@ public class ArangeActivity extends FragmentActivity {
      * and next wizard steps.
      */
     private ViewPager mPager;
+    private ResponseReceiver receiver;
     ListView listView;
     
     /**
@@ -43,6 +49,12 @@ public class ArangeActivity extends FragmentActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem( 500, false); // set current item in the adapter to middle
+        
+        IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
+		filter.addCategory(Intent.CATEGORY_DEFAULT);
+		receiver = new ResponseReceiver();
+		registerReceiver(receiver, filter);
+        
 	}
 	
 	
@@ -76,5 +88,25 @@ public class ArangeActivity extends FragmentActivity {
         }
     }
     
+    
+    public class ResponseReceiver extends BroadcastReceiver {
+		public static final String ACTION_RESP = "com.loulijun.demo2.intent.action.MESSAGE_PROCESSED";
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
+			Log.d("NEW EVENT", text);
+			if(text.equals("EventReassign"))
+			{
+			setContentView(R.layout.arrange);
+			mPager = (ViewPager) findViewById(R.id.pager);
+	        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+	        mPager.setAdapter(mPagerAdapter);
+	        mPager.setCurrentItem( 500, false); // set current item in the adapter to middle
+			}
+
+		}
+	}
 
 }

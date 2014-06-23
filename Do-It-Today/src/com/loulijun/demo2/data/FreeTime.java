@@ -20,7 +20,7 @@ import android.util.SparseIntArray;
 
 public class FreeTime implements Serializable{
 	public boolean[][] freeTime = new boolean[7][24];
-	List<Map<Integer,Integer>> freeMaps = new ArrayList<Map<Integer,Integer>>();
+	public List<Map<Integer,Integer>> freeMaps = new ArrayList<Map<Integer,Integer>>();
 
 	
 	public FreeTime(){

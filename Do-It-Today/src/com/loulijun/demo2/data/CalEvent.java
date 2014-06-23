@@ -51,8 +51,8 @@ public class CalEvent implements Serializable{
 			long diffInTimeMillis = deadline.getTimeInMillis()-now.getTimeInMillis();
 			long diffInTime = TimeUnit.MILLISECONDS.toSeconds(diffInTimeMillis);
 			
-			Log.d("diffInTime", Long.toString(diffInTime));
-			Log.d("duration", Long.toString(duration));
+			//Log.d("diffInTime", Long.toString(diffInTime));
+			//Log.d("duration", Long.toString(duration));
 		
 			if(diffInTime > duration){
 				emrgencyFactor = (double)(duration) / (double)(diffInTime+1) ;
@@ -63,7 +63,7 @@ public class CalEvent implements Serializable{
 			priority = importance + emrgencyFactor*10; 
 			
 		}
-		Log.d("CalPri",Double.toString(emrgencyFactor));
+		//Log.d("CalPri",Double.toString(emrgencyFactor));
 	}
 	
 	

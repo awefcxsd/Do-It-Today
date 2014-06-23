@@ -11,15 +11,25 @@ import java.util.Comparator;
 
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+
+
 
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
+import com.loulijun.demo2.data.CalDay;
 import com.loulijun.demo2.data.CalEvent;
+import com.loulijun.demo2.data.CalMapEvent;
+import com.loulijun.demo2.data.FixedEventList;
 import com.loulijun.demo2.data.ListOfEvent;
 
+import android.R.integer;
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 
 
 
@@ -41,16 +51,110 @@ public class PriorityService extends IntentService {
 		{
 			reArrangeList();
 		}
+		else if(msg.equals("reAssignTask"))
+		{
+			
+			Date finalDate = new Date(Calendar.getInstance().getTime().getTime() + 60*24*60*60*1000);
+			reAssignTask(finalDate);
+		}
+		
 		
 		
 	}
 	
-	public void reAssignTask()
+	public void reAssignTask(Date finalDate)
 	{
-		reArrangeList();
 		GlobalV global= ((GlobalV)getApplicationContext());
-		ArrayList<CalEvent> flexibleList = global.flexList.list;
+		
+		ArrayList<CalEvent> flexibleList = (ArrayList<CalEvent>)global.flexList.list.clone();
+		global.freeTime.calculateFreeMap();
+		
+		List<Map<Integer,Integer>> thisFreeMaps =  global.freeTime.freeMaps;  
+		FixedEventList fixedList = global.fixedList;
+		Map<Integer,Integer> freeTimesInDay;
+		CalMapEvent calMap = global.calMapEvent;		
+		
+		
+		
+		int maxEventNum = flexibleList.size();
+		
+		//reArrangeList();
+		
+		Calendar endDateCalendar = Calendar.getInstance();
+		endDateCalendar.setTime(finalDate);
 		Calendar today = Calendar.getInstance();
+		long days = (endDateCalendar.getTimeInMillis() - today.getTimeInMillis())/(24 * 60 * 60 * 1000); 
+		
+		int count = 0;
+		//Everyday
+		for(long i=0; i<=days && count<maxEventNum ;++i)
+		{
+			int dayWeek = today.get(Calendar.DAY_OF_WEEK);
+			int eventNum = 0;
+			CalDay calDay = new CalDay();
+			
+			//free time of that day
+			
+			Log.d("dayWeek",Integer.toString(dayWeek));
+			
+			freeTimesInDay = thisFreeMaps.get(dayWeek-1);
+			for(Map.Entry<Integer, Integer> hoursPair : freeTimesInDay.entrySet())
+			{
+				int start = hoursPair.getKey().intValue();
+				
+				for(int hour = start ; hour < (start + hoursPair.getValue().intValue()) && count<maxEventNum ; ++hour)
+				{
+					today.set(Calendar.HOUR_OF_DAY, hour);
+					CalEvent eventOfHour = fixedList.avalible(today);
+					if(eventOfHour == null && count < maxEventNum)
+					{
+						count = 0;
+						while(flexibleList.get(eventNum).duration <= 0 && count < maxEventNum)
+						{
+							eventNum = (eventNum+1) % maxEventNum;
+							count++;
+						}
+					
+						calDay.calArray[start] = flexibleList.get(eventNum);
+						flexibleList.get(eventNum).duration -= (60*60);
+					}
+					else 
+					{
+						eventNum = (eventNum+1) % maxEventNum;;
+						//add fixed time in another function?
+						calDay.calArray[start] = eventOfHour;
+					}
+				}
+				
+				
+				if(count >= maxEventNum)
+				{
+					break;
+				}
+				
+				eventNum = (eventNum+1) % maxEventNum;;
+			}
+			
+			//add calDay to calMap
+			String thisDateString = today.get(Calendar.YEAR) + "/"
+					+ (today.get(Calendar.MONTH) + 1) + "/"
+					+ today.get(Calendar.DATE);
+			calMap.addDayEvent(thisDateString, calDay);
+			
+			//add one more day
+			today.setTime(new Date(today.getTime().getTime()+(24*60*60*1000)));
+		}
+		
+		
+
+		Intent broadcastIntent = new Intent();
+		broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
+		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+		
+		String resultTxt = "EventReassign";
+		broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
+		sendBroadcast(broadcastIntent);
+		
 		
 	}
 	

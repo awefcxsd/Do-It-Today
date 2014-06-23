@@ -32,6 +32,7 @@ public class FixedEventList implements Serializable {
 
 	public FixedEventList(String n) {
 		list = new ArrayList<CalEvent>(10);
+		map=new HashMap<String, CalEvent>();
 		name = n;
 		list.size();
 	}

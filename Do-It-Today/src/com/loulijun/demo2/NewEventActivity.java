@@ -136,11 +136,12 @@ public class NewEventActivity extends ActionBarActivity {
 
 			String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
 			Log.d("NEW EVENT", text);
-			ListOfEvent readList = new ListOfEvent("flexList");
-			readList.readFromFile(runing);
-			TextView output = (TextView) findViewById(R.id.textView3);
-			output.setText(readList.debug());
-
+			if(text.equals("DataChange")){
+				ListOfEvent readList = new ListOfEvent("flexList");
+				readList.readFromFile(runing);
+				TextView output = (TextView) findViewById(R.id.textView3);
+				output.setText(readList.debug());
+			}
 		}
 	}
 
