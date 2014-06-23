@@ -12,6 +12,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -21,10 +26,14 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
+import android.graphics.PorterDuff;
+
+
 
 public class NewEventActivity extends ActionBarActivity {
 
@@ -32,7 +41,13 @@ public class NewEventActivity extends ActionBarActivity {
 	int hour;
 	int minute;
 	private ResponseReceiver receiver;
+	
+	public void setProgressBarColor(SeekBar progressBar, int newColor){ 
+	    LayerDrawable ld = (LayerDrawable) progressBar.getProgressDrawable();
+	    ClipDrawable d1 = (ClipDrawable) ld.findDrawableByLayerId(R.id.progressshape);
+	    d1.setColorFilter(newColor, PorterDuff.Mode.SRC_IN);
 
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,9 +61,10 @@ public class NewEventActivity extends ActionBarActivity {
 		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
 		seekBar.setProgress(0);
 		seekBar.setMax(100);
-
+		
 		final TextView seekBarValue = (TextView) findViewById(R.id.seekbarvalue);
-
+		seekBarValue.setTextColor(Color.rgb(0,255,0));
+		
 		TimePicker time = (TimePicker) findViewById(R.id.timePicker1);
 		time.setIs24HourView(true);
 		time.setOnTimeChangedListener(new OnTimeChangedListener() {
@@ -61,11 +77,20 @@ public class NewEventActivity extends ActionBarActivity {
 		});
 
 		seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				seekBarValue.setText(String.valueOf(progress));
+				/*if(progress<50)
+					seekBarValue.setTextColor(Color.rgb((int)((float)(progress/50)*255),255,0));
+				else
+					seekBarValue.setTextColor(Color.rgb(255,255-(int)((float)(progress-50)/50*255),0));*/
+				 if(progress <= 50){
+					 //seekBar.setProgressDrawable(new ColorDrawable(Color.rgb((int)((float)(progress/50)*255),255,0)));
+		                setProgressBarColor(seekBar,Color.rgb( 255 - (255/100 * (100 - progress*2)), 255, 0));
+				 }else{
+		                //setProgressBarColor(seekBar,Color.rgb( 255, 255 - (255/100 * (progress - 50)*2), 0));
+				 }
 			}
 
 			@Override
@@ -90,7 +115,7 @@ public class NewEventActivity extends ActionBarActivity {
 		EditText title = (EditText) findViewById(R.id.editText1);
 		EditText description = (EditText) findViewById(R.id.editText2);
 		EditText timeNeed = (EditText) findViewById(R.id.editText3);
-
+		
 		Calendar deadline = new GregorianCalendar();
 		deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth(),hour,minute);
 
@@ -136,12 +161,11 @@ public class NewEventActivity extends ActionBarActivity {
 
 			String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
 			Log.d("NEW EVENT", text);
-			if(text.equals("DataChange")){
-				ListOfEvent readList = new ListOfEvent("flexList");
-				readList.readFromFile(runing);
-				TextView output = (TextView) findViewById(R.id.textView3);
-				output.setText(readList.debug());
-			}
+			ListOfEvent readList = new ListOfEvent("flexList");
+			readList.readFromFile(runing);
+			TextView output = (TextView) findViewById(R.id.textView3);
+			output.setText(readList.debug());
+
 		}
 	}
 
