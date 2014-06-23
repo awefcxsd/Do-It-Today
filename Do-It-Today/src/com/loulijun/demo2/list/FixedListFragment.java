@@ -1,4 +1,4 @@
-package com.loulijun.demo2;
+package com.loulijun.demo2.list;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -12,6 +12,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,36 +27,44 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loulijun.demo2.GlobalV;
+import com.loulijun.demo2.PriorityService;
+import com.loulijun.demo2.R;
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
+import com.loulijun.demo2.R.id;
+import com.loulijun.demo2.R.layout;
 import com.loulijun.demo2.data.*;
-import com.loulijun.demo2.list.ListListAdapter;
 
-public class ListActivity extends Activity {
+public class FixedListFragment extends Fragment {
 
 	private ListView listView;
-
+	ViewGroup rootView;
 	private ArrayAdapter<CalEvent> adapter;
-	private ResponseReceiver receiver;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		setContentView(R.layout.list);
+		rootView = (ViewGroup) inflater.inflate(
+				R.layout.listfragment, container, false);
 
-		listView = (ListView) findViewById(R.id.EventList);
+
+		listView = (ListView) rootView.findViewById(R.id.EventList);
 
 		
 
-		IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        receiver = new ResponseReceiver();
-        registerReceiver(receiver, filter);
+		
 		
 		
 		// 清單陣列
-		GlobalV global = ((GlobalV) getApplicationContext());
-		adapter = new ListListAdapter(this, 0, global.flexList.list);
+		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
+		adapter = new ListListAdapter(this.getActivity(), 0, global.flexList.list);
 
 		listView.setAdapter(adapter);
 
@@ -64,11 +74,11 @@ public class ListActivity extends Activity {
 					final int position, long id) {
 				// TODO Auto-generated method stub
 
-				LayoutInflater inflater = getLayoutInflater();
+				LayoutInflater inflater = getActivity().getLayoutInflater();
 				final View layout = inflater.inflate(R.layout.editeventdialog,
-						(ViewGroup) findViewById(R.id.dialogChange));
+						(ViewGroup) rootView.findViewById(R.id.dialogChange));
 				
-				GlobalV global = ((GlobalV) getApplicationContext());
+				GlobalV global = ((GlobalV) getActivity().getApplicationContext());
 				CalEvent event=global.flexList.list.get(position);
 				
 				
@@ -87,7 +97,7 @@ public class ListActivity extends Activity {
 				
 				
 				AlertDialog.Builder dialog = new AlertDialog.Builder(
-						ListActivity.this);
+						getActivity());
 				dialog.setTitle("Edit Event"); // 設定dialog 的title顯示內容
 				dialog.setView(layout);
 				dialog.setCancelable(false); // 關閉 Android
@@ -100,7 +110,7 @@ public class ListActivity extends Activity {
 									int which) {
 								// 按下"收到"以後要做的事情
 								
-								GlobalV global= ((GlobalV)getApplicationContext());
+								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
 								global.flexList.list.remove(position);
 								DatePicker date = (DatePicker) layout.findViewById(R.id.datePicker1);
 								EditText title = (EditText) layout.findViewById(R.id.EditTitle);
@@ -123,16 +133,16 @@ public class ListActivity extends Activity {
 							public void maintainList()
 							{
 								String strInputMsg = "maintainList";
-								Intent msgIntent = new Intent(ListActivity.this, PriorityService.class);
+								Intent msgIntent = new Intent(getActivity(), PriorityService.class);
 								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
-								startService(msgIntent);
+								getActivity().startService(msgIntent);
 							}
 						});
 				dialog.setNeutralButton("Delete",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
-								GlobalV global= ((GlobalV)getApplicationContext());
+								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
 								global.flexList.list.remove(position);
 								maintainList();
 								
@@ -141,9 +151,9 @@ public class ListActivity extends Activity {
 							public void maintainList()
 							{
 								String strInputMsg = "maintainList";
-								Intent msgIntent = new Intent(ListActivity.this, PriorityService.class);
+								Intent msgIntent = new Intent(getActivity(), PriorityService.class);
 								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
-								startService(msgIntent);
+								getActivity().startService(msgIntent);
 							}
 						});
 				dialog.setNegativeButton("Cancel", null);
@@ -151,22 +161,14 @@ public class ListActivity extends Activity {
 			}
 
 		});
+		
+		
+		
+		return rootView;
 
 	}
 
-	public class ResponseReceiver extends BroadcastReceiver {
-		   public static final String ACTION_RESP =    
-		      "com.loulijun.demo2.intent.action.MESSAGE_PROCESSED";
-		    
-		   @Override
-		    public void onReceive(Context context, Intent intent) {
-		       
-		       String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
-		       Log.d("ListActivity", text);
-		       adapter.notifyDataSetChanged();
-		     
-		    }
-		}
+	
 
     
 }

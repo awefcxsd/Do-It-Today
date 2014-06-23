@@ -39,6 +39,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         GlobalV global= ((GlobalV)getApplicationContext());
         global.flexList.readFromFile(runing);
         global.freeTime.readFromFile(runing);
+        global.fixedList.readFromFile(runing);
         
         setContentView(R.layout.main);
         mainTab=(RadioGroup)findViewById(R.id.main_tab);
@@ -55,7 +56,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	        	.setIndicator(getResources().getString(R.string.main_add), getResources().getDrawable(R.drawable.icon_2_n))
 	        	.setContent(iNews));
 		
-		iInfo = new Intent(this, ListActivity.class);
+		iInfo = new Intent(this, ListHostActivity.class);
 		tabhost.addTab(tabhost.newTabSpec("iInfo")
 	        	.setIndicator(getResources().getString(R.string.main_list), getResources().getDrawable(R.drawable.icon_3_n))
 	        	.setContent(iInfo));

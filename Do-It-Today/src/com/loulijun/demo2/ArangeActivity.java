@@ -29,9 +29,11 @@ public class ArangeActivity extends FragmentActivity {
      */
     private ViewPager mPager;
     ListView listView;
+    
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
+    
     private PagerAdapter mPagerAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
