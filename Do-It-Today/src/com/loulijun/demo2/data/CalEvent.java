@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import android.util.Log;
 
-public class CalEvent implements Serializable{
+public class CalEvent implements Serializable, Cloneable{
 	
 	public String type;
 	public String title;
@@ -43,6 +43,21 @@ public class CalEvent implements Serializable{
 		out=title+"\n"+description+"\n"+duration+"\n"+importance+"\n"+priority+"\n"+deadline.getTime().toString();
 		return out;
 	}
+	
+
+	public Object clone()
+	{
+		try{
+			return super.clone();
+		}
+		catch(Exception e)
+		{
+			Log.d("NULL","isNULL");
+			return null;
+		}
+	}
+	
+	
 	
 	public void calPriority()
 	{

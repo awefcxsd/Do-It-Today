@@ -17,7 +17,8 @@ import android.widget.AdapterView.OnItemClickListener;
 public class SettingActivity extends Activity {
 	ArrayList<String> data;
 	gridAdapter adapter;
-
+	Boolean isChangeBoolean = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class SettingActivity extends Activity {
 					GlobalV global = ((GlobalV) getApplicationContext());
 					global.freeTime.freeTime[position % 7][position / 7] = !global.freeTime.freeTime[position % 7][position / 7];
 					global.freeTime.saveToFile(SettingActivity.this);
+					isChangeBoolean = true;
 					adapter.notifyDataSetChanged();
 
 
@@ -52,12 +54,15 @@ public class SettingActivity extends Activity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		Log.d("Setting", "isOnPause");
-		
+		if(isChangeBoolean)
+		{
+		isChangeBoolean = false;
 		String strInputMsg = "reAssignTask";
 		Intent msgIntent = new Intent(this, PriorityService.class);
 		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 		startService(msgIntent);
 		
+		}
 		super.onPause();
 	}
 

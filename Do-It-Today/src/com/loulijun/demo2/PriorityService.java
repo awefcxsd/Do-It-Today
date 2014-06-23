@@ -65,15 +65,20 @@ public class PriorityService extends IntentService {
 	public void reAssignTask(Date finalDate)
 	{
 		GlobalV global= ((GlobalV)getApplicationContext());
+		ArrayList<CalEvent> flexibleList = new ArrayList<CalEvent>();
+		for(CalEvent calEvent: global.flexList.list)
+		{
+			flexibleList.add((CalEvent)calEvent.clone());
+		}
 		
-		ArrayList<CalEvent> flexibleList = (ArrayList<CalEvent>)global.flexList.list.clone();
+		
 		global.freeTime.calculateFreeMap();
 		
 		List<Map<Integer,Integer>> thisFreeMaps =  global.freeTime.freeMaps;  
 		FixedEventList fixedList = global.fixedList;
 		Map<Integer,Integer> freeTimesInDay;
 		CalMapEvent calMap = global.calMapEvent;		
-		
+		calMap.calMap.clear();
 		
 		
 		int maxEventNum = flexibleList.size();
@@ -101,8 +106,11 @@ public class PriorityService extends IntentService {
 			for(Map.Entry<Integer, Integer> hoursPair : freeTimesInDay.entrySet())
 			{
 				int start = hoursPair.getKey().intValue();
+				int dur =  hoursPair.getValue().intValue();
+				Log.d("start",Integer.toString(start));
+				Log.d("dur",Integer.toString(dur));
 				
-				for(int hour = start ; hour < (start + hoursPair.getValue().intValue()) && count<maxEventNum ; ++hour)
+				for(int hour = start ; hour < (start + dur) && count<maxEventNum ; ++hour)
 				{
 					today.set(Calendar.HOUR_OF_DAY, hour);
 					CalEvent eventOfHour = fixedList.avalible(today);
