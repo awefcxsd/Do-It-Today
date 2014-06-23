@@ -68,9 +68,11 @@ public class ArrangeListAdapter extends ArrayAdapter<String> {
 		// get the TextView and then set the text (item name) and tag (item ID)
 		// values
 
-		TextView textViewItem = (TextView) convertView.findViewById(R.id.time);
+		TextView textViewItem = (TextView) convertView.findViewById(R.id.Title);
 		textViewItem.setText(objectItem);
-
+		
+		TextView time = (TextView) convertView.findViewById(R.id.time);
+		time.setText(position + ":00");
 		Button b=(Button) convertView.findViewById(R.id.check);
 		b.setOnClickListener(new ItemButton_Click(this.running, position));
 		return convertView;
