@@ -75,7 +75,7 @@ public class FixedListFragment extends Fragment {
 						(ViewGroup) rootView.findViewById(R.id.dialogChange));
 				
 				GlobalV global = ((GlobalV) getActivity().getApplicationContext());
-				CalEvent event=global.flexList.list.get(position);
+				CalEvent event=global.fixedList.list.get(position);
 				
 				
 				EditText title=(EditText) layout.findViewById(R.id.EditTitle);
