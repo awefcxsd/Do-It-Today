@@ -161,6 +161,14 @@ public class FlexListFragment extends Fragment {
 								Intent msgIntent = new Intent(getActivity(), PriorityService.class);
 								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 								getActivity().startService(msgIntent);
+								
+								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
+								global.freeTime.calculateFreeMap();
+								
+								String strInputMsg2 = "reAssignTask";
+								Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
+								msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+								getActivity().startService(msgIntent2);
 							}
 						});
 				dialog.setNeutralButton("Delete",
@@ -179,6 +187,14 @@ public class FlexListFragment extends Fragment {
 								Intent msgIntent = new Intent(getActivity(), PriorityService.class);
 								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 								getActivity().startService(msgIntent);
+								
+								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
+								global.freeTime.calculateFreeMap();
+								
+								String strInputMsg2 = "reAssignTask";
+								Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
+								msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+								getActivity().startService(msgIntent2);
 							}
 						});
 				dialog.setNegativeButton("Cancel", null);

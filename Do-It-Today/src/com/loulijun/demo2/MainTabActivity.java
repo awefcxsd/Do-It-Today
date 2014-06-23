@@ -76,6 +76,19 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		 tabhost.addTab(tabhost.newTabSpec("iMore")
 	        		.setIndicator(getResources().getString(R.string.more), getResources().getDrawable(R.drawable.icon_5_n))
 	        		.setContent(iMore));
+    
+		String strInputMsg = "maintainList";
+		Intent msgIntent = new Intent(this, PriorityService.class);
+		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+		startService(msgIntent);
+		
+		global.freeTime.calculateFreeMap();
+		
+		String strInputMsg2 = "reAssignTask";
+		Intent msgIntent2 = new Intent(this, PriorityService.class);
+		msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+		startService(msgIntent2);
+		
     }
     
 	@Override
