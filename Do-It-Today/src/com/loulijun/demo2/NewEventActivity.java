@@ -45,6 +45,7 @@ public class NewEventActivity extends ActionBarActivity {
 	public void setProgressBarColor(SeekBar progressBar, int newColor){ 
 	    LayerDrawable ld = (LayerDrawable) progressBar.getProgressDrawable();
 	    ClipDrawable d1 = (ClipDrawable) ld.findDrawableByLayerId(R.id.progressshape);
+	    
 	    d1.setColorFilter(newColor, PorterDuff.Mode.SRC_IN);
 
 	}
@@ -61,6 +62,7 @@ public class NewEventActivity extends ActionBarActivity {
 		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
 		seekBar.setProgress(0);
 		seekBar.setMax(100);
+		seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar));
 		
 		final TextView seekBarValue = (TextView) findViewById(R.id.seekbarvalue);
 		seekBarValue.setTextColor(Color.rgb(0,255,0));
