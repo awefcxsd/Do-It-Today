@@ -7,22 +7,71 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
+import android.util.SparseArray;
+import android.util.SparseIntArray;
 
 public class FreeTime implements Serializable{
 	public boolean[][] freeTime = new boolean[7][24];
+	List<Map<Integer,Integer>> freeMaps = new ArrayList<Map<Integer,Integer>>();
+
 	
 	public FreeTime(){
+		
 		for(int i=0;i<7;i++){
+			
 			for(int j=0;j<24;j++){
 				freeTime[i][j]=false;
 			}
+			
+			freeMaps.add(new HashMap<Integer,Integer>());
 		}
 	}
 	
+	public void calculateFreeMap()
+	{
+		boolean isFirst = true;
+		Integer start = new Integer(0);
+		Integer duration = new Integer(0);
+		for(int i=0;i<7;++i)
+		{
+			for(int j=0;j<24;++j)
+			{
+				if(freeTime[i][j])
+				{
+					if(isFirst)
+					{
+						start = new Integer(j);
+						isFirst = false;
+						duration = new Integer(1);
+					}
+					else {
+						duration = new Integer(duration.intValue()+1);
+					}
+				}
+				else 
+				{
+					if(!isFirst)
+					{
+						isFirst=true;
+						//add to map
+						freeMaps.get(i).put(start, duration);
+						start =new Integer(0);
+						duration = new Integer(0);
+					}
+				}
+				
+			}
+		}
+		
+	}
 	
 	public void saveToFile(Activity runing) {
 		FileOutputStream fout = null;

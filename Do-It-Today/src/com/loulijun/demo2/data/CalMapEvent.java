@@ -4,30 +4,29 @@ package com.loulijun.demo2.data;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class CalMapEvent implements Serializable{
 
-	public Map calMap;
+	public Map<String, CalDay> calMap;
 	
 	public CalMapEvent(){
-		calMap = new HashMap<Date, CalDay>();
+		calMap = new HashMap<String, CalDay>();
 
 	}
 	
-	public void addDayEvent(Date date, CalDay calDay){
+	public void addDayEvent(String date, CalDay calDay){
 		calMap.put(date, calDay);
 	}
 	
-	public boolean isExist(Date date)
+	public boolean isExist(String date)
 	{
 		return calMap.containsKey(date);
 	}
 	
-	public CalDay getDayEvent(Date date)
+	public CalDay getDayEvent(String date)
 	{
 		if(calMap.containsKey(date))
 		{

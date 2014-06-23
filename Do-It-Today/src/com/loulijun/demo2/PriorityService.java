@@ -29,6 +29,17 @@ public class PriorityService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		String msg = intent.getStringExtra(PARAM_IN_MSG);
+		if(msg.equals("maintainList"))
+		{
+			reArrangeList();
+		}
+		
+		
+	}
+	
+
+	public void reArrangeList()
+	{
 		GlobalV global= ((GlobalV)getApplicationContext());
 		for(CalEvent calevent : global.flexList.list)
 		{
@@ -38,7 +49,6 @@ public class PriorityService extends IntentService {
 		Collections.sort(global.flexList.list, new CalEventComparator());
 		global.flexList.saveToFile(this);
 		
-		// processing done here¡K.
 		Intent broadcastIntent = new Intent();
 		broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
 		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -46,9 +56,11 @@ public class PriorityService extends IntentService {
 		String resultTxt = "DataChange";
 		broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
 		sendBroadcast(broadcastIntent);
+		
+		
 	}
 	
-
+	
 	class CalEventComparator implements Comparator<CalEvent> {
 
 
