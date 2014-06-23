@@ -58,13 +58,9 @@ public class FixedListFragment extends Fragment {
 		listView = (ListView) rootView.findViewById(R.id.EventList);
 
 		
-
-		
-		
-		
 		// ²M³æ°}¦C
 		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
-		adapter = new ListListAdapter(this.getActivity(), 0, global.flexList.list);
+		adapter = new ListListAdapter(this.getActivity(), 0, global.fixedList.list);
 
 		listView.setAdapter(adapter);
 
