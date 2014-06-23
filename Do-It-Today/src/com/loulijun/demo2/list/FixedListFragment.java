@@ -25,7 +25,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.TimePicker.OnTimeChangedListener;
 
 import com.loulijun.demo2.GlobalV;
 import com.loulijun.demo2.PriorityService;
@@ -40,7 +42,8 @@ public class FixedListFragment extends Fragment {
 	private ListView listView;
 	ViewGroup rootView;
 	private ArrayAdapter<CalEvent> adapter;
-	
+	int hour;
+	int minute;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class FixedListFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		rootView = (ViewGroup) inflater.inflate(
-				R.layout.listfragment, container, false);
+				R.layout.fixedlistfragment, container, false);
 
 
 		listView = (ListView) rootView.findViewById(R.id.EventList);
@@ -77,6 +80,17 @@ public class FixedListFragment extends Fragment {
 				GlobalV global = ((GlobalV) getActivity().getApplicationContext());
 				CalEvent event=global.fixedList.list.get(position);
 				
+				TimePicker time = (TimePicker) layout.findViewById(R.id.timePicker1);
+				time.setIs24HourView(true);
+				time.setOnTimeChangedListener(new OnTimeChangedListener() {
+					@Override
+					public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
+						// 小時 ,分鐘
+						hour=arg1;
+						minute=arg2;
+					}
+				});
+				
 				
 				EditText title=(EditText) layout.findViewById(R.id.EditTitle);
 				title.setText(event.title);
@@ -90,7 +104,9 @@ public class FixedListFragment extends Fragment {
 				DatePicker date = (DatePicker) layout.findViewById(R.id.datePicker1);
 				date.updateDate(event.deadline.get(Calendar.YEAR), event.deadline.get(Calendar.MONTH), event.deadline.get(Calendar.DATE));
 				
-				
+				date.updateDate(event.deadline.get(Calendar.YEAR), event.deadline.get(Calendar.MONTH), event.deadline.get(Calendar.DATE));
+				time.setCurrentHour(event.deadline.get(Calendar.HOUR_OF_DAY));
+				time.setCurrentMinute(event.deadline.get(Calendar.MINUTE));
 				
 				AlertDialog.Builder dialog = new AlertDialog.Builder(
 						getActivity());
@@ -107,13 +123,13 @@ public class FixedListFragment extends Fragment {
 								// 按下"收到"以後要做的事情
 								
 								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
-								global.flexList.list.remove(position);
+								global.fixedList.list.remove(position);
 								DatePicker date = (DatePicker) layout.findViewById(R.id.datePicker1);
 								EditText title = (EditText) layout.findViewById(R.id.EditTitle);
 								EditText description = (EditText) layout.findViewById(R.id.EditDescription);
 								EditText timeNeed = (EditText) layout.findViewById(R.id.EditTimeNeed);
 								Calendar deadline = new GregorianCalendar();
-								deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
+								deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth(),hour,minute);
 
 								SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seekBar1);
 								
@@ -121,7 +137,9 @@ public class FixedListFragment extends Fragment {
 										.getText().toString(), Long.parseLong(timeNeed.getText()
 										.toString()), deadline, seekBar.getProgress());
 
-								global.flexList.add(event);
+								global.fixedList.list.add(event);
+								global.fixedList.SortByDate();
+								global.fixedList.saveToFile(getActivity());
 								maintainList();
 								
 							}
@@ -139,7 +157,9 @@ public class FixedListFragment extends Fragment {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
-								global.flexList.list.remove(position);
+								global.fixedList.list.remove(position);
+								global.fixedList.SortByDate();
+								global.fixedList.saveToFile(getActivity());
 								maintainList();
 								
 							}

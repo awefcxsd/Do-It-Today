@@ -7,6 +7,8 @@ import java.util.GregorianCalendar;
 
 
 
+
+import com.loulijun.demo2.list.FixedListFragment;
 import com.loulijun.demo2.list.FlexListFragment;
 
 import android.app.Activity;
@@ -29,7 +31,7 @@ public class ListHostActivity extends FragmentActivity {
 	/**
 	 * The number of pages (wizard steps) to show in this demo.
 	 */
-	private static final int NUM_PAGES = 1;
+	private static final int NUM_PAGES = 2;
 
 	/**
 	 * The pager widget, which handles animation and allows swiping horizontally
@@ -77,6 +79,8 @@ public class ListHostActivity extends FragmentActivity {
 			Fragment temp = null;
 			if (position == 0) {
 				temp = new FlexListFragment();
+			} else if(position == 1){
+				temp = new FixedListFragment();
 			}
 			/*
 			 * Bundle Data = new Bundle(); Data.putInt("pos",position);

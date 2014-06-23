@@ -25,7 +25,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.TimePicker.OnTimeChangedListener;
 
 import com.loulijun.demo2.GlobalV;
 import com.loulijun.demo2.PriorityService;
@@ -40,7 +42,8 @@ public class FlexListFragment extends Fragment {
 	private ListView listView;
 	ViewGroup rootView;
 	private ArrayAdapter<CalEvent> adapter;
-	
+	int hour;
+	int minute;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,23 @@ public class FlexListFragment extends Fragment {
 				CalEvent event=global.flexList.list.get(position);
 				
 				
+				
+				
+				TimePicker time = (TimePicker) layout.findViewById(R.id.timePicker1);
+				time.setIs24HourView(true);
+				time.setOnTimeChangedListener(new OnTimeChangedListener() {
+					@Override
+					public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
+						// ¤p®É ,¤ÀÄÁ
+						hour=arg1;
+						minute=arg2;
+					}
+				});
+				
+				
+				
+				
+				
 				EditText title=(EditText) layout.findViewById(R.id.EditTitle);
 				title.setText(event.title);
 				EditText des=(EditText) layout.findViewById(R.id.EditDescription);
@@ -92,7 +112,12 @@ public class FlexListFragment extends Fragment {
 				seekBar.setProgress((int) event.importance);
 				seekBar.setMax(100);
 				DatePicker date = (DatePicker) layout.findViewById(R.id.datePicker1);
+				
+				
+				
 				date.updateDate(event.deadline.get(Calendar.YEAR), event.deadline.get(Calendar.MONTH), event.deadline.get(Calendar.DATE));
+				time.setCurrentHour(event.deadline.get(Calendar.HOUR_OF_DAY));
+				time.setCurrentMinute(event.deadline.get(Calendar.MINUTE));
 				
 				
 				
@@ -117,7 +142,7 @@ public class FlexListFragment extends Fragment {
 								EditText description = (EditText) layout.findViewById(R.id.EditDescription);
 								EditText timeNeed = (EditText) layout.findViewById(R.id.EditTimeNeed);
 								Calendar deadline = new GregorianCalendar();
-								deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth());
+								deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth(),hour,minute);
 
 								SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seekBar1);
 								
