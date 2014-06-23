@@ -83,16 +83,15 @@ public class NewEventActivity extends ActionBarActivity {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				seekBarValue.setText(String.valueOf(progress));
-				/*if(progress<50)
-					seekBarValue.setTextColor(Color.rgb((int)((float)(progress/50)*255),255,0));
-				else
-					seekBarValue.setTextColor(Color.rgb(255,255-(int)((float)(progress-50)/50*255),0));*/
-				 if(progress <= 50){
-					 //seekBar.setProgressDrawable(new ColorDrawable(Color.rgb((int)((float)(progress/50)*255),255,0)));
-		                setProgressBarColor(seekBar,Color.rgb( 255 - (255/100 * (100 - progress*2)), 255, 0));
-				 }else{
-		                //setProgressBarColor(seekBar,Color.rgb( 255, 255 - (255/100 * (progress - 50)*2), 0));
-				 }
+				if(progress <= 25){
+					int c = Color.rgb((int)((float)(progress/25)*255),255,0);
+					seekBarValue.setTextColor(c);
+		            setProgressBarColor(seekBar,c);
+				}else{
+					int c = Color.rgb(255,255-(int)((float)(progress-25)/75*255),0);
+					seekBarValue.setTextColor(c);
+		            setProgressBarColor(seekBar,c);
+				}
 			}
 
 			@Override
