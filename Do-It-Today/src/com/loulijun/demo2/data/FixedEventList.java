@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ import android.content.Intent;
 public class FixedEventList implements Serializable {
 	public ArrayList<CalEvent> list;
 	String name;
+	HashMap<String, CalEvent> map;
 
 	public FixedEventList(String n) {
 		list = new ArrayList<CalEvent>(10);
@@ -101,6 +103,14 @@ public class FixedEventList implements Serializable {
 	public void add(CalEvent event) {
 		if (list != null)
 			list.add(event);
+		for (int i = 0; i < event.duration; i++) {
+			String key = event.deadline.get(Calendar.YEAR) + "/"
+					+ (event.deadline.get(Calendar.MONTH) + 1) + "/"
+					+ event.deadline.get(Calendar.DATE) + "/"
+					+ (event.deadline.get(Calendar.HOUR_OF_DAY) + i);
+			map.put(key, event);
+		}
+
 	}
 
 	public void SortByDate() {
@@ -112,21 +122,17 @@ public class FixedEventList implements Serializable {
 			}
 		});
 	}
-	
-	public CalEvent avalible(Calendar date){
-		for(int i=0;i<list.size();i++){
-			boolean start=list.get(i).deadline.compareTo(date)<0;
-			Calendar endtime=(Calendar) list.get(i).deadline.clone();
-			endtime.add(Calendar.HOUR, (int)list.get(i).duration);
-			boolean end=endtime.compareTo(date)>0;
-			if(start&&end){
-				return list.get(i);
-			}
-			
+
+	public CalEvent avalible(Calendar date) {
+		String key = date.get(Calendar.YEAR) + "/"
+				+ (date.get(Calendar.MONTH) + 1) + "/"
+				+ date.get(Calendar.DATE) + "/"
+				+ date.get(Calendar.HOUR_OF_DAY);
+		if (map.containsKey(key)) {
+			return map.get(key);
+		} else {
+			return null;
 		}
-		
-		return null;
 	}
-	
 
 }
