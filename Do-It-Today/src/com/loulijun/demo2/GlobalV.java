@@ -9,6 +9,7 @@ import android.app.Application;
 //123
 public class GlobalV extends Application{
 	public ListOfEvent flexList=new ListOfEvent("flexList");
+	public ListOfEvent fixedList=new ListOfEvent("fixedList");
 	public FreeTime freeTime=new FreeTime();
 	public CalMapEvent calMapEvent = new CalMapEvent();
 	

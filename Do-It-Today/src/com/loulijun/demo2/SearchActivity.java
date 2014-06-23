@@ -9,9 +9,7 @@ public class SearchActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TextView textView=new TextView(this);
-		textView.setText("10");
-		setContentView(textView);
+		setContentView(R.layout.info);
 	}
 	
 }

@@ -6,6 +6,9 @@ import java.util.GregorianCalendar;
 
 
 
+
+
+
 import com.loulijun.demo2.data.CalEvent;
 import com.loulijun.demo2.data.ListOfEvent;
 
@@ -15,22 +18,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class NewEventActivity extends Activity {
+public class NewEventActivity extends ActionBarActivity {
 	
 	Activity runing = this;
 	private ResponseReceiver receiver;
+	
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add);
-		
+		Log.d("", "on");
 		IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         receiver = new ResponseReceiver();
