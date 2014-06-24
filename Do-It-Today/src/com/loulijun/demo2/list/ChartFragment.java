@@ -37,8 +37,14 @@ public class ChartFragment extends Fragment {
 				.findViewById(R.id.abs);
 
 		global = ((GlobalV) this.getActivity().getApplicationContext());
-
+		
 		final Animation animAlpha = AnimationUtils.loadAnimation(this.getActivity(), R.anim.btn_anim);
+		//Button btntest=(Button) rootView.findViewById(R.id.button3);
+		//btntest.setBackground(getResources().getDrawable(R.drawable.roundedbutton));
+		//View v = ;
+		//rootView.findViewById(R.id.button3).setBackground(this.getResources().getDrawable(R.drawable.roundedbutton));
+		//v.setBackgroundColor(Color.rgb(220,100,20));
+		
 		
 		for (int i = 0; i < global.flexList.list.size(); i++) {
 			AbsoluteLayout.LayoutParams params = new AbsoluteLayout.LayoutParams(
@@ -53,6 +59,7 @@ public class ChartFragment extends Fragment {
 			layout.addView(btn, params);
 			Button btn1 = ((Button) rootView.findViewById(id_));
 			btn1.startAnimation(animAlpha);
+			
 			btn1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
 					TextView text=(TextView) rootView.findViewById(R.id.textViewT);
