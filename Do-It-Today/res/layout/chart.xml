@@ -28,8 +28,8 @@
             android:layout_width="480dp"
             android:layout_height="480dp"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/color4"
-            android:paddingBottom="40dp" >
+            android:background="@drawable/color4" >
+
         </AbsoluteLayout>
 
         <Button
