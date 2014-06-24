@@ -58,7 +58,7 @@ public class NewEventActivity extends ActionBarActivity {
 		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
 		seekBar.setProgress(0);
 		seekBar.setMax(100);
-		seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar));
+		//seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar));
 		
 		final TextView seekBarValue = (TextView) findViewById(R.id.seekbarvalue);
 		seekBarValue.setTextColor(Color.rgb(0,255,0));
@@ -82,11 +82,11 @@ public class NewEventActivity extends ActionBarActivity {
 				if(progress <= 25){
 					int c = Color.rgb((int)((float)(progress/25)*255),255,0);
 					seekBarValue.setTextColor(c);
-		            setProgressBarColor(seekBar,c);
+		            //setProgressBarColor(seekBar,c);
 				}else{
 					int c = Color.rgb(255,255-(int)((float)(progress-25)/75*255),0);
 					seekBarValue.setTextColor(c);
-		            setProgressBarColor(seekBar,c);
+		            //setProgressBarColor(seekBar,c);
 				}
 			}
 
