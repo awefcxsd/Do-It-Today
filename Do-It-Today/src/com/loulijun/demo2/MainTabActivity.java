@@ -77,14 +77,18 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 	        		.setIndicator(getResources().getString(R.string.more), getResources().getDrawable(R.drawable.icon_5_n))
 	        		.setContent(iMore));
     
+		 
+		global.fixedList.reAssignMap();
+			
+		global.freeTime.calculateFreeMap();
+		
+		
 		String strInputMsg = "maintainList";
 		Intent msgIntent = new Intent(this, PriorityService.class);
 		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 		startService(msgIntent);
 		
-		global.fixedList.reAssignMap();
 		
-		global.freeTime.calculateFreeMap();
 		
 		String strInputMsg2 = "reAssignTask";
 		Intent msgIntent2 = new Intent(this, PriorityService.class);
