@@ -1,5 +1,7 @@
 package com.loulijun.demo2.list;
 
+import java.util.concurrent.TimeUnit;
+
 import com.loulijun.demo2.GlobalV;
 import com.loulijun.demo2.R;
 
@@ -16,17 +18,25 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ChartFragment extends Fragment {
 	ViewGroup rootView;
 	GlobalV global;
+	EditText titleE;
+	EditText descriptionE;
+	EditText durationE;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
 	int k = 410;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -45,6 +55,15 @@ public class ChartFragment extends Fragment {
 		//rootView.findViewById(R.id.button3).setBackground(this.getResources().getDrawable(R.drawable.roundedbutton));
 		//v.setBackgroundColor(Color.rgb(220,100,20));
 		
+		titleE = (EditText) rootView.findViewById(R.id.editText1);
+		descriptionE = (EditText) rootView.findViewById(R.id.editText2);
+		durationE = (EditText) rootView.findViewById(R.id.editText3);
+		
+		titleE.setKeyListener(null);
+		descriptionE.setKeyListener(null);
+		durationE.setKeyListener(null);
+		
+		
 		
 		for (int i = 0; i < global.flexList.list.size(); i++) {
 			AbsoluteLayout.LayoutParams params = new AbsoluteLayout.LayoutParams(
@@ -62,9 +81,14 @@ public class ChartFragment extends Fragment {
 			
 			btn1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View view) {
-					TextView text=(TextView) rootView.findViewById(R.id.textViewT);
-					String title=global.flexList.list.get(id_).title;
-					text.setText(title);
+					
+					String titleS =global.flexList.list.get(id_).title;
+					String descriptionS =global.flexList.list.get(id_).description;
+					String durationS = String.valueOf(global.flexList.list.get(id_).duration/3600);
+					
+					titleE.setText(titleS);
+					descriptionE.setText(descriptionS);
+					durationE.setText(durationS+" hours ");
 					
 				}
 			});
