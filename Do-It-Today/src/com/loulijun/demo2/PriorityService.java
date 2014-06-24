@@ -28,6 +28,7 @@ import com.loulijun.demo2.data.CalEvent;
 import com.loulijun.demo2.data.CalMapEvent;
 import com.loulijun.demo2.data.FixedEventList;
 import com.loulijun.demo2.data.ListOfEvent;
+import com.loulijun.demo2.data.PastEventList;
 
 import android.R.integer;
 import android.app.IntentService;
@@ -97,13 +98,18 @@ public class PriorityService extends IntentService {
 		for(CalEvent calEvent: global.flexList.list)
 		{
 			flexibleList.add((CalEvent)calEvent.clone());
+			//flexibleList.get(flexibleList.size()-1).duration -= flexibleList.get(flexibleList.size()-1).machineTimeSpent;
 		}
 		
 		List<Map<Integer,Integer>> thisFreeMaps =  global.freeTime.freeMaps;  
 		FixedEventList fixedList = global.fixedList;
 		Map<Integer,Integer> freeTimesInDay;
+		PastEventList pastEventList = global.pastList;
+		
 		CalMapEvent calMap = global.calMapEvent;		
 		calMap.calMap.clear();
+		
+		
 		
 		
 		int maxEventNum = flexibleList.size();
@@ -119,6 +125,14 @@ public class PriorityService extends IntentService {
 		//Everyday
 		for(long i=0; i<=days && count<maxEventNum ;++i)
 		{
+			
+			String todayKey  = today.get(Calendar.YEAR) + "/"
+					+ (today.get(Calendar.MONTH) + 1) + "/"
+					+ today.get(Calendar.DATE);
+			
+			
+			if(!pastEventList.map.containsKey(todayKey))
+			{
 			int dayWeek = today.get(Calendar.DAY_OF_WEEK);
 			int eventNum = 0;
 			CalDay calDay = new CalDay();
@@ -142,7 +156,7 @@ public class PriorityService extends IntentService {
 					if(eventOfHour == null && count < maxEventNum)
 					{
 						count = 0;
-						while(flexibleList.get(eventNum).duration <= 0 && count < maxEventNum)
+						while((flexibleList.get(eventNum).duration-flexibleList.get(eventNum).machineTimeSpent) <= 0 && count < maxEventNum)
 						{
 							eventNum = (eventNum+1) % maxEventNum;
 							count++;
@@ -150,7 +164,7 @@ public class PriorityService extends IntentService {
 						
 						//pass event to cal array
 						calDay.calArray[hour] = global.flexList.list.get(eventNum);
-						flexibleList.get(eventNum).duration -= (60*60);
+						flexibleList.get(eventNum).machineTimeSpent += (60*60);
 					}
 					else 
 					{
@@ -174,6 +188,20 @@ public class PriorityService extends IntentService {
 					+ (today.get(Calendar.MONTH) + 1) + "/"
 					+ today.get(Calendar.DATE);
 			calMap.addDayEvent(thisDateString, calDay);
+			
+			
+			}
+			else 
+			{
+				calMap.addDayEvent(todayKey, pastEventList.map.get(todayKey));
+			}
+			
+			for(CalEvent calevent : flexibleList)
+			{
+				calevent.calPriority();
+			}
+			
+			Collections.sort(flexibleList, new CalEventComparator());
 			
 			//add one more day
 			today.setTime(new Date(today.getTime().getTime()+(24*60*60*1000)));
