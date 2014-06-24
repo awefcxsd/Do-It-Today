@@ -54,11 +54,7 @@ public class NewEventActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add);
 		Log.d("", "on");
-		IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
-		filter.addCategory(Intent.CATEGORY_DEFAULT);
-		receiver = new ResponseReceiver();
-		registerReceiver(receiver, filter);
-
+	
 		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
 		seekBar.setProgress(0);
 		seekBar.setMax(100);
@@ -158,8 +154,9 @@ public class NewEventActivity extends ActionBarActivity {
 		
 		String strInputMsg2 = "reAssignTask";
 		Intent msgIntent2 = new Intent(this, PriorityService.class);
-		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+		msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
 		startService(msgIntent2);
+		Log.d("msg2","suceed");
 	}
 
 	public class ResponseReceiver extends BroadcastReceiver {

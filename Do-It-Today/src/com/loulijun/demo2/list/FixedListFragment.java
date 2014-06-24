@@ -156,7 +156,7 @@ public class FixedListFragment extends Fragment {
 								
 								String strInputMsg2 = "reAssignTask";
 								Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
-								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+								msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
 								getActivity().startService(msgIntent2);
 							}
 						});
@@ -184,7 +184,7 @@ public class FixedListFragment extends Fragment {
 								
 								String strInputMsg2 = "reAssignTask";
 								Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
-								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+								msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
 								getActivity().startService(msgIntent2);
 							}
 						});

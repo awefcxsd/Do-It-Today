@@ -53,6 +53,7 @@ public class PriorityService extends IntentService {
 		// TODO Auto-generated method stub
 		String msg = intent.getStringExtra(PARAM_IN_MSG);
 		
+		
 		Log.d("onHangle",msg);
 		
 		if(msg.equals("maintainList"))
@@ -83,9 +84,9 @@ public class PriorityService extends IntentService {
 			broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
 			sendBroadcast(broadcastIntent);
 			
+		
+		
 		}
-		
-		
 		
 	}
 	
@@ -213,12 +214,12 @@ public class PriorityService extends IntentService {
 		{
 			String dayKey = "";
 			CalDay eventCalDay = new CalDay();
+			Calendar thisHour =  (Calendar) event.deadline.clone();
 			
-			for (int i = 0; i < event.duration; i++) 
+			for (int i = 0; i < TimeUnit.SECONDS.toHours(event.duration) ; i++) 
 			{
 			
-				Calendar thisHour = event.deadline;
-				thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis(i)));
+				thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
 			
 				String key = thisHour.get(Calendar.YEAR) + "/"
 					+ (thisHour.get(Calendar.MONTH) + 1) + "/"
