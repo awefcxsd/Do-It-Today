@@ -160,6 +160,8 @@ public class PriorityService extends IntentService {
 						if(eventOfHour == null && count < maxEventNum)
 						{
 							count = 0;
+							
+							
 							while((flexibleList.get(eventNum).duration-flexibleList.get(eventNum).machineTimeSpent) <= 0 && count < maxEventNum)
 							{
 								eventNum = (eventNum+1) % maxEventNum;
@@ -168,6 +170,15 @@ public class PriorityService extends IntentService {
 						
 							//pass event to cal array
 							calDay.calArray[hour] = global.flexList.list.get(eventNum);
+							
+							
+							//endTime startTime
+							global.flexList.list.get(eventNum).endTime = today;
+							
+							if(flexibleList.get(eventNum).machineTimeSpent<=0 && global.flexList.list.get(eventNum).timeSpent<=0)
+							{
+								global.flexList.list.get(eventNum).startTime = today;
+							}
 							flexibleList.get(eventNum).machineTimeSpent += (60*60);
 						}
 						else 
@@ -277,6 +288,7 @@ public class PriorityService extends IntentService {
 		
 		
 	}
+	
 	
 	class CalEventComparator implements Comparator<CalEvent> {
 
