@@ -20,6 +20,7 @@ import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +28,11 @@ import android.widget.Toast;
 public class ChartFragment extends Fragment {
 	ViewGroup rootView;
 	GlobalV global;
-	EditText titleE;
-	EditText descriptionE;
-	EditText durationE;
+	private EditText titleE;
+	private EditText descriptionE;
+	private EditText durationE;
+	private ProgressBar progressBar;
+	private TextView progressValue;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,8 @@ public class ChartFragment extends Fragment {
 		descriptionE.setKeyListener(null);
 		durationE.setKeyListener(null);
 		
-		
+		progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar1);
+		progressValue = (TextView) rootView.findViewById(R.id.textView5);
 		
 		for (int i = 0; i < global.flexList.list.size(); i++) {
 			AbsoluteLayout.LayoutParams params = new AbsoluteLayout.LayoutParams(
@@ -84,11 +88,15 @@ public class ChartFragment extends Fragment {
 					
 					String titleS =global.flexList.list.get(id_).title;
 					String descriptionS =global.flexList.list.get(id_).description;
-					String durationS = String.valueOf(global.flexList.list.get(id_).duration/3600);
+					long dur = global.flexList.list.get(id_).duration;
+					String durationS = String.valueOf(dur/3600);
+					long timeSpend = global.flexList.list.get(id_).timeSpent;
 					
 					titleE.setText(titleS);
 					descriptionE.setText(descriptionS);
 					durationE.setText(durationS+" hours ");
+					progressBar.setProgress((int)(timeSpend/dur));
+					progressValue.setText(String.valueOf(timeSpend/dur)+"%");
 					
 				}
 			});
