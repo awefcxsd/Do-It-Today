@@ -82,6 +82,8 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
 		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 		startService(msgIntent);
 		
+		global.fixedList.reAssignMap();
+		
 		global.freeTime.calculateFreeMap();
 		
 		String strInputMsg2 = "reAssignTask";

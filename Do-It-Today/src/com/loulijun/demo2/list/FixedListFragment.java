@@ -123,7 +123,7 @@ public class FixedListFragment extends Fragment {
 								// 按下"收到"以後要做的事情
 								
 								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
-								global.fixedList.list.remove(position);
+								global.fixedList.remove(position);
 								DatePicker date = (DatePicker) layout.findViewById(R.id.datePicker1);
 								EditText title = (EditText) layout.findViewById(R.id.EditTitle);
 								EditText description = (EditText) layout.findViewById(R.id.EditDescription);
@@ -137,7 +137,7 @@ public class FixedListFragment extends Fragment {
 										.getText().toString(), Long.parseLong(timeNeed.getText()
 										.toString()), deadline, seekBar.getProgress());
 
-								global.fixedList.list.add(event);
+								global.fixedList.add(event);
 								global.fixedList.SortByDate();
 								global.fixedList.saveToFile(getActivity());
 								maintainList();
@@ -150,6 +150,14 @@ public class FixedListFragment extends Fragment {
 								Intent msgIntent = new Intent(getActivity(), PriorityService.class);
 								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 								getActivity().startService(msgIntent);
+								
+								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
+								global.freeTime.calculateFreeMap();
+								
+								String strInputMsg2 = "reAssignTask";
+								Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
+								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+								getActivity().startService(msgIntent2);
 							}
 						});
 				dialog.setNeutralButton("Delete",
@@ -157,8 +165,8 @@ public class FixedListFragment extends Fragment {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
-								global.fixedList.list.remove(position);
-								global.fixedList.SortByDate();
+								global.fixedList.remove(position);
+								//global.fixedList.SortByDate();
 								global.fixedList.saveToFile(getActivity());
 								maintainList();
 								
@@ -170,6 +178,14 @@ public class FixedListFragment extends Fragment {
 								Intent msgIntent = new Intent(getActivity(), PriorityService.class);
 								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 								getActivity().startService(msgIntent);
+								
+								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
+								global.freeTime.calculateFreeMap();
+								
+								String strInputMsg2 = "reAssignTask";
+								Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
+								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+								getActivity().startService(msgIntent2);
 							}
 						});
 				dialog.setNegativeButton("Cancel", null);

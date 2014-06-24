@@ -152,6 +152,14 @@ public class NewEventActivity extends ActionBarActivity {
 		Intent msgIntent = new Intent(this, PriorityService.class);
 		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 		startService(msgIntent);
+		
+		GlobalV global = ((GlobalV) getApplicationContext());
+		global.freeTime.calculateFreeMap();
+		
+		String strInputMsg2 = "reAssignTask";
+		Intent msgIntent2 = new Intent(this, PriorityService.class);
+		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+		startService(msgIntent2);
 	}
 
 	public class ResponseReceiver extends BroadcastReceiver {
@@ -160,13 +168,8 @@ public class NewEventActivity extends ActionBarActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 
-			String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
-			Log.d("NEW EVENT", text);
-			ListOfEvent readList = new ListOfEvent("flexList");
-			readList.readFromFile(runing);
-			TextView output = (TextView) findViewById(R.id.textView3);
-			output.setText(readList.debug());
-
+			
+			
 		}
 	}
 

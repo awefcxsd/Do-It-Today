@@ -18,6 +18,10 @@ import java.util.Map;
 
 
 
+
+
+import java.util.concurrent.TimeUnit;
+
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
 import com.loulijun.demo2.data.CalDay;
 import com.loulijun.demo2.data.CalEvent;
@@ -48,6 +52,9 @@ public class PriorityService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		String msg = intent.getStringExtra(PARAM_IN_MSG);
+		
+		Log.d("onHangle",msg);
+		
 		if(msg.equals("maintainList"))
 		{
 			reArrangeList();
@@ -57,8 +64,25 @@ public class PriorityService extends IntentService {
 			
 			long days = (long) (60*60*24*1000);
 			days *= 60;
+			
+			
 			Date finalDate = new Date(Calendar.getInstance().getTime().getTime() + days);
+			
+			//could calculate to last deadline or till event is empty? 
 			reAssignTask(finalDate);
+			
+			
+			//add fixedList
+			reAssignFixedList();
+			
+			Intent broadcastIntent = new Intent();
+			broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
+			broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+			
+			String resultTxt = "EventReassign";
+			broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
+			sendBroadcast(broadcastIntent);
+			
 		}
 		
 		
@@ -154,15 +178,6 @@ public class PriorityService extends IntentService {
 		}
 		
 		
-
-		Intent broadcastIntent = new Intent();
-		broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
-		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-		
-		String resultTxt = "EventReassign";
-		broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
-		sendBroadcast(broadcastIntent);
-		
 		
 	}
 	
@@ -190,7 +205,43 @@ public class PriorityService extends IntentService {
 	}
 	
 	
-	
+	public void reAssignFixedList()
+	{
+		GlobalV global= ((GlobalV)getApplicationContext());
+		ArrayList<CalEvent> fixedList = global.fixedList.list;
+		for(CalEvent event: fixedList)
+		{
+			String dayKey = "";
+			CalDay eventCalDay = new CalDay();
+			
+			for (int i = 0; i < event.duration; i++) 
+			{
+			
+				Calendar thisHour = event.deadline;
+				thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis(i)));
+			
+				String key = thisHour.get(Calendar.YEAR) + "/"
+					+ (thisHour.get(Calendar.MONTH) + 1) + "/"
+					+ thisHour.get(Calendar.DATE);
+			
+				if(!key.equals(dayKey)){
+					dayKey = key;
+					eventCalDay = global.calMapEvent.getDayEvent(key);
+				}
+				
+				int hour = thisHour.get(Calendar.HOUR_OF_DAY);
+				Log.d("fixed hour", Integer.toString(hour));
+				eventCalDay.calArray[hour] = event;
+				
+				global.calMapEvent.addDayEvent(key, eventCalDay);
+			}
+			
+			
+		
+		}
+		
+		
+	}
 	
 	class CalEventComparator implements Comparator<CalEvent> {
 

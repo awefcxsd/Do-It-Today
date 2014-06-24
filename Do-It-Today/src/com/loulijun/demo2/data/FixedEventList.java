@@ -14,16 +14,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
 
 import com.loulijun.demo2.MainTabActivity;
 import com.loulijun.demo2.PriorityService;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 public class FixedEventList implements Serializable {
 	public ArrayList<CalEvent> list;
@@ -100,18 +103,70 @@ public class FixedEventList implements Serializable {
 		}
 		return out;
 	}
+	
+	public void reAssignMap()
+	{
+		map.clear();
+		if(list!=null)
+		{
+			for(CalEvent event:list)
+			{
+				for (int i = 0; i < event.duration; i++) {
+					Calendar thisHour = event.deadline;
+					thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis(i)));
+					
+					String key = thisHour.get(Calendar.YEAR) + "/"
+							+ (thisHour.get(Calendar.MONTH) + 1) + "/"
+							+ thisHour.get(Calendar.DATE) + "/"
+							+ thisHour.get(Calendar.HOUR_OF_DAY);
+					map.put(key, event);
+				}
+			}
+		}
+		
+	}
 
 	public void add(CalEvent event) {
+		Log.d("Fixed Add", "add");
 		if (list != null)
 			list.add(event);
 		for (int i = 0; i < event.duration; i++) {
-			String key = event.deadline.get(Calendar.YEAR) + "/"
-					+ (event.deadline.get(Calendar.MONTH) + 1) + "/"
-					+ event.deadline.get(Calendar.DATE) + "/"
-					+ (event.deadline.get(Calendar.HOUR_OF_DAY) + i);
+			Calendar thisHour = event.deadline;
+			thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis(i)));
+			
+			String key = thisHour.get(Calendar.YEAR) + "/"
+					+ (thisHour.get(Calendar.MONTH) + 1) + "/"
+					+ thisHour.get(Calendar.DATE) + "/"
+					+ thisHour.get(Calendar.HOUR_OF_DAY);
 			map.put(key, event);
 		}
 
+	}
+	
+	public void remove(int position)
+	{
+		
+		Log.d("Fixed remove", "remove");
+		CalEvent event = new CalEvent();
+		if (list != null)
+		{	
+			if(list.size()>position)
+			{
+				event = list.get(position);
+				list.remove(event);
+			}
+		}
+		for (int i = 0; i < event.duration; i++) {
+			Calendar thisHour = event.deadline;
+			thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis(i)));
+			
+			String key = thisHour.get(Calendar.YEAR) + "/"
+					+ (thisHour.get(Calendar.MONTH) + 1) + "/"
+					+ thisHour.get(Calendar.DATE) + "/"
+					+ thisHour.get(Calendar.HOUR_OF_DAY);
+			map.remove(key);
+		}
+		
 	}
 
 	public void SortByDate() {
