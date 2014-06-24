@@ -56,14 +56,14 @@ public class SettingActivity extends Activity {
 		Log.d("Setting", "isOnPause");
 		if(isChangeBoolean)
 		{
-		GlobalV global = ((GlobalV) getApplicationContext());
-		global.freeTime.calculateFreeMap();
-		isChangeBoolean = false;
+			GlobalV global = ((GlobalV) getApplicationContext());
+			global.freeTime.calculateFreeMap();
+			isChangeBoolean = false;
 		
-		String strInputMsg = "reAssignTask";
-		Intent msgIntent = new Intent(this, PriorityService.class);
-		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
-		startService(msgIntent);
+			String strInputMsg = "reAssignTask";
+			Intent msgIntent = new Intent(this, PriorityService.class);
+			msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+			startService(msgIntent);
 		
 		}
 		super.onPause();

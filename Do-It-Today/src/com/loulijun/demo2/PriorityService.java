@@ -219,8 +219,6 @@ public class PriorityService extends IntentService {
 			for (int i = 0; i < TimeUnit.SECONDS.toHours(event.duration) ; i++) 
 			{
 			
-				thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
-			
 				String key = thisHour.get(Calendar.YEAR) + "/"
 					+ (thisHour.get(Calendar.MONTH) + 1) + "/"
 					+ thisHour.get(Calendar.DATE);
@@ -235,6 +233,8 @@ public class PriorityService extends IntentService {
 				eventCalDay.calArray[hour] = event;
 				
 				global.calMapEvent.addDayEvent(key, eventCalDay);
+				
+				thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
 			}
 			
 			

@@ -114,13 +114,15 @@ public class FixedEventList implements Serializable {
 				
 				Calendar thisHour =  (Calendar) event.deadline.clone();
 				for (int i = 0; i < TimeUnit.SECONDS.toHours(event.duration); i++) {
-					thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
+					
 					
 					String key = thisHour.get(Calendar.YEAR) + "/"
 							+ (thisHour.get(Calendar.MONTH) + 1) + "/"
 							+ thisHour.get(Calendar.DATE) + "/"
 							+ thisHour.get(Calendar.HOUR_OF_DAY);
 					map.put(key, event);
+					
+					thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
 				}
 			}
 		}
@@ -134,13 +136,15 @@ public class FixedEventList implements Serializable {
 		
 		Calendar thisHour =  (Calendar) event.deadline.clone();
 		for (int i = 0; i < TimeUnit.SECONDS.toHours(event.duration); i++) {
-			thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
+			
 			
 			String key = thisHour.get(Calendar.YEAR) + "/"
 					+ (thisHour.get(Calendar.MONTH) + 1) + "/"
 					+ thisHour.get(Calendar.DATE) + "/"
 					+ thisHour.get(Calendar.HOUR_OF_DAY);
 			map.put(key, event);
+			
+			thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
 		}
 
 	}
@@ -162,13 +166,15 @@ public class FixedEventList implements Serializable {
 		Calendar thisHour =  (Calendar) event.deadline.clone();
 		for (int i = 0; i < TimeUnit.SECONDS.toHours(event.duration); i++) {
 			
-			thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
+			
 			
 			String key = thisHour.get(Calendar.YEAR) + "/"
 					+ (thisHour.get(Calendar.MONTH) + 1) + "/"
 					+ thisHour.get(Calendar.DATE) + "/"
 					+ thisHour.get(Calendar.HOUR_OF_DAY);
 			map.remove(key);
+			
+			thisHour.setTime(new Date(thisHour.getTime().getTime()+ TimeUnit.HOURS.toMillis((long)1)));
 		}
 		
 	}
