@@ -147,8 +147,9 @@ public class PriorityService extends IntentService {
 							eventNum = (eventNum+1) % maxEventNum;
 							count++;
 						}
-					
-						calDay.calArray[hour] = flexibleList.get(eventNum);
+						
+						//pass event to cal array
+						calDay.calArray[hour] = global.flexList.list.get(eventNum);
 						flexibleList.get(eventNum).duration -= (60*60);
 					}
 					else 
