@@ -38,7 +38,8 @@ public class ChartFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-	int k = 410;
+	int x = 600;
+	int y = 600;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,7 +72,7 @@ public class ChartFragment extends Fragment {
 		
 		for (int i = 0; i < global.flexList.list.size(); i++) {
 			AbsoluteLayout.LayoutParams params = new AbsoluteLayout.LayoutParams(
-					35, 35, (int) (global.flexList.list.get(i).emrgencyFactor*k), k-(int) (global.flexList.list.get(i).importance*(float)(k/100)));
+					35, 35, (int) (global.flexList.list.get(i).emrgencyFactor*x), y-(int) (global.flexList.list.get(i).importance*(float)(y/100)));
 			Button btn = new Button(this.getActivity());
 			btn.setId(i);
 			final int id_ = btn.getId();
@@ -95,8 +96,8 @@ public class ChartFragment extends Fragment {
 					titleE.setText(titleS);
 					descriptionE.setText(descriptionS);
 					durationE.setText(durationS+" hours ");
-					progressBar.setProgress((int)(timeSpend/dur));
-					progressValue.setText(String.valueOf(timeSpend/dur)+"%");
+					progressBar.setProgress((int)(Math.ceil(timeSpend/(dur+1))));
+					progressValue.setText(String.valueOf((int)Math.ceil(timeSpend/(dur+1)))+"%");
 					
 				}
 			});
