@@ -25,6 +25,8 @@ public class SettingActivity extends Activity {
 		setContentView(R.layout.setting);
 
 		GridView gridView = (GridView) findViewById(R.id.gridView1);
+		gridView.setVerticalSpacing(1);
+		gridView.setHorizontalSpacing(1);
 		ArrayList<String> data = new ArrayList<String>();
 		for (int i = 0; i < 7 * 24; i++) {
 			data.add("1");
