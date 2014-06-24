@@ -19,6 +19,7 @@ public class CalEvent implements Serializable, Cloneable{
 	public boolean isEmpty;
 	public double emrgencyFactor = 0;
 	public long timeSpent = 0;
+	public long machineTimeSpent = 0;
 	
 	
 	public CalEvent(String t,String d,long timN,Calendar dead, double i){
@@ -71,8 +72,8 @@ public class CalEvent implements Serializable, Cloneable{
 			//Log.d("diffInTime", Long.toString(diffInTime));
 			//Log.d("duration", Long.toString(duration));
 		
-			if(diffInTime > (duration - timeSpent) ){
-				emrgencyFactor = (double)(duration - timeSpent) / (double)(diffInTime+1) ;
+			if(diffInTime > (duration - machineTimeSpent) ){
+				emrgencyFactor = (double)(duration - machineTimeSpent) / (double)(diffInTime+1) ;
 			}
 			else {
 				emrgencyFactor = 1;
