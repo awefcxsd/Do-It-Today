@@ -53,22 +53,20 @@ public class ArrangeSlidePageFragment extends Fragment {
 		output.setText(date);
 
 		listView = (ListView) rootView.findViewById(R.id.DateEventList);
-		
-		
+
 		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
-		CalDay today=global.calMapEvent.getDayEvent(date);
-		
-		
-		ArrayList<CalEvent> data=new ArrayList<CalEvent>();
+		CalDay today = global.calMapEvent.getDayEvent(date);
+
+		ArrayList<CalEvent> data = new ArrayList<CalEvent>();
 		for (int i = 0; i < 24; i++) {
-			if(today.calArray[i]!=null)
-			data.add(today.calArray[i]);
+			if (today.calArray[i] != null)
+				data.add(today.calArray[i]);
 			else
-			data.add(null);
+				data.add(null);
 		}
-		
-		adapter = new ArrangeListAdapter(getActivity(), 0, data,getActivity());
-		
+
+		adapter = new ArrangeListAdapter(getActivity(), 0, data, getActivity(),
+				current);
 
 		listView.setAdapter(adapter);
 
@@ -76,14 +74,18 @@ public class ArrangeSlidePageFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-				dialog.setTitle("Title"); //設定dialog 的title顯示內容
-				dialog.setCancelable(false); //關閉 Android 系統的主要功能鍵(menu,home等...)
-				dialog.setPositiveButton("收到！", new DialogInterface.OnClickListener() {  
-				    public void onClick(DialogInterface dialog, int which) {  
-				      // 按下"收到"以後要做的事情
-				    }  
-				}); 
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
+				dialog.setTitle("Title"); // 設定dialog 的title顯示內容
+				dialog.setCancelable(false); // 關閉 Android
+												// 系統的主要功能鍵(menu,home等...)
+				dialog.setPositiveButton("收到！",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// 按下"收到"以後要做的事情
+							}
+						});
 				dialog.show();
 			}
 
@@ -91,13 +93,16 @@ public class ArrangeSlidePageFragment extends Fragment {
 
 		return rootView;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public void setPast(View cvView) {
+		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
+		global.pastList.setPast(global.calMapEvent.getDayEvent(date), date);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
+
 }

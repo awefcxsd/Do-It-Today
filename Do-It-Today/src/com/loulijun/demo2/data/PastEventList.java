@@ -19,22 +19,19 @@ import android.content.Context;
 import android.util.Log;
 
 public class PastEventList implements Serializable {
-	public Map<String,CalDay> map=new HashMap<String,CalDay>();
-	
+	public Map<String, CalDay> map = new HashMap<String, CalDay>();
+
 	public PastEventList() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void setPast(CalDay dayEvent, Calendar day) {
-		Calendar thisHour = (Calendar) day.clone();
-		String key = thisHour.get(Calendar.YEAR) + "/"
-				+ (thisHour.get(Calendar.MONTH) + 1) + "/"
-				+ thisHour.get(Calendar.DATE);
-		
-		map.put(key, dayEvent);
+	public void setPast(CalDay dayEvent, String key) {
+		if (!map.containsKey(key)) {
+			map.put(key, dayEvent);
+		}
 	}
-	
-	public void saveToFile(Service runing) {
+
+	public void saveToFile(Activity runing) {
 		FileOutputStream fout = null;
 		ObjectOutputStream oos = null;
 		try {
@@ -61,15 +58,14 @@ public class PastEventList implements Serializable {
 		}
 	}
 
-	
 	public void readFromFile(Activity runing) {
 		FileInputStream fin = null;
 		ObjectInputStream ois = null;
 		try {
 			fin = runing.openFileInput("past");
 			ois = new ObjectInputStream(fin);
-			if(fin != null && ois != null)
-			map = (Map<String, CalDay>) ois.readObject();
+			if (fin != null && ois != null)
+				map = (Map<String, CalDay>) ois.readObject();
 		} catch (Exception e) {
 
 		} finally {

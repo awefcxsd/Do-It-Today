@@ -1,6 +1,8 @@
 package com.loulijun.demo2.arrange;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import com.loulijun.demo2.GlobalV;
 import com.loulijun.demo2.PriorityService;
@@ -34,9 +36,10 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 	ArrayList<CalEvent> data = null;
 	ArrayList<Boolean> check = null;
 	Activity running;
+	Calendar thisTime;
 
 	public ArrangeListAdapter(Context mContext, int layoutResourceId,
-			ArrayList<CalEvent> data, Activity running) {
+			ArrayList<CalEvent> data, Activity running, Calendar thisTime) {
 		super(mContext, layoutResourceId, data);
 		this.layoutResourceId = layoutResourceId;
 		this.mContext = mContext;
@@ -46,6 +49,8 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 			check.add(false);
 		}
 		this.running = running;
+		this.thisTime = (Calendar) thisTime.clone();
+		
 	}
 
 	@Override
@@ -65,7 +70,10 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 			}
 		}
 
-		if (check.get(position)) {
+		thisTime.set(thisTime.get(Calendar.YEAR), thisTime.get(Calendar.MONTH), thisTime.get(Calendar.DATE), position, 0, 0);
+		Calendar current = new GregorianCalendar();
+		
+		if (current.compareTo(thisTime)>=0) {
 			convertView.setBackgroundColor(Color.argb(125, 75, 236, 90));
 		} else {
 			convertView.setBackgroundColor(Color.argb(255, 255, 255, 255));

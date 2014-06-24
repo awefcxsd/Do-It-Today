@@ -40,7 +40,7 @@ public class MainTabActivity extends TabActivity implements OnCheckedChangeListe
         global.flexList.readFromFile(runing);
         global.freeTime.readFromFile(runing);
         global.fixedList.readFromFile(runing);
-        
+        global.pastList.readFromFile(runing);
         
         //DEBUG!!!!
         AutoGenerateEvent.generate(global);
