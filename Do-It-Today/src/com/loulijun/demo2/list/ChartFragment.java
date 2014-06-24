@@ -20,6 +20,7 @@ import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,15 +28,18 @@ import android.widget.Toast;
 public class ChartFragment extends Fragment {
 	ViewGroup rootView;
 	GlobalV global;
-	EditText titleE;
-	EditText descriptionE;
-	EditText durationE;
+	private EditText titleE;
+	private EditText descriptionE;
+	private EditText durationE;
+	private ProgressBar progressBar;
+	private TextView progressValue;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-	int k = 410;
+	int x = 600;
+	int y = 600;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,11 +67,12 @@ public class ChartFragment extends Fragment {
 		descriptionE.setKeyListener(null);
 		durationE.setKeyListener(null);
 		
-		
+		progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar1);
+		progressValue = (TextView) rootView.findViewById(R.id.textView5);
 		
 		for (int i = 0; i < global.flexList.list.size(); i++) {
 			AbsoluteLayout.LayoutParams params = new AbsoluteLayout.LayoutParams(
-					35, 35, (int) (global.flexList.list.get(i).emrgencyFactor*k), k-(int) (global.flexList.list.get(i).importance*(float)(k/100)));
+					35, 35, (int) (global.flexList.list.get(i).emrgencyFactor*x), y-(int) (global.flexList.list.get(i).importance*(float)(y/100)));
 			Button btn = new Button(this.getActivity());
 			btn.setId(i);
 			final int id_ = btn.getId();
@@ -84,11 +89,15 @@ public class ChartFragment extends Fragment {
 					
 					String titleS =global.flexList.list.get(id_).title;
 					String descriptionS =global.flexList.list.get(id_).description;
-					String durationS = String.valueOf(global.flexList.list.get(id_).duration/3600);
+					long dur = global.flexList.list.get(id_).duration;
+					String durationS = String.valueOf(dur/3600);
+					long timeSpend = global.flexList.list.get(id_).timeSpent;
 					
 					titleE.setText(titleS);
 					descriptionE.setText(descriptionS);
 					durationE.setText(durationS+" hours ");
+					progressBar.setProgress((int)(Math.ceil(timeSpend/(dur+1))));
+					progressValue.setText(String.valueOf((int)Math.ceil(timeSpend/(dur+1)))+"%");
 					
 				}
 			});

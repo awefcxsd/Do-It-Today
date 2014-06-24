@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="30dp"
-    android:paddingTop="30dp" >
+    android:paddingTop="20dp" >
 
     <Button
         android:id="@+id/button1"
@@ -29,7 +29,6 @@
             android:layout_height="480dp"
             android:layout_marginLeft="15dp"
             android:background="@drawable/color4" >
-
         </AbsoluteLayout>
 
         <Button
@@ -40,7 +39,6 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="0.00"
             android:background="@drawable/importance" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -49,75 +47,106 @@
         android:layout_marginBottom="10dp"
         android:paddingLeft="20dp"
         android:paddingRight="50dp"
-        android:paddingTop="20dp" >
+        android:paddingTop="10dp" >
 
-            <TextView
-                android:id="@+id/textViewFragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
+        <TextView
+            android:id="@+id/textViewFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <EditText
-                android:id="@+id/editText1"
-                android:layout_width="400dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="92dp"
-                android:layout_weight="0.1"
-                android:ems="10"
-                android:paddingLeft="10dp" />
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="93dp"
+            android:layout_weight="0.1"
+            android:ems="10"
+            android:paddingLeft="10dp" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="50dp" >
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="50dp" >
+            android:layout_marginLeft="23dp"
+            android:ems="10" >
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
+        </EditText>
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:ems="10" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="50dp" >
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                <requestFocus />
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/editText3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="50dp" >
+            android:layout_marginLeft="50dp"
+            android:layout_weight="0.1"
+            android:ems="10"
+            android:inputType="phone" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Duration"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="50dp" >
 
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_weight="0.1"
-                android:ems="10"
-                android:inputType="phone" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Progress"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="0.1"
+            android:ems="10"
+            android:max="100"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+       
+    </LinearLayout>
 
 </LinearLayout>
