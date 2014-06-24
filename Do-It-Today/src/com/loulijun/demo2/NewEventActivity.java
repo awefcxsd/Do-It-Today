@@ -149,9 +149,6 @@ public class NewEventActivity extends ActionBarActivity {
 		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 		startService(msgIntent);
 		
-		GlobalV global = ((GlobalV) getApplicationContext());
-		global.freeTime.calculateFreeMap();
-		
 		String strInputMsg2 = "reAssignTask";
 		Intent msgIntent2 = new Intent(this, PriorityService.class);
 		msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);

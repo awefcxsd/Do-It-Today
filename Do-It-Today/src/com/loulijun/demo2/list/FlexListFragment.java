@@ -162,8 +162,6 @@ public class FlexListFragment extends Fragment {
 								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 								getActivity().startService(msgIntent);
 								
-								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
-								global.freeTime.calculateFreeMap();
 								
 								String strInputMsg2 = "reAssignTask";
 								Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
@@ -188,8 +186,6 @@ public class FlexListFragment extends Fragment {
 								msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 								getActivity().startService(msgIntent);
 								
-								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
-								global.freeTime.calculateFreeMap();
 								
 								String strInputMsg2 = "reAssignTask";
 								Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
