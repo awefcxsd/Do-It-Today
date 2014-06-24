@@ -79,11 +79,11 @@ public class ListHostActivity extends FragmentActivity {
 		@Override
 		public Fragment getItem(int position) {
 			Fragment temp = null;
-			if (position == 0) {
+			if (position == 1) {
 				temp = new FlexListFragment();
-			} else if(position == 1){
-				temp = new FixedListFragment();
 			} else if(position == 2){
+				temp = new FixedListFragment();
+			} else if(position == 0){
 				temp = new ChartFragment();
 			}
 			/*

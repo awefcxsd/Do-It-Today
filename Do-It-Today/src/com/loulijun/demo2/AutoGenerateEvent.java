@@ -26,7 +26,7 @@ public class AutoGenerateEvent {
 		deadline.set(2014, 6, 1, 0, 0);
 		importance = 70;
 		CalEvent event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
-		global.flexList.list.add(event);
+		global.flexList.add(event);
 		
 		title="中國古代歷史人物報告";
 	    description="中國古代歷史人物報告";
@@ -34,7 +34,7 @@ public class AutoGenerateEvent {
 		deadline.set(2014, 6, 5, 0, 0);
 		importance = 40;
 		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
-		global.flexList.list.add(event);
+		global.flexList.add(event);
 		
 		title="專題演講心得";
 	    description="專題演講心得";
@@ -42,7 +42,7 @@ public class AutoGenerateEvent {
 		deadline.set(2014, 6, 20, 0, 0);
 		importance = 40;
 		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
-		global.flexList.list.add(event);
+		global.flexList.add(event);
 		
 		title="網多FINAL實驗";
 	    description="網多FINAL實驗";
@@ -50,7 +50,7 @@ public class AutoGenerateEvent {
 		deadline.set(2014, 6, 20, 0, 0);
 		importance = 80;
 		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
-		global.flexList.list.add(event);
+		global.flexList.add(event);
 		
 		
 	}

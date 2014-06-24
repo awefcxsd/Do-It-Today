@@ -32,6 +32,14 @@
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
+            <Button
+                android:id="@+id/check"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:focusable="false"
+                android:text="Done" />
+
         </LinearLayout>
 
     </LinearLayout>

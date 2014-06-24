@@ -95,6 +95,7 @@ public class ListOfEvent implements Serializable{
 	}
 	
 	public void add(CalEvent event){
+		event.type="Flex";
 		if(list!=null)
 		list.add(event);
 	}

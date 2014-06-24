@@ -130,6 +130,7 @@ public class FixedEventList implements Serializable {
 	}
 
 	public void add(CalEvent event) {
+		event.type="Fixed";
 		Log.d("Fixed Add", "add");
 		if (list != null)
 			list.add(event);

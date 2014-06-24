@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 
 import com.loulijun.demo2.arrange.ArrangeListAdapter;
 import com.loulijun.demo2.data.CalDay;
+import com.loulijun.demo2.data.CalEvent;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,7 +26,7 @@ import android.widget.Toast;
 public class ArrangeSlidePageFragment extends Fragment {
 	String date;
 	private ListView listView;
-	private ArrayAdapter<String> adapter;
+	private ArrayAdapter<CalEvent> adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,12 +59,12 @@ public class ArrangeSlidePageFragment extends Fragment {
 		CalDay today=global.calMapEvent.getDayEvent(date);
 		
 		
-		ArrayList<String> data=new ArrayList<String>();
+		ArrayList<CalEvent> data=new ArrayList<CalEvent>();
 		for (int i = 0; i < 24; i++) {
 			if(today.calArray[i]!=null)
-			data.add(today.calArray[i].title);
+			data.add(today.calArray[i]);
 			else
-			data.add("");
+			data.add(null);
 		}
 		
 		adapter = new ArrangeListAdapter(getActivity(), 0, data,getActivity());
