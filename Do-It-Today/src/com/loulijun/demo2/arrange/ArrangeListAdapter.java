@@ -106,7 +106,6 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 		TextView textViewItem = (TextView) convertView.findViewById(R.id.Title);
 		if (data.get(position) != null) {
 			textViewItem.setText(data.get(position).title);
-			Log.d(position + ":00"+data.get(position).title, data.get(position).type);
 		}else{
 			textViewItem.setText("");
 		}
@@ -133,5 +132,7 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 			notifyDataSetChanged();
 		}
 	}
+	
+	
 
 }

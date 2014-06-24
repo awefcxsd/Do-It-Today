@@ -44,12 +44,12 @@ public class FlexListFragment extends Fragment {
 	private ArrayAdapter<CalEvent> adapter;
 	int hour;
 	int minute;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -136,7 +136,10 @@ public class FlexListFragment extends Fragment {
 								// 按下"收到"以後要做的事情
 								
 								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
-								global.flexList.list.remove(position);
+								
+								
+								
+								
 								DatePicker date = (DatePicker) layout.findViewById(R.id.datePicker1);
 								EditText title = (EditText) layout.findViewById(R.id.EditTitle);
 								EditText description = (EditText) layout.findViewById(R.id.EditDescription);
@@ -146,11 +149,13 @@ public class FlexListFragment extends Fragment {
 
 								SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seekBar1);
 								
-								CalEvent event = new CalEvent(title.getText().toString(), description
-										.getText().toString(), Long.parseLong(timeNeed.getText()
-										.toString()), deadline, seekBar.getProgress());
-
-								global.flexList.add(event);
+								CalEvent event=global.flexList.list.get(position);
+								event.deadline=deadline;
+								event.title=title.getText().toString();
+								event.description=description.getText().toString();
+								event.duration=TimeUnit.HOURS.toSeconds(Long.parseLong(timeNeed.getText().toString()));
+								event.importance=seekBar.getProgress();
+								
 								maintainList();
 								
 							}
@@ -174,6 +179,7 @@ public class FlexListFragment extends Fragment {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
+								global.flexList.list.get(position).setNull();
 								global.flexList.list.remove(position);
 								maintainList();
 								
@@ -205,7 +211,4 @@ public class FlexListFragment extends Fragment {
 
 	}
 
-	
-
-    
 }

@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
+import com.loulijun.demo2.data.CalDay;
 import com.loulijun.demo2.data.ListOfEvent;
 
 import android.app.Activity;
@@ -108,5 +109,7 @@ public class ArangeActivity extends FragmentActivity {
 
 		}
 	}
+    
+    
 
 }

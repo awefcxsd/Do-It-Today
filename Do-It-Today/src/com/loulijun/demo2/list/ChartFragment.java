@@ -89,15 +89,15 @@ public class ChartFragment extends Fragment {
 					
 					String titleS =global.flexList.list.get(id_).title;
 					String descriptionS =global.flexList.list.get(id_).description;
-					long dur = global.flexList.list.get(id_).duration;
-					String durationS = String.valueOf(dur/3600);
-					long timeSpend = global.flexList.list.get(id_).timeSpent;
+					double dur = (double)global.flexList.list.get(id_).duration;
+					String durationS = String.valueOf((int)(dur/3600));
+					double timeSpend = (double)global.flexList.list.get(id_).timeSpent;
 					
 					titleE.setText(titleS);
 					descriptionE.setText(descriptionS);
 					durationE.setText(durationS+" hours ");
-					progressBar.setProgress((int)(Math.ceil(timeSpend/(dur+1))));
-					progressValue.setText(String.valueOf((int)Math.ceil(timeSpend/(dur+1)))+"%");
+					progressBar.setProgress((int)(timeSpend/(dur+1)*100));
+					progressValue.setText(String.valueOf((int)(timeSpend/(dur+1)*100))+"%");
 					
 				}
 			});
