@@ -39,7 +39,17 @@ public class CalEvent implements Serializable, Cloneable{
 	
 	public CalEvent()
 	{
-		title = "Empty";
+		title = "";
+		description = "";
+		duration = 0;
+		deadline = Calendar.getInstance();
+		importance=0;
+		isEmpty = true;
+	}
+	
+	public void setNull()
+	{
+		title = "";
 		description = "";
 		duration = 0;
 		deadline = Calendar.getInstance();
