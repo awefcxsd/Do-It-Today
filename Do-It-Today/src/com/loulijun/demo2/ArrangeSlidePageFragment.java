@@ -14,11 +14,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +68,18 @@ public class ArrangeSlidePageFragment extends Fragment {
 				data.add(null);
 		}
 
+		Button btn = (Button) rootView.findViewById(R.id.set);
+		
+		btn.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setPast();
+			}
+			
+		});
+		
 		adapter = new ArrangeListAdapter(getActivity(), 0, data, getActivity(),
 				current);
 
@@ -90,13 +105,17 @@ public class ArrangeSlidePageFragment extends Fragment {
 			}
 
 		});
+		
+		
 
 		return rootView;
 	}
 
-	public void setPast(View cvView) {
+	public void setPast() {
+		Log.d("key",date);
 		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
 		global.pastList.setPast(global.calMapEvent.getDayEvent(date), date);
+		global.pastList.saveToFile(getActivity());
 	}
 
 	@Override
