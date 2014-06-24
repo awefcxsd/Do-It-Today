@@ -119,6 +119,7 @@ public class PriorityService extends IntentService {
 		Calendar endDateCalendar = Calendar.getInstance();
 		endDateCalendar.setTime(finalDate);
 		Calendar today = Calendar.getInstance();
+		Calendar now = Calendar.getInstance();
 		long days = (endDateCalendar.getTimeInMillis() - today.getTimeInMillis())/(24 * 60 * 60 * 1000); 
 		Log.d("Days", Long.toString(days));
 		int count = 0;
@@ -152,25 +153,29 @@ public class PriorityService extends IntentService {
 				for(int hour = start ; hour < (start + dur) && count<maxEventNum ; ++hour)
 				{
 					today.set(Calendar.HOUR_OF_DAY, hour);
-					CalEvent eventOfHour = fixedList.avalible(today);
-					if(eventOfHour == null && count < maxEventNum)
+					
+					if(today.after(now))
 					{
-						count = 0;
-						while((flexibleList.get(eventNum).duration-flexibleList.get(eventNum).machineTimeSpent) <= 0 && count < maxEventNum)
+						CalEvent eventOfHour = fixedList.avalible(today);
+						if(eventOfHour == null && count < maxEventNum)
 						{
-							eventNum = (eventNum+1) % maxEventNum;
-							count++;
-						}
+							count = 0;
+							while((flexibleList.get(eventNum).duration-flexibleList.get(eventNum).machineTimeSpent) <= 0 && count < maxEventNum)
+							{
+								eventNum = (eventNum+1) % maxEventNum;
+								count++;
+							}
 						
-						//pass event to cal array
-						calDay.calArray[hour] = global.flexList.list.get(eventNum);
-						flexibleList.get(eventNum).machineTimeSpent += (60*60);
-					}
-					else 
-					{
-						eventNum = (eventNum+1) % maxEventNum;;
-						//add fixed time in another function?
-						calDay.calArray[hour] = eventOfHour;
+							//pass event to cal array
+							calDay.calArray[hour] = global.flexList.list.get(eventNum);
+							flexibleList.get(eventNum).machineTimeSpent += (60*60);
+						}
+						else 
+						{
+							eventNum = (eventNum+1) % maxEventNum;;
+							//add fixed time in another function?
+							//calDay.calArray[hour] = eventOfHour;
+						}
 					}
 				}
 				

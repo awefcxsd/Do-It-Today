@@ -20,6 +20,8 @@ public class CalEvent implements Serializable, Cloneable{
 	public double emrgencyFactor = 0;
 	public long timeSpent = 0;
 	public long machineTimeSpent = 0;
+	public Calendar startTime;
+	public Calendar endTime;
 	
 	
 	public CalEvent(String t,String d,long timN,Calendar dead, double i){
