@@ -30,7 +30,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 	String date;
 	private ListView listView;
 	private ArrayAdapter<CalEvent> adapter;
-
+	boolean isSet=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,8 +57,16 @@ public class ArrangeSlidePageFragment extends Fragment {
 
 		listView = (ListView) rootView.findViewById(R.id.DateEventList);
 
-		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
-		CalDay today = global.calMapEvent.getDayEvent(date);
+		
+		
+		GlobalV global = ((GlobalV) getActivity().getApplicationContext());
+		CalDay today;
+		if (global.pastList.map.containsKey(date)) {
+			today = global.pastList.map.get(date);
+			isSet=true;
+		} else {
+			today = global.calMapEvent.getDayEvent(date);
+		}
 
 		ArrayList<CalEvent> data = new ArrayList<CalEvent>();
 		for (int i = 0; i < 24; i++) {
@@ -67,22 +75,15 @@ public class ArrangeSlidePageFragment extends Fragment {
 			else
 				data.add(null);
 		}
-
-		Button btn = (Button) rootView.findViewById(R.id.set);
 		
-		btn.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				setPast();
-			}
-			
-		});
 		
+
 		adapter = new ArrangeListAdapter(getActivity(), 0, data, getActivity(),
-				current);
+				current,date);
 
+		
+		
+		
 		listView.setAdapter(adapter);
 
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,14 +106,27 @@ public class ArrangeSlidePageFragment extends Fragment {
 			}
 
 		});
-		
-		
 
+		
+		Button btn = (Button) rootView.findViewById(R.id.set);
+
+		btn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				setPast();
+				adapter.notifyDataSetChanged();
+			}
+
+		});
+		
+		
 		return rootView;
 	}
 
 	public void setPast() {
-		Log.d("key",date);
+		Log.d("key", date);
 		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
 		global.pastList.setPast(global.calMapEvent.getDayEvent(date), date);
 		global.pastList.saveToFile(getActivity());

@@ -37,13 +37,18 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 	ArrayList<Boolean> check = null;
 	Activity running;
 	Calendar thisTime;
-
+	boolean isSet;
+	String date;
 	public ArrangeListAdapter(Context mContext, int layoutResourceId,
-			ArrayList<CalEvent> data, Activity running, Calendar thisTime) {
+			ArrayList<CalEvent> data, Activity running, Calendar thisTime,String date) {
 		super(mContext, layoutResourceId, data);
 		this.layoutResourceId = layoutResourceId;
 		this.mContext = mContext;
-		this.data = data;
+		
+		this.data=data;
+		
+		
+		
 		check = new ArrayList<Boolean>();
 		for (int i = 0; i < data.size(); i++) {
 			check.add(false);
@@ -51,18 +56,30 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 		this.running = running;
 		this.thisTime = (Calendar) thisTime.clone();
 		
+		this.date=date;
+
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
+		GlobalV global = ((GlobalV) running.getApplicationContext());
+		CalDay today;
+		if (global.pastList.map.containsKey(date)) {
+			isSet=true;
+		}
+		
+		thisTime.set(thisTime.get(Calendar.YEAR), thisTime.get(Calendar.MONTH), thisTime.get(Calendar.DATE), position, 0, 0);
+		Calendar current = new GregorianCalendar();
+		
+		
 		if (true) {
 			// inflate the layout
 			LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
 			convertView = inflater.inflate(R.layout.arrangelistitem, parent,
 					false);
 			if (data.get(position) != null) {
-				if (data.get(position).type.compareTo("Flex") == 0) {
+				if (data.get(position).type.compareTo("Flex") == 0 && current.compareTo(thisTime)>=0 && isSet) {
 					convertView = inflater.inflate(R.layout.arragelistflexitem,parent, false);
 					Button b = (Button) convertView.findViewById(R.id.check);
 					b.setOnClickListener(new ItemButton_Click(this.running,position));
@@ -70,12 +87,14 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 			}
 		}
 
-		thisTime.set(thisTime.get(Calendar.YEAR), thisTime.get(Calendar.MONTH), thisTime.get(Calendar.DATE), position, 0, 0);
-		Calendar current = new GregorianCalendar();
+		
 		
 		if (current.compareTo(thisTime)>=0) {
 			convertView.setBackgroundColor(Color.argb(125, 75, 236, 90));
-		} else {
+		} else if(isSet && data.get(position) != null)  {
+			if(data.get(position).type.compareTo("Flex") == 0)
+			convertView.setBackgroundColor(Color.argb(255, 255, 200, 200));
+		} else{
 			convertView.setBackgroundColor(Color.argb(255, 255, 255, 255));
 		}
 

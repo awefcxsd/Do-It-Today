@@ -26,13 +26,19 @@ public class PastEventList implements Serializable {
 	}
 
 	public void setPast(CalDay dayEvent, String key) {
+		for(int i=0;i<24;i++){
+			if(dayEvent.calArray[i]!=null){
+				dayEvent.calArray[i].machineTimeSpent+=60*60;
+			}
+		}
+		
 		if (!map.containsKey(key)) {
 			map.put(key, dayEvent);
 		}
 	}
 
 	public void saveToFile(Activity runing) {
-		FileOutputStream fout = null;
+		/*FileOutputStream fout = null;
 		ObjectOutputStream oos = null;
 		try {
 			fout = runing.openFileOutput("past", Context.MODE_PRIVATE);
@@ -55,11 +61,11 @@ public class PastEventList implements Serializable {
 					e2.printStackTrace();
 				}
 			}
-		}
+		}*/
 	}
 
 	public void readFromFile(Activity runing) {
-		FileInputStream fin = null;
+		/*FileInputStream fin = null;
 		ObjectInputStream ois = null;
 		try {
 			fin = runing.openFileInput("past");
@@ -83,6 +89,6 @@ public class PastEventList implements Serializable {
 					e2.printStackTrace();
 				}
 			}
-		}
+		}*/
 	}
 }
