@@ -214,7 +214,7 @@ public class PriorityService extends IntentService {
 			
 			for(CalEvent calevent : flexibleList)
 			{
-				calevent.calPriority();
+				calevent.calPriority(this);
 			}
 			
 			Collections.sort(flexibleList, new CalEventComparator());
@@ -233,7 +233,7 @@ public class PriorityService extends IntentService {
 		GlobalV global= ((GlobalV)getApplicationContext());
 		for(CalEvent calevent : global.flexList.list)
 		{
-			calevent.calPriority();
+			calevent.calPriority(this);
 		}
 		
 		Collections.sort(global.flexList.list, new CalEventComparator());

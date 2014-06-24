@@ -15,12 +15,14 @@ import android.R.integer;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
 public class FreeTime implements Serializable{
 	public boolean[][] freeTime = new boolean[7][24];
 	public List<Map<Integer,Integer>> freeMaps = new ArrayList<Map<Integer,Integer>>();
+	public int[] freeTimeInWeek = new int[7];
 
 	
 	public FreeTime(){
@@ -58,6 +60,7 @@ public class FreeTime implements Serializable{
 							isFirst=true;
 							//add to map
 							freeMaps.get(i).put(start, duration);
+							freeTimeInWeek[i]+=duration.intValue();
 							start =new Integer(0);
 							duration = new Integer(0);
 						}
@@ -69,6 +72,7 @@ public class FreeTime implements Serializable{
 							isFirst=true;
 							//add to map
 							freeMaps.get(i).put(start, duration);
+							freeTimeInWeek[i]+=duration.intValue();
 							start =new Integer(0);
 							duration = new Integer(0);
 						}
@@ -81,12 +85,15 @@ public class FreeTime implements Serializable{
 						isFirst=true;
 						//add to map
 						freeMaps.get(i).put(start, duration);
+						freeTimeInWeek[i]+=duration.intValue();
 						start =new Integer(0);
 						duration = new Integer(0);
 					}
 				}
 				
 			}
+			
+			Log.d("freeTimeInWeek", Integer.toString(freeTimeInWeek[i]));
 			
 			
 		}

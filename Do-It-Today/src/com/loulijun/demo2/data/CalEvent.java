@@ -5,6 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import com.loulijun.demo2.GlobalV;
+
+import android.R.integer;
+import android.app.Service;
 import android.util.Log;
 
 public class CalEvent implements Serializable, Cloneable{
@@ -64,12 +68,24 @@ public class CalEvent implements Serializable, Cloneable{
 	
 	
 	
-	public void calPriority()
+	public void calPriority(Service service)
 	{
 		if(!isEmpty){
 			Calendar now = Calendar.getInstance();
-			long diffInTimeMillis = deadline.getTimeInMillis()-now.getTimeInMillis();
-			long diffInTime = TimeUnit.MILLISECONDS.toSeconds(diffInTimeMillis);
+			GlobalV global = ((GlobalV)service.getApplicationContext());
+			
+			long hoursPast = 0;
+			int weekDay;
+			while(now.before(deadline))
+			{
+				weekDay = now.get(Calendar.DAY_OF_WEEK) - 1;
+				hoursPast += global.freeTime.freeTimeInWeek[weekDay];
+				now.setTime(new Date(now.getTimeInMillis()+TimeUnit.DAYS.toMillis( (long)1 )));
+			}
+			
+			
+			
+			long diffInTime = TimeUnit.HOURS.toSeconds(hoursPast);
 			
 			//Log.d("diffInTime", Long.toString(diffInTime));
 			//Log.d("duration", Long.toString(duration));
@@ -80,6 +96,7 @@ public class CalEvent implements Serializable, Cloneable{
 			else {
 				emrgencyFactor = 1;
 			}
+			
 			priority = importance + emrgencyFactor*10; 
 			
 		}
