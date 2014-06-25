@@ -31,6 +31,12 @@ public class FreeTime implements Serializable{
 			
 			for(int j=0;j<24;j++){
 				freeTime[i][j]=false;
+				if(j>18 && j<23){
+					freeTime[i][j]=true;
+				}
+				if(j>12 && j<18){
+					freeTime[i][j]=true;
+				}
 			}
 			
 			freeMaps.add(new HashMap<Integer,Integer>());
