@@ -9,6 +9,7 @@ import com.loulijun.demo2.arrange.ArrangeListAdapter;
 import com.loulijun.demo2.data.CalDay;
 import com.loulijun.demo2.data.CalEvent;
 
+import android.R.integer;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,7 +42,9 @@ public class ArrangeSlidePageFragment extends Fragment {
 	boolean isSet = false;
 	Calendar current;
 	int changeSelect = -1;
-
+	boolean isRefresh = true;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -295,15 +298,18 @@ public class ArrangeSlidePageFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		
 		adapter.notifyDataSetChanged();
 	}
 
 	
+	
+	
 	public void refreshPage(){
-		Fragment currentFragment = this;
-	    FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-	    fragTransaction.detach(currentFragment);
-	    fragTransaction.attach(currentFragment);
-	    fragTransaction.commit();
+		//Fragment currentFragment = this;
+	    //FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+	    //fragTransaction.detach(currentFragment);
+	    //fragTransaction.attach(currentFragment);
+	    //fragTransaction.commit();
 	}
 }

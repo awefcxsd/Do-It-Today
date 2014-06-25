@@ -64,11 +64,27 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> implements Serial
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
+		
+		
+		
 		GlobalV global = ((GlobalV) running.getApplicationContext());
 		//CalDay today;
+		CalDay today;
 		if (global.pastList.map.containsKey(date)) {
-			isSet=true;
+			today = global.pastList.map.get(date);
+			isSet = true;
+		} else {
+			today = global.calMapEvent.getDayEvent(date);
 		}
+
+		data.clear();
+		for (int i = 0; i < 24; i++) {
+			if (today.calArray[i] != null)
+				data.add(today.calArray[i]);
+			else
+				data.add(null);
+		}
+		
 		
 		thisTime.set(thisTime.get(Calendar.YEAR), thisTime.get(Calendar.MONTH), thisTime.get(Calendar.DATE), position, 0, 0);
 		Calendar current = new GregorianCalendar();
