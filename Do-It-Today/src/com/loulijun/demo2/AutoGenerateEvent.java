@@ -52,6 +52,14 @@ public class AutoGenerateEvent {
 		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
 		global.flexList.add(event);
 		
+		title="數位語音期末報告";
+	    description="數位語音期末報告";
+	    duration = (long)10;
+		deadline.set(2014, 6, 20, 0, 0);
+		importance = 80;
+		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
+		global.flexList.add(event);
+		
 		
 	}
 }

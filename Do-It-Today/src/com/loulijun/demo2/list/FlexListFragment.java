@@ -136,10 +136,6 @@ public class FlexListFragment extends Fragment {
 								// 按下"收到"以後要做的事情
 								
 								GlobalV global= ((GlobalV)getActivity().getApplicationContext());
-								
-								
-								
-								
 								DatePicker date = (DatePicker) layout.findViewById(R.id.datePicker1);
 								EditText title = (EditText) layout.findViewById(R.id.EditTitle);
 								EditText description = (EditText) layout.findViewById(R.id.EditDescription);
