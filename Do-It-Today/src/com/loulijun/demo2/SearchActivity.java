@@ -12,10 +12,14 @@ import com.loulijun.demo2.list.GanttItemAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
@@ -111,8 +115,7 @@ public class SearchActivity extends Activity {
 	@Override
 	public void onResume(){
 		super.onResume();
-		
-setContentView(R.layout.ganttchart);
+		setContentView(R.layout.ganttchart);
 		
 		GlobalV global = ((GlobalV) getApplicationContext());
 		LinearLayout lay=(LinearLayout) findViewById(R.id.titlelayout);
@@ -124,10 +127,22 @@ setContentView(R.layout.ganttchart);
 				max=global.flexList.list.get(i).endTime;
 				min=global.flexList.list.get(i).startTime;
 			}
+			
+			
 			TextView text=new TextView(this);
 			text.setText(global.flexList.list.get(i).title);
 			text.setHeight(convertDpToPixel(50,this)+1);
+			text.setTextSize(16);
+			text.setTextColor(Color.WHITE);
+			//text.setBackgroundColor(Color.rgb(58,107,246));
+			
+			Drawable drawable = getResources().getDrawable(R.drawable.gantt);
+			text.setBackground(drawable);
+			text.setGravity(Gravity.CENTER);
 			lay.addView(text);
+			
+			
+			
 			Log.d(global.flexList.list.get(i).title, global.flexList.list.get(i).startTime.getTime().toString());
 			if(max.compareTo(global.flexList.list.get(i).endTime)<0){
 				max=global.flexList.list.get(i).endTime;

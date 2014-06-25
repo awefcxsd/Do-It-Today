@@ -10,8 +10,10 @@ import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,7 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
+		Typeface type = Typeface.createFromAsset(context.getAssets(),"fonts/monofonto.ttf");
 		if (convertView == null) {
 			// inflate the layout
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -84,9 +87,9 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 					&& check.compareTo(global.flexList.list.get(eventNum).endTime) < 0;
 
 			if (deaday) {
-				convertView.setBackgroundColor(Color.RED);
+				convertView.setBackgroundColor(Color.rgb(252,167,177));
 			} else if (between || startday || endday) {
-				convertView.setBackgroundColor(Color.GREEN);
+				convertView.setBackgroundColor(Color.rgb(164,255,120));
 			} else {
 				convertView.setBackgroundColor(Color.WHITE);
 			}
@@ -96,12 +99,19 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 			text.setText("");
 
 		} else{
+			
 			Calendar minClone = (Calendar) startTime.clone();
 			minClone.add(Calendar.DATE, position);
 			TextView text=(TextView) convertView.findViewById(R.id.textView1);
 			text.setText((minClone.get(Calendar.MONTH)+1)+"/"+minClone.get(Calendar.DATE));
-			text.setHeight(convertDpToPixel(50,context));
-			text.setWidth(convertDpToPixel(50,context));
+			text.setTextSize(17);
+			text.setGravity(Gravity.CENTER);
+			text.setTypeface(type);
+			text.setHeight(convertDpToPixel(70,context));
+			text.setWidth(convertDpToPixel(70,context));
+			text.setTextColor(Color.WHITE);
+			text.setBackgroundColor(Color.rgb(58,107,246));
+			
 			
 		}
 		return convertView;

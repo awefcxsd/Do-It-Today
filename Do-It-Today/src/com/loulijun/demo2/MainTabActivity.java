@@ -161,7 +161,7 @@ public class MainTabActivity extends TabActivity implements
 			this.tabhost.setCurrentTabByTag("iSearch");
 			break;
 		case R.id.radio_button4:
-			setFont(" Info");
+			setFont(" Gantt Chart");
 			this.tabhost.setCurrentTabByTag("iMore");
 			break;
 		}
