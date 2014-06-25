@@ -7,9 +7,12 @@ import com.loulijun.demo2.data.CalEvent;
 import com.loulijun.demo2.data.ListOfEvent;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -19,10 +22,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -41,6 +48,7 @@ public class NewEventActivity extends ActionBarActivity {
 	int hour;
 	int minute;
 	private ResponseReceiver receiver;
+	final Context context = this;
 	
 	public void setProgressBarColor(SeekBar progressBar, int newColor){ 
 	    LayerDrawable ld = (LayerDrawable) progressBar.getProgressDrawable();
@@ -55,14 +63,35 @@ public class NewEventActivity extends ActionBarActivity {
 		setContentView(R.layout.add);
 		Log.d("", "on");
 	
-		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
-		seekBar.setProgress(0);
-		seekBar.setMax(100);
-		//seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar));
+		/*
+		EditText startday = (EditText) findViewById(R.id.editText4);
+		startday.setOnClickListener(new View.OnClickListener() {
+			
+	        @Override
+	        public void onClick(View v) {
+	        	LayoutInflater inflater = getLayoutInflater();
+	    		final View layout = inflater.inflate( R.layout.daypick,
+	    				(ViewGroup) findViewById(R.id.start));
+	    		TextView text = (TextView) layout.findViewById(R.id.textView1);
+	    		text.setTextSize(25);
+	    		text.setText(title.getText().toString()+ " has been added to the list.");
+	    		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+	    		dialog.setView(layout);
+	    		dialog.setTitle("Succeeded"); // 設定dialog 的title顯示內容
+	    		dialog.setCancelable(false);
+	    		dialog.setPositiveButton("OK",
+	    				new DialogInterface.OnClickListener() {
+	    					@Override
+	    					public void onClick(DialogInterface dialog, int which) {
+	    					}});
+	    		dialog.show();
+	        }
+
+	    });*/
 		
-		final TextView seekBarValue = (TextView) findViewById(R.id.seekbarvalue);
-		seekBarValue.setTextColor(Color.rgb(0,255,0));
 		
+		
+		//TimePicker Setting 
 		TimePicker time = (TimePicker) findViewById(R.id.timePicker1);
 		time.setIs24HourView(true);
 		time.setOnTimeChangedListener(new OnTimeChangedListener() {
@@ -73,7 +102,15 @@ public class NewEventActivity extends ActionBarActivity {
 				minute=arg2;
 			}
 		});
-
+		
+		
+		//SeekBar Setting
+		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
+		seekBar.setProgress(0);
+		seekBar.setMax(100);
+		//seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar));
+		final TextView seekBarValue = (TextView) findViewById(R.id.seekbarvalue);
+		seekBarValue.setTextColor(Color.rgb(0,255,0));
 		seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
@@ -113,6 +150,25 @@ public class NewEventActivity extends ActionBarActivity {
 		EditText description = (EditText) findViewById(R.id.editText2);
 		EditText timeNeed = (EditText) findViewById(R.id.editText3);
 		
+		
+		LayoutInflater inflater = getLayoutInflater();
+		final View layout = inflater.inflate( R.layout.add_done_dialog,
+				(ViewGroup) findViewById(R.id.addDone));
+		TextView text = (TextView) layout.findViewById(R.id.textView1);
+		text.setTextSize(25);
+		text.setText(title.getText().toString()+ " has been added to the list.");
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		dialog.setView(layout);
+		dialog.setTitle("Succeeded"); // 設定dialog 的title顯示內容
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("OK",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}});
+		dialog.show();
+				
+		
 		Calendar deadline = new GregorianCalendar();
 		deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth(),hour,minute);
 
@@ -130,7 +186,6 @@ public class NewEventActivity extends ActionBarActivity {
 		}else{
 			global.flexList.add(event);
 		}
-		
 
 		maintainList();
 

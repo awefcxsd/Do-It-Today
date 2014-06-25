@@ -16,18 +16,26 @@
             android:id="@+id/textViewFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="fill_horizontal"
+            android:layout_weight="0.46"
+            android:text="Set" />
+
         <Button
             android:id="@+id/set"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
             android:layout_marginRight="30dp"
-            android:layout_weight="0.001"
+            android:layout_weight="0.005"
             android:background="@drawable/ic_action_refresh"
             android:focusable="false"
             android:paddingRight="10dp" />

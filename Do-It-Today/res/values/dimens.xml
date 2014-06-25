@@ -5,4 +5,5 @@
 	<dimen name="bottom_tab_font_size">30.0dip</dimen>
 	<color name="Black">#ff000000</color>
 	<color name="Gray">#50000000</color>
+	<color name="GrayBlack">#80000000</color>
 </resources>

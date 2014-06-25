@@ -15,12 +15,26 @@
         android:background="#ffffffff"
         android:orientation="vertical" >
 
-        <CheckBox
-            android:id="@+id/checkBox1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Fixed" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="5"
+                android:text="Fixed" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="94dp"
+                android:layout_height="33dp"
+                android:background="@drawable/add_done"
+                android:onClick="AddEvent" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/GrayBlack" />
 
             <EditText
                 android:id="@+id/editText1"
@@ -42,7 +56,10 @@
                 android:layout_marginLeft="93dp"
                 android:layout_weight="0.1"
                 android:ems="10"
-                android:paddingLeft="10dp" />
+                android:gravity="center_vertical"
+                android:hint="Event Name"
+                android:paddingLeft="10dp"
+                android:textColorHint="@color/Gray" />
 
         </LinearLayout>
 
@@ -57,14 +74,16 @@
                 android:layout_height="wrap_content"
                 android:text="Description"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/GrayBlack" />
 
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="23dp"
-                android:ems="10" >
+                android:ems="10"
+                android:hint="Description"
+                android:textColorHint="@color/Gray" >
 
                 <requestFocus />
             </EditText>
@@ -81,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="Duration"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/GrayBlack" />
 
             <EditText
                 android:id="@+id/editText3"
@@ -90,7 +109,9 @@
                 android:layout_marginLeft="50dp"
                 android:layout_weight="0.1"
                 android:ems="10"
-                android:inputType="phone" />
+                android:hint="How many hours"
+                android:inputType="phone"
+                android:textColorHint="@color/Gray" />
 
         </LinearLayout>
 
@@ -106,7 +127,7 @@
                 android:layout_weight="0.28"
                 android:text="Importance"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/Gray" />
+                android:textColor="@color/GrayBlack" />
 
             <SeekBar
                 android:id="@+id/seekBar1"
@@ -127,7 +148,33 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </LinearLayout>
+		
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" >
 
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/GrayBlack" />
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:hint="How many hours"
+                android:textColorHint="@color/Gray" />
+
+        </LinearLayout>
+        
+        
         <DatePicker
             android:id="@+id/datePicker1"
             android:layout_width="wrap_content"
@@ -141,13 +188,6 @@
                 android:id="@+id/timePicker1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="AddEvent"
-                android:text="Add" />
 
         </LinearLayout>
 
