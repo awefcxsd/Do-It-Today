@@ -20,6 +20,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -70,7 +72,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 		output.setText(date_above);
 
 		listView = (ListView) rootView.findViewById(R.id.DateEventList);
-
+		final Animation animRotate = AnimationUtils.loadAnimation(this.getActivity(), R.anim.refresh_rotate);
 		
 		
 		GlobalV global = ((GlobalV) getActivity().getApplicationContext());
@@ -129,6 +131,9 @@ public class ArrangeSlidePageFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Button btn = (Button)v.findViewById(R.id.set);
+				btn.setBackgroundResource(R.drawable.ic_action_refresh2);
+				btn.startAnimation(animRotate);
 				setPast();
 				adapter.notifyDataSetChanged();
 			}
