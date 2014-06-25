@@ -9,6 +9,7 @@ import com.loulijun.demo2.data.ListOfEvent;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -34,6 +35,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -42,8 +45,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 import android.graphics.PorterDuff;
-
-
 
 public class NewEventActivity extends ActionBarActivity {
 
@@ -55,25 +56,41 @@ public class NewEventActivity extends ActionBarActivity {
 	Calendar deadline = new GregorianCalendar();
 	SimpleDateFormat sdf = new SimpleDateFormat("MMMd, yyyy");
 	SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm aaa");
-	
-	
-	public void setProgressBarColor(SeekBar progressBar, int newColor){ 
-	    LayerDrawable ld = (LayerDrawable) progressBar.getProgressDrawable();
-	    ClipDrawable d1 = (ClipDrawable) ld.findDrawableByLayerId(R.id.progressshape);
-	    
-	    d1.setColorFilter(newColor, PorterDuff.Mode.SRC_IN);
+
+	public void setProgressBarColor(SeekBar progressBar, int newColor) {
+		LayerDrawable ld = (LayerDrawable) progressBar.getProgressDrawable();
+		ClipDrawable d1 = (ClipDrawable) ld
+				.findDrawableByLayerId(R.id.progressshape);
+
+		d1.setColorFilter(newColor, PorterDuff.Mode.SRC_IN);
 
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add);
 		Log.d("", "on");
-		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/monofonto.ttf");
+		Typeface type = Typeface.createFromAsset(getAssets(),
+				"fonts/monofonto.ttf");
 		WindowManager wm = getWindowManager();
-        
-        
-		//Daypicker Setting
+
+		CheckBox check = (CheckBox) findViewById(R.id.checkBox1);
+		check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				TextView time = (TextView) findViewById(R.id.textView6);
+				if (isChecked) {
+					time.setText("Start");
+				} else {
+					time.setText("Deadline");
+				}
+			}
+		});
+		// Daypicker Setting
 		Calendar c = Calendar.getInstance();
 		String strDate = sdf.format(c.getTime());
 		EditText end_day = (EditText) findViewById(R.id.editText4);
@@ -83,32 +100,36 @@ public class NewEventActivity extends ActionBarActivity {
 		end_day.setTextColor(Color.GRAY);
 		end_day.setTextSize(20);
 		end_day.setOnClickListener(new View.OnClickListener() {
-			
-	        @Override
-	        public void onClick(View v) {
-	        	LayoutInflater inflater = getLayoutInflater();
-	    		final View layout = inflater.inflate( R.layout.daypick,
-	    				(ViewGroup) findViewById(R.id.start));
-	    		AlertDialog.Builder dialog = new AlertDialog.Builder(NewEventActivity.this);
-	    		dialog.setView(layout);
-	    		dialog.setCancelable(false);
-	    		dialog.setTitle("Choose Day");
-	    		dialog.setPositiveButton("OK",
-	    				new DialogInterface.OnClickListener() {
-	    					@Override
-	    					public void onClick(DialogInterface dialog, int which) {
-	    						DatePicker date = (DatePicker) layout.findViewById(R.id.datePicker2);
-	    						deadline.set(date.getYear(), date.getMonth(), date.getDayOfMonth(),0,0);
-	    						EditText end_day = (EditText) findViewById(R.id.editText4);
-	    						String strDate = sdf.format(deadline.getTime());
-	    						end_day.setText(strDate);
-	    					}});
-	    		dialog.show();
-	        }
 
-	    });
-		
-		
+			@Override
+			public void onClick(View v) {
+				LayoutInflater inflater = getLayoutInflater();
+				final View layout = inflater.inflate(R.layout.daypick,
+						(ViewGroup) findViewById(R.id.start));
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						NewEventActivity.this);
+				dialog.setView(layout);
+				dialog.setCancelable(false);
+				dialog.setTitle("Choose Day");
+				dialog.setPositiveButton("OK",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								DatePicker date = (DatePicker) layout
+										.findViewById(R.id.datePicker2);
+								deadline.set(date.getYear(), date.getMonth(),
+										date.getDayOfMonth(), 0, 0);
+								EditText end_day = (EditText) findViewById(R.id.editText4);
+								String strDate = sdf.format(deadline.getTime());
+								end_day.setText(strDate);
+							}
+						});
+				dialog.show();
+			}
+
+		});
+
 		String strTime = sdf2.format(c.getTime());
 		EditText end_time = (EditText) findViewById(R.id.editText5);
 		end_time.setKeyListener(null);
@@ -117,66 +138,76 @@ public class NewEventActivity extends ActionBarActivity {
 		end_time.setTextColor(Color.GRAY);
 		end_time.setTextSize(20);
 		end_time.setOnClickListener(new View.OnClickListener() {
-			
-	        @Override
-	        public void onClick(View v) {
-	        	LayoutInflater inflater = getLayoutInflater();
-	    		final View layout = inflater.inflate( R.layout.timepicker,
-	    				(ViewGroup) findViewById(R.id.start));
-	    	
-	    		TimePicker time = (TimePicker) layout.findViewById(R.id.timePicker1);
+
+			@Override
+			public void onClick(View v) {
+				LayoutInflater inflater = getLayoutInflater();
+				final View layout = inflater.inflate(R.layout.timepicker,
+						(ViewGroup) findViewById(R.id.start));
+
+				TimePicker time = (TimePicker) layout
+						.findViewById(R.id.timePicker1);
 				time.setIs24HourView(false);
 				time.setOnTimeChangedListener(new OnTimeChangedListener() {
 					@Override
-					public void onTimeChanged(TimePicker arg0, int arg1, int arg2) {
+					public void onTimeChanged(TimePicker arg0, int arg1,
+							int arg2) {
 						// 小時 ,分鐘
-						hour=arg1;
-						minute=arg2;
+						hour = arg1;
+						minute = arg2;
 					}
 				});
-	    		
-	    		AlertDialog.Builder dialog = new AlertDialog.Builder(NewEventActivity.this);
-	    		dialog.setView(layout);
-	    		dialog.setCancelable(false);
-	    		dialog.setTitle("Choose Time");
 
-	            
-	    		dialog.setPositiveButton("OK",
-	    				new DialogInterface.OnClickListener() {
-	    					@Override
-	    					public void onClick(DialogInterface dialog, int which) {
-	    						EditText end_time = (EditText) findViewById(R.id.editText5);
-	    						if(hour>11&&hour!=24)
-	    							end_time.setText(String.valueOf(hour-12)+":"+String.valueOf(minute)+ "PM");
-	    						else
-	    							end_time.setText(String.valueOf(hour)+":"+String.valueOf(minute)+ "AM");
-	    					}});
-	    		dialog.show();
-	        }
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						NewEventActivity.this);
+				dialog.setView(layout);
+				dialog.setCancelable(false);
+				dialog.setTitle("Choose Time");
 
-	    });
-		
-				
-		//SeekBar Setting
+				dialog.setPositiveButton("OK",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								EditText end_time = (EditText) findViewById(R.id.editText5);
+								if (hour > 11 && hour != 24)
+									end_time.setText(String.valueOf(hour - 12)
+											+ ":" + String.valueOf(minute)
+											+ "PM");
+								else
+									end_time.setText(String.valueOf(hour) + ":"
+											+ String.valueOf(minute) + "AM");
+							}
+						});
+				dialog.show();
+			}
+
+		});
+
+		// SeekBar Setting
 		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
 		seekBar.setProgress(0);
 		seekBar.setMax(100);
-		//seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar));
+		// seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar));
 		final TextView seekBarValue = (TextView) findViewById(R.id.seekbarvalue);
-		seekBarValue.setTextColor(Color.rgb(0,255,0));
+		seekBarValue.setTextColor(Color.rgb(0, 255, 0));
 		seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				seekBarValue.setText(String.valueOf(progress));
-				if(progress <= 25){
-					int c = Color.rgb((int)((float)(progress/25)*255),255,0);
+				if (progress <= 25) {
+					int c = Color.rgb((int) ((float) (progress / 25) * 255),
+							255, 0);
 					seekBarValue.setTextColor(c);
-		            //setProgressBarColor(seekBar,c);
-				}else{
-					int c = Color.rgb(255,255-(int)((float)(progress-25)/75*255),0);
+					// setProgressBarColor(seekBar,c);
+				} else {
+					int c = Color
+							.rgb(255,
+									255 - (int) ((float) (progress - 25) / 75 * 255),
+									0);
 					seekBarValue.setTextColor(c);
-		            //setProgressBarColor(seekBar,c);
+					// setProgressBarColor(seekBar,c);
 				}
 			}
 
@@ -194,77 +225,99 @@ public class NewEventActivity extends ActionBarActivity {
 	}
 
 	public void AddEvent(View cvView) {
-		CheckBox Fixed=(CheckBox)findViewById(R.id.checkBox1);
+
+		CheckBox Fixed = (CheckBox) findViewById(R.id.checkBox1);
 		GlobalV global = ((GlobalV) getApplicationContext());
 		global.flexList.list.size();
-		//DatePicker date = (DatePicker) findViewById(R.id.datePicker1);
+		// DatePicker date = (DatePicker) findViewById(R.id.datePicker1);
 		TimePicker time = (TimePicker) findViewById(R.id.timePicker1);
 		EditText title = (EditText) findViewById(R.id.editText1);
 		EditText description = (EditText) findViewById(R.id.editText2);
 		EditText timeNeed = (EditText) findViewById(R.id.editText3);
-		
-		
+
 		LayoutInflater inflater = getLayoutInflater();
-		final View layout = inflater.inflate( R.layout.add_done_dialog,
+		final View layout = inflater.inflate(R.layout.add_done_dialog,
 				(ViewGroup) findViewById(R.id.addDone));
 		TextView text = (TextView) layout.findViewById(R.id.textView1);
 		text.setTextSize(25);
-		if(Fixed.isChecked())
-			text.setText(title.getText().toString()+ " has been added to the fixed-time list.");
+		if (Fixed.isChecked())
+			text.setText(title.getText().toString()
+					+ " has been added to the fixed-time list.");
 		else
-			text.setText(title.getText().toString()+ " has been added to the flexible-time list.");
-		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-		dialog.setView(layout);
-		dialog.setTitle("Succeeded"); // 設定dialog 的title顯示內容
-		dialog.setCancelable(false);
-		dialog.setPositiveButton("OK",
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-					}});
-		dialog.show();
-				
-		
-		deadline.set(deadline.get(Calendar.YEAR), deadline.get(Calendar.MONTH), deadline.get(Calendar.DATE),hour,minute);
-		
+			text.setText(title.getText().toString()
+					+ " has been added to the flexible-time list.");
 
-		SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
+		try {
 
-		CalEvent event = new CalEvent(title.getText().toString(), description
-				.getText().toString(), Long.parseLong(timeNeed.getText()
-				.toString()), deadline, seekBar.getProgress());
+			
+			deadline.set(deadline.get(Calendar.YEAR),
+					deadline.get(Calendar.MONTH), deadline.get(Calendar.DATE),
+					hour, minute);
 
-		
-		if(Fixed.isChecked()){
-			global.fixedList.add(event);
-			global.fixedList.SortByDate();
-			global.fixedList.saveToFile(runing);
-		}else{
-			global.flexList.add(event);
+			SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar1);
+
+			CalEvent event = new CalEvent(title.getText().toString(),
+					description.getText().toString(), Long.parseLong(timeNeed
+							.getText().toString()), deadline,
+					seekBar.getProgress());
+
+			if (Fixed.isChecked()) {
+				global.fixedList.add(event);
+				global.fixedList.SortByDate();
+				global.fixedList.saveToFile(runing);
+			} else {
+				global.flexList.add(event);
+			}
+
+			maintainList();
+			
+			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			dialog.setView(layout);
+			dialog.setTitle("Succeeded"); // 設定dialog 的title顯示內容
+			dialog.setCancelable(false);
+			dialog.setPositiveButton("OK",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					});
+			dialog.show();
+		} catch (Exception e) {
+			AlertDialog.Builder builder = new Builder(this);
+			builder.setMessage("Please enter valid data");
+			builder.setTitle("Error");
+			builder.setPositiveButton("OK",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+			builder.show();
 		}
 
-		maintainList();
-
 	}
+
 	/*
-	public void Debug(View cvView) {
-		ListOfEvent readList = new ListOfEvent("flexList");
-		readList.readFromFile(runing);
-		TextView output = (TextView) findViewById(R.id.textView3);
-		output.setText(readList.debug());
-	}*/
+	 * public void Debug(View cvView) { ListOfEvent readList = new
+	 * ListOfEvent("flexList"); readList.readFromFile(runing); TextView output =
+	 * (TextView) findViewById(R.id.textView3);
+	 * output.setText(readList.debug()); }
+	 */
 
 	public void maintainList() {
 		String strInputMsg = "maintainList";
 		Intent msgIntent = new Intent(this, PriorityService.class);
 		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 		startService(msgIntent);
-		
+
 		String strInputMsg2 = "reAssignTask";
 		Intent msgIntent2 = new Intent(this, PriorityService.class);
 		msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
 		startService(msgIntent2);
-		Log.d("msg2","suceed");
+		Log.d("msg2", "suceed");
 	}
 
 	public class ResponseReceiver extends BroadcastReceiver {
@@ -273,8 +326,6 @@ public class NewEventActivity extends ActionBarActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 
-			
-			
 		}
 	}
 

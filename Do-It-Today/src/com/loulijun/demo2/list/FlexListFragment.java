@@ -170,7 +170,14 @@ public class FlexListFragment extends Fragment {
 								getActivity().startService(msgIntent2);
 							}
 						});
-				dialog.setNeutralButton("Delete",
+				String dString;
+				if(global.flexList.list.get(position).duration<=global.flexList.list.get(position).timeSpent){
+					dString="Finish";
+				}else{
+					dString="Delete";
+				}
+				
+				dialog.setNeutralButton(dString,
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
