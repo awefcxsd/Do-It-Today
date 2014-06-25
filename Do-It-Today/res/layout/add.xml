@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:background="#ffffffff"
         android:orientation="vertical" >
 
@@ -25,14 +26,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="5"
-                android:text="Fixed" />
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="94dp"
-                android:layout_height="33dp"
-                android:background="@drawable/add_done"
-                android:onClick="AddEvent" />
+                android:text="Fixed"
+                android:textSize="20dp" />
 
         </LinearLayout>
 
@@ -42,7 +37,7 @@
             android:layout_marginBottom="10dp" >
 
             <TextView
-                android:id="@+id/textViewFragment"
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
@@ -87,6 +82,34 @@
 
                 <requestFocus />
             </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" >
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deadline"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/GrayBlack" />
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:ems="10" />
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:ems="10" />
         </LinearLayout>
 
         <LinearLayout
@@ -148,35 +171,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </LinearLayout>
-		
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" >
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Deadline"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/GrayBlack" />
-
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:ems="10" />
-            
-            <EditText
-                android:id="@+id/editText5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:ems="10" />
-
-        </LinearLayout>
 
         <ScrollView
             android:id="@+id/scrollView1"
@@ -187,6 +181,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="94dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/add_done"
+                    android:onClick="AddEvent" />
+
             </LinearLayout>
         </ScrollView>
 

@@ -237,13 +237,13 @@ public class NewEventActivity extends ActionBarActivity {
 		maintainList();
 
 	}
-
+	/*
 	public void Debug(View cvView) {
 		ListOfEvent readList = new ListOfEvent("flexList");
 		readList.readFromFile(runing);
 		TextView output = (TextView) findViewById(R.id.textView3);
 		output.setText(readList.debug());
-	}
+	}*/
 
 	public void maintainList() {
 		String strInputMsg = "maintainList";
