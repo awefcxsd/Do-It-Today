@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
+import com.loulijun.demo2.arrange.ArrangeListAdapter;
 import com.loulijun.demo2.data.CalDay;
 import com.loulijun.demo2.data.CalEvent;
 import com.loulijun.demo2.data.CalMapEvent;
@@ -43,6 +44,8 @@ public class PriorityService extends IntentService {
 
 	public static final String PARAM_IN_MSG = "imsg";
     public static final String PARAM_OUT_MSG = "omsg";
+    public static final String ADAPT_IN_MSG = "aimsg";
+    public static final String ADAPT_OUT_MSG = "aomsg";
 	
 	public PriorityService() {
 		super("PriorityService");
@@ -60,6 +63,15 @@ public class PriorityService extends IntentService {
 		if(msg.equals("maintainList"))
 		{
 			reArrangeList();
+			
+			Intent broadcastIntent = new Intent();
+			broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
+			broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+			
+			String resultTxt = "DataChange";
+			broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
+			sendBroadcast(broadcastIntent);
+			
 		}
 		else if(msg.equals("reAssignTask"))
 		{
@@ -83,10 +95,52 @@ public class PriorityService extends IntentService {
 			
 			String resultTxt = "EventReassign";
 			broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
+			broadcastIntent.putExtra(ADAPT_OUT_MSG, "Not");
 			sendBroadcast(broadcastIntent);
 			
 		
 		
+		}
+		else if (msg.equals("arrangeUncheck")) {
+			
+			reArrangeList();
+			
+
+			long days = (long) (60*60*24*1000);
+			days *= 60;
+			
+			
+			Date finalDate = new Date(Calendar.getInstance().getTime().getTime() + days);
+			
+			//could calculate to last deadline or till event is empty? 
+			reAssignTask(finalDate);
+			
+			
+			//add fixedList
+			reAssignFixedList();
+			
+			
+			
+			
+			
+			Intent broadcastIntent = new Intent();
+			broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
+			broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+			
+			String resultTxt = "DataChange";
+			broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
+			sendBroadcast(broadcastIntent);
+			
+			
+			Intent broadcastIntent2 = new Intent();
+			broadcastIntent2.setAction(ResponseReceiver.ACTION_RESP);
+			broadcastIntent2.addCategory(Intent.CATEGORY_DEFAULT);
+			
+			String resultTxt2 = "EventReassign";
+			broadcastIntent2.putExtra(PARAM_OUT_MSG, resultTxt2);
+			broadcastIntent2.putExtra(ADAPT_OUT_MSG, "Yes");
+			sendBroadcast(broadcastIntent2);
+			
 		}
 		
 	}
@@ -239,13 +293,7 @@ public class PriorityService extends IntentService {
 		Collections.sort(global.flexList.list, new CalEventComparator());
 		global.flexList.saveToFile(this);
 		
-		Intent broadcastIntent = new Intent();
-		broadcastIntent.setAction(ResponseReceiver.ACTION_RESP);
-		broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
 		
-		String resultTxt = "DataChange";
-		broadcastIntent.putExtra(PARAM_OUT_MSG, resultTxt);
-		sendBroadcast(broadcastIntent);
 		
 		
 	}

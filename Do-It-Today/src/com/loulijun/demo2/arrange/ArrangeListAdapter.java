@@ -1,5 +1,6 @@
 package com.loulijun.demo2.arrange;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -29,7 +30,7 @@ import android.widget.TextView;
 
 //here's our beautiful adapter
 
-public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
+public class ArrangeListAdapter extends ArrayAdapter<CalEvent> implements Serializable {
 
 	Context mContext;
 	int layoutResourceId;
@@ -155,15 +156,16 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 			today.calArray[position]= new CalEvent();
 			
 			Log.d("uncheck", "lalala");
-			String strInputMsg = "maintainList";
+			
+			
+			
+			String strInputMsg = "arrangeUncheck";
 			Intent msgIntent = new Intent(running, PriorityService.class);
 			msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+			
 			running.startService(msgIntent);
 
-			String strInputMsg2 = "reAssignTask";
-			Intent msgIntent2 = new Intent(running, PriorityService.class);
-			msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
-			running.startService(msgIntent2);
+			
 			
 			notifyDataSetChanged();
 		}

@@ -11,6 +11,7 @@ import com.loulijun.demo2.data.CalEvent;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -181,6 +182,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 											if(global.flexList.list.get(changeSelect).machineTimeSpent>global.flexList.list.get(changeSelect).duration){
 												global.flexList.list.get(changeSelect).duration=global.flexList.list.get(changeSelect).machineTimeSpent;
 											}
+											maintain();
 											refreshPage();
 											adapter.notifyDataSetChanged();
 										} else {
@@ -195,6 +197,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 												global.flexList.list.get(changeSelect).duration=global.flexList.list.get(changeSelect).machineTimeSpent;
 											}
 											refreshPage();
+											maintain();
 											adapter.notifyDataSetChanged();
 										}
 									}
@@ -219,6 +222,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 											target.calArray[chlickpoint].machineTimeSpent-=60*60;}
 										target.calArray[chlickpoint]=null;
 										refreshPage();
+										maintain();
 										adapter.notifyDataSetChanged();
 									} else {
 										setPast();
@@ -228,6 +232,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 											target.calArray[chlickpoint].machineTimeSpent-=60*60;}
 										target.calArray[chlickpoint]=null;
 										refreshPage();
+										maintain();
 										adapter.notifyDataSetChanged();
 										
 									}
@@ -269,6 +274,17 @@ public class ArrangeSlidePageFragment extends Fragment {
 		return rootView;
 	}
 
+	public void maintain()
+	{
+
+		String strInputMsg = "arrangeUncheck";
+		Intent msgIntent = new Intent(this.getActivity(), PriorityService.class);
+		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+		
+		this.getActivity().startService(msgIntent);
+		
+	}
+	
 	public void setPast() {
 		Log.d("key", date);
 		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());

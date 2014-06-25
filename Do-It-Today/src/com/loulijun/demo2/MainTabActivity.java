@@ -1,7 +1,9 @@
 package com.loulijun.demo2;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 import com.loulijun.demo2.data.CalDay;
 import com.loulijun.demo2.data.ListOfEvent;
@@ -29,7 +31,9 @@ public class MainTabActivity extends TabActivity implements
 	private Intent iSearch;
 	private Intent iMore;
 	Activity runing = this;
-
+	Calendar timeResume;
+	
+	
 	public void setFont(String string) {
 		SpannableString s;
 		s = new SpannableString((CharSequence) string);
@@ -114,16 +118,30 @@ public class MainTabActivity extends TabActivity implements
 	{
 		//for debug
 		super.onResume();
-		Log.d("Matintab", "OnResume");
-		String strInputMsg = "maintainList";
-		Intent msgIntent = new Intent(this, PriorityService.class);
-		msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
-		startService(msgIntent);
+		Calendar forCheck = Calendar.getInstance();
+		forCheck.setTime(new Date(forCheck.getTimeInMillis()-TimeUnit.HOURS.toMillis((long)1)));
+			
+		if(timeResume!=null )
+		{
+			if( timeResume.before(forCheck))
+			{
+				Log.d("Matintab", "OnResume");
+				String strInputMsg = "maintainList";
+				Intent msgIntent = new Intent(this, PriorityService.class);
+				msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+				startService(msgIntent);
 
-		String strInputMsg2 = "reAssignTask";
-		Intent msgIntent2 = new Intent(this, PriorityService.class);
-		msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
-		startService(msgIntent2);
+				String strInputMsg2 = "reAssignTask";
+				Intent msgIntent2 = new Intent(this, PriorityService.class);
+				msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+				startService(msgIntent2);
+				timeResume = Calendar.getInstance();
+			}
+		}
+		else 
+		{
+			timeResume = Calendar.getInstance();
+		}
 	}
 
 	@Override

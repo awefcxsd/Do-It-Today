@@ -103,12 +103,20 @@ public class ArangeActivity extends FragmentActivity {
 			Log.d("NEW EVENT", text);
 			if(text.equals("EventReassign"))
 			{
-			setContentView(R.layout.arrange);
-			mPager = (ViewPager) findViewById(R.id.pager);
-	        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-	        mPager.setAdapter(mPagerAdapter);
-	        mPager.setCurrentItem( 500, false); // set current item in the adapter to middle
-			}
+				String text2 = intent.getStringExtra(PriorityService.ADAPT_OUT_MSG);
+				if(text2!=null && text2.equals("Not"))
+				{
+				setContentView(R.layout.arrange);
+				mPager = (ViewPager) findViewById(R.id.pager);
+				mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+				mPager.setAdapter(mPagerAdapter);
+				mPager.setCurrentItem( 500, false); // set current item in the adapter to middle
+			
+				}
+				else if (text2!=null && text2.equals("Yes")) {
+					
+				}
+			}			
 
 		}
 	}
