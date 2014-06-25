@@ -1,5 +1,6 @@
 package com.loulijun.demo2;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -20,6 +21,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.SparseArray;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,16 +69,26 @@ public class ArangeActivity extends FragmentActivity {
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
      */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
+    public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter{
+    	/**
+		 * 
+		 */
+		//private static final long serialVersionUID = 1179466384364630201L;
+		public SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+    	
+    	
+    	public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
         	
-        	Fragment temp=new ArrangeSlidePageFragment();
+        	ArrangeSlidePageFragment temp=new ArrangeSlidePageFragment();
+        	temp.passPageAdapter(this);
+        	
         	Bundle Data = new Bundle();
+        	//Data.putSerializable("pageAdapter", this);
         	Data.putInt("pos",position);
         	temp.setArguments(Data);
         	
@@ -85,6 +98,26 @@ public class ArangeActivity extends FragmentActivity {
         @Override
         public int getCount() {
             return NUM_PAGES;
+        }
+        
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+        	Log.d("Fragment create", Integer.toString(position));
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            registeredFragments.put(position, fragment);
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+        	Log.d("Fragment delete", Integer.toString(position));
+            registeredFragments.remove(position);
+            super.destroyItem(container, position, object);
+        }
+
+        public Fragment getRegisteredFragment(int position) {
+        	
+            return registeredFragments.get(position,null);
         }
         
         public int getItemPosition(Object object) {

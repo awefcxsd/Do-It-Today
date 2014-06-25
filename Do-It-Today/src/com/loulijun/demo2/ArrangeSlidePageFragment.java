@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import com.loulijun.demo2.ArangeActivity.ScreenSlidePagerAdapter;
 import com.loulijun.demo2.arrange.ArrangeListAdapter;
 import com.loulijun.demo2.data.CalDay;
 import com.loulijun.demo2.data.CalEvent;
@@ -34,16 +35,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ArrangeSlidePageFragment extends Fragment {
+public class ArrangeSlidePageFragment extends Fragment{
 	String date;
 	String date_above;
 	private ListView listView;
-	private ArrayAdapter<CalEvent> adapter;
+	public ArrayAdapter<CalEvent> adapter;
 	boolean isSet = false;
 	Calendar current;
 	int changeSelect = -1;
 	boolean isRefresh = true;
+	int position = 0;
+	ScreenSlidePagerAdapter pageAdapter;
 	
+	
+	
+	
+	public void passPageAdapter(ScreenSlidePagerAdapter dap)
+	{
+		pageAdapter = dap;
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +76,11 @@ public class ArrangeSlidePageFragment extends Fragment {
 		Typeface type = Typeface.createFromAsset(getActivity().getAssets(),
 				"fonts/monofonto.ttf");
 
-		int position = Data.getInt("pos");
+		//pageAdapter = (ScreenSlidePagerAdapter) Data.getSerializable("pageAdapter");
+		position = Data.getInt("pos");
+		
+		
+		
 		current = new GregorianCalendar();
 		current.add(Calendar.DATE, position - 500);
 
@@ -187,7 +201,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 											}
 											maintain();
 											refreshPage();
-											adapter.notifyDataSetChanged();
+											//adapter.notifyDataSetChanged();
 										} else {
 											setPast();
 											isSet=true;
@@ -201,7 +215,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 											}
 											refreshPage();
 											maintain();
-											adapter.notifyDataSetChanged();
+											//adapter.notifyDataSetChanged();
 										}
 									}
 								}
@@ -226,7 +240,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 										target.calArray[chlickpoint]=null;
 										refreshPage();
 										maintain();
-										adapter.notifyDataSetChanged();
+										//adapter.notifyDataSetChanged();
 									} else {
 										setPast();
 										isSet=true;
@@ -236,7 +250,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 										target.calArray[chlickpoint]=null;
 										refreshPage();
 										maintain();
-										adapter.notifyDataSetChanged();
+										//adapter.notifyDataSetChanged();
 										
 									}
 								}
@@ -268,8 +282,51 @@ public class ArrangeSlidePageFragment extends Fragment {
 				Button btn = (Button) v.findViewById(R.id.set);
 				btn.setBackgroundResource(R.drawable.ic_action_refresh2);
 				btn.startAnimation(animRotate);
-				setPast();
-				adapter.notifyDataSetChanged();
+				
+				
+				GlobalV global = ((GlobalV) getActivity().getApplicationContext());
+				CalDay today = new CalDay();
+				if (global.pastList.map.containsKey(date)) {
+					isSet = true;
+					today = global.pastList.map.get(date);
+				} else {
+					isSet = false;
+				}
+				
+				if(isSet){
+					//save calday
+					//remove from calmap
+					Log.d("isSet", date);
+					global.pastList.map.remove(date);
+					//handle calevent  machine-1
+					Calendar nowCalendar = Calendar.getInstance();
+					for(int i=0;i<24;++i)
+					{
+						CalEvent event = today.calArray[i];
+						if(event!=null)
+						{
+							event.machineTimeSpent -= (60*60);
+						}	
+					}
+					//maintain
+					maintain();
+					//add before now to calDay
+					Calendar eventCalendar = (Calendar)current.clone();
+					for(int i=0;i<24;++i)		
+					{
+							eventCalendar.set(Calendar.HOUR_OF_DAY, i);
+							if(nowCalendar.after(eventCalendar))
+							{
+								global.calMapEvent.getDayEvent(date).calArray[i]=today.calArray[i];	
+							}
+					}
+					
+					setPast();
+				}else{
+					setPast();
+				}
+				//adapter.notifyDataSetChanged();
+				refreshPage();
 			}
 
 		});
@@ -298,7 +355,7 @@ public class ArrangeSlidePageFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		
+		Log.d("onresume", date);
 		adapter.notifyDataSetChanged();
 	}
 
@@ -306,6 +363,18 @@ public class ArrangeSlidePageFragment extends Fragment {
 	
 	
 	public void refreshPage(){
+		
+		for(int i=position-1;i<position+2;++i)
+		{
+			if(pageAdapter!=null){
+			
+			if(pageAdapter.getRegisteredFragment(i)!=null)
+			{
+				ArrangeSlidePageFragment thisFragment =(ArrangeSlidePageFragment) pageAdapter.getRegisteredFragment(i);
+				thisFragment.adapter.notifyDataSetChanged();
+			}
+			}
+		}
 		//Fragment currentFragment = this;
 	    //FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
 	    //fragTransaction.detach(currentFragment);
