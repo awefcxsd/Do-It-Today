@@ -64,7 +64,7 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		GlobalV global = ((GlobalV) running.getApplicationContext());
-		CalDay today;
+		//CalDay today;
 		if (global.pastList.map.containsKey(date)) {
 			isSet=true;
 		}
@@ -128,8 +128,42 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 		}
 
 		public void onClick(View v) {
-			check.set(position, !check.get(position));
-			//CalEvent event = data.get(position);
+			//check.set(position, !check.get(position));
+			CalEvent event = data.get(position);
+			thisTime.set(thisTime.get(Calendar.YEAR), thisTime.get(Calendar.MONTH), thisTime.get(Calendar.DATE), position, 0, 0);
+			
+			GlobalV global = ((GlobalV) running.getApplicationContext());
+			CalDay today;
+			if (global.pastList.map.containsKey(date)) {
+				today = global.pastList.map.get(date);
+			} else {
+				//wrong
+				Log.d("Wrong", "WHY?");
+				today = global.calMapEvent.getDayEvent(date);
+			}
+			Calendar now = Calendar.getInstance();
+			now.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DATE), 0, 0, 0);
+			
+			//cause only before today is added
+			if(now.after(thisTime))
+			{
+				event.timeSpent -= (60*60);
+			}
+			
+			event.machineTimeSpent -= (60*60);
+			
+			today.calArray[position]= new CalEvent();
+			
+			Log.d("uncheck", "lalala");
+			String strInputMsg = "maintainList";
+			Intent msgIntent = new Intent(running, PriorityService.class);
+			msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+			running.startService(msgIntent);
+
+			String strInputMsg2 = "reAssignTask";
+			Intent msgIntent2 = new Intent(running, PriorityService.class);
+			msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+			running.startService(msgIntent2);
 			
 			notifyDataSetChanged();
 		}

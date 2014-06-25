@@ -39,6 +39,7 @@ public class CalEvent implements Serializable, Cloneable{
 	
 	public CalEvent()
 	{
+		type = "";
 		title = "";
 		description = "";
 		duration = 0;
@@ -49,6 +50,7 @@ public class CalEvent implements Serializable, Cloneable{
 	
 	public void setNull()
 	{
+		type = "";
 		title = "";
 		description = "";
 		duration = 0;
