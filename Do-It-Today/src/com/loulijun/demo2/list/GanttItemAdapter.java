@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -110,7 +111,9 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 			text.setHeight(convertDpToPixel(70,context));
 			text.setWidth(convertDpToPixel(70,context));
 			text.setTextColor(Color.WHITE);
-			text.setBackgroundColor(Color.rgb(58,107,246));
+			Drawable drawable = context.getResources().getDrawable(R.drawable.gantt2);
+			text.setBackground(drawable);
+			//text.setBackgroundColor(Color.rgb(58,107,246));
 			
 			
 		}
