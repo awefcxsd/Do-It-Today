@@ -55,7 +55,7 @@ public class MainTabActivity extends TabActivity implements
 
 
 		// DEBUG!!!!
-		AutoGenerateEvent.generate(global);
+		//AutoGenerateEvent.generate(global);
 
 		setContentView(R.layout.main);
 		mainTab = (RadioGroup) findViewById(R.id.main_tab);

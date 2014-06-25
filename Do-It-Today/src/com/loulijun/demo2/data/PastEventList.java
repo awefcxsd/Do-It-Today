@@ -38,7 +38,7 @@ public class PastEventList implements Serializable {
 	}
 
 	public void saveToFile(Context runing) {
-		/*FileOutputStream fout = null;
+		FileOutputStream fout = null;
 		ObjectOutputStream oos = null;
 		try {
 			fout = runing.openFileOutput("past", Context.MODE_PRIVATE);
@@ -61,13 +61,13 @@ public class PastEventList implements Serializable {
 					e2.printStackTrace();
 				}
 			}
-		}*/
+		}
 	}
 
 	
 	
 	public void readFromFile(Activity runing) {
-		/*FileInputStream fin = null;
+		FileInputStream fin = null;
 		ObjectInputStream ois = null;
 		try {
 			fin = runing.openFileInput("past");
@@ -91,6 +91,6 @@ public class PastEventList implements Serializable {
 					e2.printStackTrace();
 				}
 			}
-		}*/
+		}
 	}
 }

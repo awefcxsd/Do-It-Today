@@ -282,6 +282,11 @@ public class NewEventActivity extends ActionBarActivity {
 						}
 					});
 			dialog.show();
+			
+			title.setText("");
+			description.setText("");
+			timeNeed.setText("");
+			seekBar.setProgress(0);
 		} catch (Exception e) {
 			AlertDialog.Builder builder = new Builder(this);
 			builder.setMessage("Please enter valid data");
