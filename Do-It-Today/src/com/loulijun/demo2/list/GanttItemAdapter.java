@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import com.loulijun.demo2.GlobalV;
 import com.loulijun.demo2.R;
+import com.loulijun.demo2.data.CalDay;
 
 import android.R.integer;
 import android.app.Activity;
@@ -56,7 +57,7 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 			int dayNum = position % col;
 
 			GlobalV global = ((GlobalV) context.getApplicationContext());
-			global.flexList.list.get(eventNum);
+			
 			Calendar check = (Calendar) startTime.clone();
 			check.add(Calendar.DATE, dayNum);
 			check.set(check.get(Calendar.YEAR), check.get(Calendar.MONTH),
@@ -69,7 +70,29 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 					&& check.get(Calendar.DATE) == global.flexList.list
 							.get(eventNum).deadline.get(Calendar.DATE);
 
-			boolean startday = check.get(Calendar.YEAR) == global.flexList.list
+			
+			CalDay today;
+			String date = check.get(Calendar.YEAR) + "/"
+					+ (check.get(Calendar.MONTH) + 1) + "/"
+					+ check.get(Calendar.DATE);
+			if (global.pastList.map.containsKey(date)) {
+				today = global.pastList.map.get(date);
+			} else {
+				today = global.calMapEvent.getDayEvent(date);
+			}
+			boolean doit=false;
+			for(int i=0;i<24;i++){
+				if(today.calArray[i]!=null){
+					if(today.calArray[i].equals(global.flexList.list.get(eventNum))){
+						doit=true;
+						break;
+					}
+					
+				}
+			}
+			
+			
+			/*boolean startday = check.get(Calendar.YEAR) == global.flexList.list
 					.get(eventNum).startTime.get(Calendar.YEAR)
 					&& check.get(Calendar.MONTH) == global.flexList.list
 							.get(eventNum).startTime.get(Calendar.MONTH)
@@ -85,11 +108,11 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 
 			boolean between = check.compareTo(global.flexList.list
 					.get(eventNum).startTime) > 0
-					&& check.compareTo(global.flexList.list.get(eventNum).endTime) < 0;
+					&& check.compareTo(global.flexList.list.get(eventNum).endTime) < 0;*/
 
 			if (deaday) {
 				convertView.setBackgroundColor(Color.rgb(252,167,177));
-			} else if (between || startday || endday) {
+			} else if (doit) {
 				convertView.setBackgroundColor(Color.rgb(164,255,120));
 			} else {
 				convertView.setBackgroundColor(Color.WHITE);

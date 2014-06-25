@@ -163,7 +163,7 @@ public class SearchActivity extends Activity {
 		
 		
 		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertDpToPixel(col*50,this)+50, convertDpToPixel((row+1)*50,this)+50);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertDpToPixel(col*50,this)+50, convertDpToPixel((row+1)*51,this)+50);
 		frame.setLayoutParams(lp);
 		
 		
@@ -178,7 +178,7 @@ public class SearchActivity extends Activity {
 		adapter = new GanttItemAdapter(this, 0, data,(Calendar)min.clone(),col,row);
 		gridView.setAdapter(adapter);
 		
-		
+		adapter.notifyDataSetChanged();
 		
 	}
 	
