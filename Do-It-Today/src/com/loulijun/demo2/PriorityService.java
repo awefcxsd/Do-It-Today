@@ -216,22 +216,29 @@ public class PriorityService extends IntentService {
 							count = 0;
 							
 							
-							while((flexibleList.get(eventNum).duration-flexibleList.get(eventNum).machineTimeSpent) <= 0 && count < maxEventNum)
+							while((count < maxEventNum) && (flexibleList.get(eventNum).duration-flexibleList.get(eventNum).machineTimeSpent) <= 0 )
 							{
 								eventNum = (eventNum+1) % maxEventNum;
 								count++;
 							}
 						
+							if(count >= maxEventNum)
+							{
+								break;
+							}
+							
 							//pass event to cal array
 							calDay.calArray[hour] = global.flexList.list.get(eventNum);
 							
 							
 							//endTime startTime
-							global.flexList.list.get(eventNum).endTime = today;
+							global.flexList.list.get(eventNum).endTime = (Calendar)today.clone();
 							
 							if(flexibleList.get(eventNum).machineTimeSpent<=0 && global.flexList.list.get(eventNum).timeSpent<=0)
 							{
-								global.flexList.list.get(eventNum).startTime = today;
+								//Log.d("event", global.flexList.list.get(eventNum).title);
+								//Log.d("count",Integer.toString(count));
+								global.flexList.list.get(eventNum).startTime = (Calendar)today.clone();
 							}
 							flexibleList.get(eventNum).machineTimeSpent += (60*60);
 						}
