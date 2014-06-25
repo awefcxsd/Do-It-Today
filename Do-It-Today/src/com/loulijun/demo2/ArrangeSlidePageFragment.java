@@ -30,42 +30,44 @@ import android.widget.Toast;
 
 public class ArrangeSlidePageFragment extends Fragment {
 	String date;
+	String date_above;
 	private ListView listView;
 	private ArrayAdapter<CalEvent> adapter;
 	boolean isSet=false;
-	
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-	
 	public String getMonth(int month) {
 	    return new DateFormatSymbols().getMonths()[month-1];
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Typeface type = Typeface.createFromAsset(getActivity().getAssets()  ,"fonts/monofonto.ttf");
+
 		ViewGroup rootView = (ViewGroup) inflater.inflate(
 				R.layout.arrangefragment, container, false);
 		TextView output = (TextView) rootView
 				.findViewById(R.id.textViewFragment);
 		Bundle Data = this.getArguments();
+		Typeface type = Typeface.createFromAsset(getActivity().getAssets()  ,"fonts/monofonto.ttf");
 
 		int position = Data.getInt("pos");
 		Calendar current = new GregorianCalendar();
 		current.add(Calendar.DATE, position - 500);
 
-		date = getMonth(current.get(Calendar.MONTH)+1)
-			   +current.get(Calendar.DATE)+","
-			   +current.get(Calendar.YEAR);
-		output.setTextSize(30);
+		date = current.get(Calendar.YEAR) + "/"
+				+ (current.get(Calendar.MONTH) + 1) + "/"
+				+ current.get(Calendar.DATE);
+		
+		date_above = getMonth(current.get(Calendar.MONTH)+1)
+				   +current.get(Calendar.DATE)+","
+				   +current.get(Calendar.YEAR);
+		output.setTextSize(25);
 		output.setTextColor(Color.GRAY);
 		output.setTypeface(type);
-		output.setText(date);
-		
+		output.setText(date_above);
 
 		listView = (ListView) rootView.findViewById(R.id.DateEventList);
 
