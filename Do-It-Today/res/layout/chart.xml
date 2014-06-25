@@ -54,7 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/GrayBlack" />
 
         <EditText
             android:id="@+id/editText1"
@@ -78,7 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/GrayBlack" />
 
         <EditText
             android:id="@+id/editText2"
@@ -102,7 +104,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Duration"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/GrayBlack" />
 
         <EditText
             android:id="@+id/editText3"
@@ -126,7 +129,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Progress"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/GrayBlack" />
 
         <ProgressBar
             android:id="@+id/progressBar1"

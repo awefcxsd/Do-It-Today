@@ -53,18 +53,20 @@
     		    style="@style/main_tab_bottom"
     		    android:drawableTop="@drawable/icon_3_n"
     		    android:gravity="center" />
-
+    		
+			<RadioButton
+    		    android:id="@+id/radio_button4"
+    		    style="@style/main_tab_bottom"
+    		    android:drawableTop="@drawable/icon_5_n"
+    		    android:gravity="center" />
+    		
     		<RadioButton
     		    android:id="@+id/radio_button3"
-    		    style="@style/main_tab_bottom"
+    		    style="@style/main_tab_bottom_right"
     		    android:drawableTop="@drawable/icon_4_n"
     		    android:gravity="center" />
 
-    		<RadioButton
-    		    android:id="@+id/radio_button4"
-    		    style="@style/main_tab_bottom_right"
-    		    android:drawableTop="@drawable/icon_5_n"
-    		    android:gravity="center" />
+    		
 
     	</RadioGroup>
     </LinearLayout>

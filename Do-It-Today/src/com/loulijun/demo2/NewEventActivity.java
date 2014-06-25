@@ -25,11 +25,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -68,7 +70,9 @@ public class NewEventActivity extends ActionBarActivity {
 		setContentView(R.layout.add);
 		Log.d("", "on");
 		Typeface type = Typeface.createFromAsset(getAssets(),"fonts/monofonto.ttf");
-		
+		WindowManager wm = getWindowManager();
+        
+        
 		//Daypicker Setting
 		Calendar c = Calendar.getInstance();
 		String strDate = sdf.format(c.getTime());
@@ -135,6 +139,8 @@ public class NewEventActivity extends ActionBarActivity {
 	    		dialog.setView(layout);
 	    		dialog.setCancelable(false);
 	    		dialog.setTitle("Choose Time");
+
+	            
 	    		dialog.setPositiveButton("OK",
 	    				new DialogInterface.OnClickListener() {
 	    					@Override
@@ -188,7 +194,7 @@ public class NewEventActivity extends ActionBarActivity {
 	}
 
 	public void AddEvent(View cvView) {
-
+		CheckBox Fixed=(CheckBox)findViewById(R.id.checkBox1);
 		GlobalV global = ((GlobalV) getApplicationContext());
 		global.flexList.list.size();
 		//DatePicker date = (DatePicker) findViewById(R.id.datePicker1);
@@ -203,7 +209,10 @@ public class NewEventActivity extends ActionBarActivity {
 				(ViewGroup) findViewById(R.id.addDone));
 		TextView text = (TextView) layout.findViewById(R.id.textView1);
 		text.setTextSize(25);
-		text.setText(title.getText().toString()+ " has been added to the list.");
+		if(Fixed.isChecked())
+			text.setText(title.getText().toString()+ " has been added to the fixed-time list.");
+		else
+			text.setText(title.getText().toString()+ " has been added to the flexible-time list.");
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 		dialog.setView(layout);
 		dialog.setTitle("Succeeded"); // 設定dialog 的title顯示內容
@@ -225,7 +234,7 @@ public class NewEventActivity extends ActionBarActivity {
 				.getText().toString(), Long.parseLong(timeNeed.getText()
 				.toString()), deadline, seekBar.getProgress());
 
-		CheckBox Fixed=(CheckBox)findViewById(R.id.checkBox1);
+		
 		if(Fixed.isChecked()){
 			global.fixedList.add(event);
 			global.fixedList.SortByDate();
