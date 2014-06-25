@@ -22,14 +22,6 @@
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="fill_horizontal"
-            android:layout_weight="0.46"
-            android:text="Set" />
-
         <Button
             android:id="@+id/set"
             android:layout_width="47dp"

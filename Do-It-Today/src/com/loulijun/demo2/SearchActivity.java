@@ -135,7 +135,6 @@ public class SearchActivity extends Activity {
 			text.setTextSize(16);
 			text.setTextColor(Color.WHITE);
 			//text.setBackgroundColor(Color.rgb(58,107,246));
-			
 			Drawable drawable = getResources().getDrawable(R.drawable.gantt);
 			text.setBackground(drawable);
 			text.setGravity(Gravity.CENTER);
