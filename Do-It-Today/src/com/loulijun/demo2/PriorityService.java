@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
+
 //import com.loulijun.demo2.ArrangeSlidePageFragment.ResponseReceiverFragment;
 //import com.loulijun.demo2.ArrangeSlidePageFragment.ResponseReceiverFragment;
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
@@ -33,6 +34,7 @@ import com.loulijun.demo2.data.CalMapEvent;
 import com.loulijun.demo2.data.FixedEventList;
 import com.loulijun.demo2.data.ListOfEvent;
 import com.loulijun.demo2.data.PastEventList;
+import com.loulijun.demo2.util.MapUtil;
 
 import android.R.integer;
 import android.app.IntentService;
@@ -53,6 +55,7 @@ public class PriorityService extends IntentService {
     public static final String REFRESH_OUT_MSG = "romsg";
     public static final String DATE_IN_MSG = "dimsg";
     public static final String DATE_OUT_MSG = "domsg";
+    //public MapUtil mapUtil = new MapUtil();
 	
 	public PriorityService() {
 		super("PriorityService");
@@ -240,7 +243,9 @@ public class PriorityService extends IntentService {
 			//Log.d("dayWeek",Integer.toString(dayWeek));
 			
 			freeTimesInDay = thisFreeMaps.get(dayWeek-1);
-			for(Map.Entry<Integer, Integer> hoursPair : freeTimesInDay.entrySet())
+			
+			Map<Integer,Integer> compareMap = MapUtil.sortByValue(freeTimesInDay);
+			for(Map.Entry<Integer, Integer> hoursPair : compareMap.entrySet())
 			{
 				int start = hoursPair.getKey().intValue();
 				int dur =  hoursPair.getValue().intValue();
@@ -316,12 +321,12 @@ public class PriorityService extends IntentService {
 				calMap.addDayEvent(todayKey, pastEventList.map.get(todayKey));
 			}
 			
-			for(CalEvent calevent : flexibleList)
-			{
-				calevent.calPriority(this);
-			}
+			//for(CalEvent calevent : flexibleList)
+			//{
+			//	calevent.calPriority(this);
+			//}
 			
-			Collections.sort(flexibleList, new CalEventComparator());
+			//Collections.sort(flexibleList, new CalEventComparator());
 			
 			//add one more day
 			today.setTime(new Date(today.getTime().getTime()+(24*60*60*1000)));
@@ -397,8 +402,9 @@ public class PriorityService extends IntentService {
 			return (lhs.priority < rhs.priority)? 1 : -1;
 		}
 	}
-
 	
+	
+
 	
 	
 };
