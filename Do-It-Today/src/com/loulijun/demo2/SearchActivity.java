@@ -31,7 +31,88 @@ public class SearchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ganttchart);
 		
+		/*GlobalV global = ((GlobalV) getApplicationContext());
+		LinearLayout lay=(LinearLayout) findViewById(R.id.titlelayout);
 		
+		Calendar max=Calendar.getInstance();
+		Calendar min=Calendar.getInstance();
+		for(int i=0;i<global.flexList.list.size();i++){
+			if(i==0){
+				max=global.flexList.list.get(i).endTime;
+				min=global.flexList.list.get(i).startTime;
+			}
+			TextView text=new TextView(this);
+			text.setText(global.flexList.list.get(i).title);
+			text.setHeight(convertDpToPixel(50,this));
+			lay.addView(text);
+			Log.d(global.flexList.list.get(i).title, global.flexList.list.get(i).startTime.getTime().toString());
+			if(max.compareTo(global.flexList.list.get(i).endTime)<0){
+				max=global.flexList.list.get(i).endTime;
+			}
+			if(max.compareTo(global.flexList.list.get(i).deadline)<0){
+				max=global.flexList.list.get(i).deadline;
+			}
+			if(min.compareTo(global.flexList.list.get(i).startTime)>0){
+				min=global.flexList.list.get(i).startTime;
+			}
+		}
+		
+		
+
+		
+		
+		int col=daysBetween(min.getTime(), max.getTime())+3;
+		int row=global.flexList.list.size();
+		Calendar minClone = (Calendar) min.clone();
+		LinearLayout dayLay=(LinearLayout) findViewById(R.id.dl);
+		
+		for(int i=0;i<col;i++){
+			if(i==0){
+				TextView text=(TextView) findViewById(R.id.textView2);
+				text.setText((minClone.get(Calendar.MONTH)+1)+"/"+minClone.get(Calendar.DATE));
+				text.setHeight(convertDpToPixel(50,this));
+				text.setWidth(convertDpToPixel(50,this));
+			}
+			else{
+				TextView text=new TextView(this);
+				text.setText((minClone.get(Calendar.MONTH)+1)+"/"+minClone.get(Calendar.DATE));
+				text.setHeight(convertDpToPixel(50,this));
+				text.setWidth(convertDpToPixel(50,this));
+				dayLay.addView(text);
+				Log.d("",text.getText().toString());
+			}
+			minClone.add(Calendar.DATE, 1);
+			
+		}
+		
+		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertDpToPixel(col*50,this)+50, convertDpToPixel(row*50,this)+50);
+		frame.setLayoutParams(lp);
+		
+		
+		GridView gridView = (GridView) findViewById(R.id.gridView1);
+		gridView.setVerticalSpacing(1);
+		gridView.setHorizontalSpacing(1);
+		gridView.setNumColumns(col);
+		ArrayList<String> data = new ArrayList<String>();
+		for (int i = 0; i < col*row; i++) {
+			data.add("1");
+		}
+		adapter = new GanttItemAdapter(this, 0, data,(Calendar)min.clone(),col,row);
+		gridView.setAdapter(adapter);*/
+	}
+
+	
+	
+	
+	public void Test(View cvView) {
+		
+	}
+	@Override
+	public void onResume(){
+		super.onResume();
+		
+setContentView(R.layout.ganttchart);
 		
 		GlobalV global = ((GlobalV) getApplicationContext());
 		LinearLayout lay=(LinearLayout) findViewById(R.id.titlelayout);
@@ -61,14 +142,14 @@ public class SearchActivity extends Activity {
 		
 		
 
-		Log.d("time",max.getTime().toString()+min.getTime().toString());
 		
-		int col=10;
+		
+		int col=daysBetween(min.getTime(), max.getTime())+3;
 		int row=global.flexList.list.size();
 		
 		
 		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertDpToPixel(col*50,this)+50, convertDpToPixel(row*50,this)+50);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(convertDpToPixel(col*50,this)+50, convertDpToPixel((row+1)*50,this)+50);
 		frame.setLayoutParams(lp);
 		
 		
@@ -77,45 +158,14 @@ public class SearchActivity extends Activity {
 		gridView.setHorizontalSpacing(1);
 		gridView.setNumColumns(col);
 		ArrayList<String> data = new ArrayList<String>();
-		for (int i = 0; i < col*row; i++) {
+		for (int i = 0; i < col*(row+1); i++) {
 			data.add("1");
 		}
-		adapter = new GanttItemAdapter(this, 0, data);
+		adapter = new GanttItemAdapter(this, 0, data,(Calendar)min.clone(),col,row);
 		gridView.setAdapter(adapter);
-	}
-
-	public void Test(View cvView) {
 		
-	}
-	@Override
-	public void onResume(){
-		super.onResume();
-		GlobalV global = ((GlobalV) getApplicationContext());
-		LinearLayout lay=(LinearLayout) findViewById(R.id.titlelayout);
 		
-		Calendar max=Calendar.getInstance();
-		Calendar min=Calendar.getInstance();
-		for(int i=0;i<global.flexList.list.size();i++){
-			if(i==0){
-				max=global.flexList.list.get(i).endTime;
-				min=global.flexList.list.get(i).startTime;
-			}
-			TextView text=new TextView(this);
-			text.setText(global.flexList.list.get(i).title);
-			text.setHeight(convertDpToPixel(50,this)+1);
-			lay.addView(text);
-			Log.d(global.flexList.list.get(i).title, global.flexList.list.get(i).startTime.getTime().toString()+"  "+global.flexList.list.get(i).endTime.getTime().toString());
-			if(max.compareTo(global.flexList.list.get(i).endTime)<0){
-				max=global.flexList.list.get(i).endTime;
-			}
-			if(max.compareTo(global.flexList.list.get(i).deadline)<0){
-				max=global.flexList.list.get(i).deadline;
-			}
-			if(min.compareTo(global.flexList.list.get(i).startTime)>0){
-				min=global.flexList.list.get(i).startTime;
-			}
-		}
-		Log.d("time",max.getTime().toString()+min.getTime().toString());
+		
 	}
 	
 
@@ -154,5 +204,8 @@ public class SearchActivity extends Activity {
 	 return metrics.density;
 	}
 	
+	public int daysBetween(Date d1, Date d2){
+        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+	}
 	
 }
