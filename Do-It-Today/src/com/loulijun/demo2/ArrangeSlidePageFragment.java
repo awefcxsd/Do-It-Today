@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import com.loulijun.demo2.ArangeActivity.ResponseReceiver;
 import com.loulijun.demo2.ArangeActivity.ScreenSlidePagerAdapter;
 import com.loulijun.demo2.arrange.ArrangeListAdapter;
 import com.loulijun.demo2.data.CalDay;
@@ -12,14 +13,18 @@ import com.loulijun.demo2.data.CalEvent;
 
 import android.R.integer;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +51,7 @@ public class ArrangeSlidePageFragment extends Fragment{
 	boolean isRefresh = true;
 	int position = 0;
 	ScreenSlidePagerAdapter pageAdapter;
-	
+	//private ResponseReceiverFragment receiver;
 	
 	
 	
@@ -58,8 +63,24 @@ public class ArrangeSlidePageFragment extends Fragment{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/*
+        IntentFilter filter = new IntentFilter(ResponseReceiverFragment.ACTION_RESP);
+		filter.addCategory(Intent.CATEGORY_DEFAULT);
+		receiver = new ResponseReceiverFragment();
+		getActivity().registerReceiver(receiver, filter);
+		 */
+		
+		
 	}
-
+	/*
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getActivity().unregisterReceiver(receiver);
+		
+	}
+	 */
 	public String getMonth(int month) {
 		return new DateFormatSymbols().getMonths()[month - 1];
 	}
@@ -294,6 +315,7 @@ public class ArrangeSlidePageFragment extends Fragment{
 				}
 				
 				if(isSet){
+					/*
 					//save calday
 					//remove from calmap
 					Log.d("isSet", date);
@@ -311,22 +333,33 @@ public class ArrangeSlidePageFragment extends Fragment{
 					//maintain
 					maintain();
 					//add before now to calDay
-					Calendar eventCalendar = (Calendar)current.clone();
-					for(int i=0;i<24;++i)		
-					{
-							eventCalendar.set(Calendar.HOUR_OF_DAY, i);
-							if(nowCalendar.after(eventCalendar))
-							{
-								global.calMapEvent.getDayEvent(date).calArray[i]=today.calArray[i];	
-							}
-					}
 					
-					setPast();
+					
+					
+					
+					Calendar eventCalendar = (Calendar)current.clone();
+					
+					
+					//setPast();
+					
+					String strInputMsg = "serviceRefresh";
+					Intent msgIntent = new Intent(ArrangeSlidePageFragment.this.getActivity(), PriorityService.class);
+					msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+					msgIntent.putExtra(PriorityService.REFRESH_IN_MSG, eventCalendar);
+					msgIntent.putExtra(PriorityService.ADAPT_IN_MSG, today);
+					msgIntent.putExtra(PriorityService.DATE_IN_MSG, date);
+					
+					ArrangeSlidePageFragment.this.getActivity().startService(msgIntent);
+					
+					
+					*/
+					
 				}else{
 					setPast();
+					adapter.notifyDataSetChanged();
 				}
-				//adapter.notifyDataSetChanged();
-				refreshPage();
+				
+				
 			}
 
 		});
@@ -345,6 +378,35 @@ public class ArrangeSlidePageFragment extends Fragment{
 		
 	}
 	
+	/*
+	 public class ResponseReceiverFragment extends BroadcastReceiver {
+			public static final String ACTION_RESP = "com.loulijun.demo2.intent.action.MESSAGE_PROCESSED2";
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+
+				String text = intent.getStringExtra(PriorityService.PARAM_OUT_MSG);
+				Log.d("NEW EVENT", text);
+				if(text.equals("Set"))
+				{
+					String text2 = intent.getStringExtra(PriorityService.ADAPT_OUT_MSG);
+					if(text2!=null && text2.equals("Not"))
+					{
+
+				
+					}
+					else if (text2!=null && text2.equals("Yes")) {
+						Log.d("slideFragment", "succeed");
+						//ArrangeSlidePageFragment.this.setPast();
+						ArrangeSlidePageFragment.this.refreshPage();
+						Log.d("slideFragment", "succeed2");
+					}
+				}			
+
+			}
+		}
+	
+	*/
 	public void setPast() {
 		Log.d("key", date);
 		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
@@ -368,11 +430,12 @@ public class ArrangeSlidePageFragment extends Fragment{
 		{
 			if(pageAdapter!=null){
 			
-			if(pageAdapter.getRegisteredFragment(i)!=null)
-			{
-				ArrangeSlidePageFragment thisFragment =(ArrangeSlidePageFragment) pageAdapter.getRegisteredFragment(i);
-				thisFragment.adapter.notifyDataSetChanged();
-			}
+				if(pageAdapter.getRegisteredFragment(i)!=null)
+				{
+					Log.d("Refresh",Integer.toString(i));
+					ArrangeSlidePageFragment thisFragment =(ArrangeSlidePageFragment) pageAdapter.getRegisteredFragment(i);
+					thisFragment.adapter.notifyDataSetChanged();
+				}
 			}
 		}
 		//Fragment currentFragment = this;

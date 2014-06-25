@@ -37,7 +37,7 @@ public class PastEventList implements Serializable {
 		}
 	}
 
-	public void saveToFile(Activity runing) {
+	public void saveToFile(Context runing) {
 		/*FileOutputStream fout = null;
 		ObjectOutputStream oos = null;
 		try {
@@ -64,6 +64,8 @@ public class PastEventList implements Serializable {
 		}*/
 	}
 
+	
+	
 	public void readFromFile(Activity runing) {
 		/*FileInputStream fin = null;
 		ObjectInputStream ois = null;
