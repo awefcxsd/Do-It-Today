@@ -1,7 +1,10 @@
 package com.loulijun.demo2;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.loulijun.demo2.data.CalDay;
@@ -9,6 +12,7 @@ import com.loulijun.demo2.list.GanttItemAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -31,21 +35,36 @@ public class SearchActivity extends Activity {
 		
 		GlobalV global = ((GlobalV) getApplicationContext());
 		LinearLayout lay=(LinearLayout) findViewById(R.id.titlelayout);
+		
+		Calendar max=Calendar.getInstance();
+		Calendar min=Calendar.getInstance();
 		for(int i=0;i<global.flexList.list.size();i++){
+			if(i==0){
+				max=global.flexList.list.get(i).endTime;
+				min=global.flexList.list.get(i).startTime;
+			}
 			TextView text=new TextView(this);
 			text.setText(global.flexList.list.get(i).title);
 			text.setHeight(convertDpToPixel(50,this)+1);
 			lay.addView(text);
+			Log.d(global.flexList.list.get(i).title, global.flexList.list.get(i).startTime.getTime().toString());
+			if(max.compareTo(global.flexList.list.get(i).endTime)<0){
+				max=global.flexList.list.get(i).endTime;
+			}
+			if(max.compareTo(global.flexList.list.get(i).deadline)<0){
+				max=global.flexList.list.get(i).deadline;
+			}
+			if(min.compareTo(global.flexList.list.get(i).startTime)>0){
+				min=global.flexList.list.get(i).startTime;
+			}
 		}
 		
 		
-		
-		
-		
 
+		Log.d("time",max.getTime().toString()+min.getTime().toString());
 		
 		int col=10;
-		int row=10;
+		int row=global.flexList.list.size();
 		
 		
 		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
@@ -68,7 +87,36 @@ public class SearchActivity extends Activity {
 	public void Test(View cvView) {
 		
 	}
-
+	@Override
+	public void onResume(){
+		super.onResume();
+		GlobalV global = ((GlobalV) getApplicationContext());
+		LinearLayout lay=(LinearLayout) findViewById(R.id.titlelayout);
+		
+		Calendar max=Calendar.getInstance();
+		Calendar min=Calendar.getInstance();
+		for(int i=0;i<global.flexList.list.size();i++){
+			if(i==0){
+				max=global.flexList.list.get(i).endTime;
+				min=global.flexList.list.get(i).startTime;
+			}
+			TextView text=new TextView(this);
+			text.setText(global.flexList.list.get(i).title);
+			text.setHeight(convertDpToPixel(50,this)+1);
+			lay.addView(text);
+			Log.d(global.flexList.list.get(i).title, global.flexList.list.get(i).startTime.getTime().toString()+"  "+global.flexList.list.get(i).endTime.getTime().toString());
+			if(max.compareTo(global.flexList.list.get(i).endTime)<0){
+				max=global.flexList.list.get(i).endTime;
+			}
+			if(max.compareTo(global.flexList.list.get(i).deadline)<0){
+				max=global.flexList.list.get(i).deadline;
+			}
+			if(min.compareTo(global.flexList.list.get(i).startTime)>0){
+				min=global.flexList.list.get(i).startTime;
+			}
+		}
+		Log.d("time",max.getTime().toString()+min.getTime().toString());
+	}
 	
 
 	/**
