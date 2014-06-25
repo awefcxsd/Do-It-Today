@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -49,6 +50,33 @@ public class SettingActivity extends Activity {
 			}
 
 		});
+		
+		final GlobalV global = ((GlobalV) getApplicationContext());
+		SeekBar sk=(SeekBar) findViewById(R.id.seekBar1);
+		sk.setProgress((int) global.factor.factorI);
+		sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				// TODO Auto-generated method stub
+				global.factor.factorI=progress;
+				global.factor.saveToFile(SettingActivity.this);
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}});
+		
+		
 
 	}
 	

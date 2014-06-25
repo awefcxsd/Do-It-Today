@@ -52,6 +52,7 @@ public class MainTabActivity extends TabActivity implements
 		global.freeTime.readFromFile(runing);
 		global.fixedList.readFromFile(runing);
 		global.pastList.readFromFile(runing);
+		global.factor.readFromFile(runing);
 
 
 		// DEBUG!!!!
