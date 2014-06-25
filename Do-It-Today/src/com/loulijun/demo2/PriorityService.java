@@ -22,6 +22,9 @@ import java.util.Map;
 
 import java.util.concurrent.TimeUnit;
 
+
+//import com.loulijun.demo2.ArrangeSlidePageFragment.ResponseReceiverFragment;
+//import com.loulijun.demo2.ArrangeSlidePageFragment.ResponseReceiverFragment;
 import com.loulijun.demo2.NewEventActivity.ResponseReceiver;
 import com.loulijun.demo2.arrange.ArrangeListAdapter;
 import com.loulijun.demo2.data.CalDay;
@@ -46,6 +49,10 @@ public class PriorityService extends IntentService {
     public static final String PARAM_OUT_MSG = "omsg";
     public static final String ADAPT_IN_MSG = "aimsg";
     public static final String ADAPT_OUT_MSG = "aomsg";
+    public static final String REFRESH_IN_MSG = "rimsg";
+    public static final String REFRESH_OUT_MSG = "romsg";
+    public static final String DATE_IN_MSG = "dimsg";
+    public static final String DATE_OUT_MSG = "domsg";
 	
 	public PriorityService() {
 		super("PriorityService");
@@ -141,6 +148,42 @@ public class PriorityService extends IntentService {
 			broadcastIntent2.putExtra(ADAPT_OUT_MSG, "Yes");
 			sendBroadcast(broadcastIntent2);
 			
+		}
+		else if (msg.equals("serviceRefresh")) {
+			/*
+			Calendar eventCalendar = (Calendar) intent.getSerializableExtra(REFRESH_IN_MSG);
+			CalDay today = (CalDay) intent.getSerializableExtra(ADAPT_IN_MSG);
+			String date = intent.getStringExtra(DATE_IN_MSG);
+			
+			Calendar nowCalendar = Calendar.getInstance();
+			GlobalV global= ((GlobalV)getApplicationContext());
+			
+			for(int i=0;i<24;++i)		
+			{
+					eventCalendar.set(Calendar.HOUR_OF_DAY, i);
+					
+					if(nowCalendar.after(eventCalendar))
+					{
+						global.calMapEvent.getDayEvent(date).calArray[i]=today.calArray[i];	
+					}
+			}
+			
+			
+			//GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
+			global.pastList.setPast(global.calMapEvent.getDayEvent(date), date);
+			global.pastList.saveToFile(this);
+			
+			
+			Intent broadcastIntent2 = new Intent();
+			broadcastIntent2.setAction(ResponseReceiverFragment.ACTION_RESP);
+			broadcastIntent2.addCategory(Intent.CATEGORY_DEFAULT);
+			
+			String resultTxt2 = "Set";
+			broadcastIntent2.putExtra(PARAM_OUT_MSG, resultTxt2);
+			broadcastIntent2.putExtra(ADAPT_OUT_MSG, "Yes");
+			broadcastIntent2.putExtra(DATE_OUT_MSG, date);
+			sendBroadcast(broadcastIntent2);
+			*/
 		}
 		
 	}
