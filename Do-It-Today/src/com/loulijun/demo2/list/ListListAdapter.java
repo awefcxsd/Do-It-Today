@@ -10,6 +10,8 @@ import com.loulijun.demo2.data.CalEvent;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,8 @@ public class ListListAdapter extends ArrayAdapter<CalEvent> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
+		Typeface type = Typeface.createFromAsset(mContext.getAssets(),
+				"fonts/monofonto.ttf");
 		if (convertView == null) {
 			// inflate the layout
 			if (list.get(position).type.compareTo("Flex") == 0) {
@@ -64,6 +67,8 @@ public class ListListAdapter extends ArrayAdapter<CalEvent> {
 				.findViewById(R.id.ListTitle);
 		textViewItem.setText(title);
 		textViewItem = (TextView) convertView.findViewById(R.id.deadline);
+		textViewItem.setTypeface(type);
+		textViewItem.setGravity(Gravity.CENTER_VERTICAL);
 		textViewItem.setText(deadline);
 
 		
