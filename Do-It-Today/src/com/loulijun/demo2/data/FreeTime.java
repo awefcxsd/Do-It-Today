@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import android.R.integer;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
@@ -19,12 +19,14 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
+
 public class FreeTime implements Serializable{
 	public boolean[][] freeTime = new boolean[7][24];
 	public List<Map<Integer,Integer>> freeMaps = new ArrayList<Map<Integer,Integer>>();
 	public int[] freeTimeInWeek = new int[7];
 
 	
+	@SuppressLint("UseSparseArrays")
 	public FreeTime(){
 		
 		for(int i=0;i<7;i++){
@@ -42,7 +44,7 @@ public class FreeTime implements Serializable{
 			freeMaps.add(new HashMap<Integer,Integer>());
 		}
 	}
-	
+	@SuppressLint("UseSparseArrays")
 	public void calculateFreeMap()
 	{
 		freeMaps.clear();
@@ -56,6 +58,15 @@ public class FreeTime implements Serializable{
 			{
 				if(freeTime[i][j])
 				{
+					if(duration.intValue()>=2)
+					{
+						isFirst=true;
+						freeMaps.get(i).put(start, duration);
+						freeTimeInWeek[i]+=duration.intValue();
+						start =new Integer(0);
+						duration = new Integer(0);
+					}
+					
 					if(isFirst)
 					{
 						start = new Integer(j);

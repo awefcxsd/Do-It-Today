@@ -412,6 +412,7 @@ public class ArrangeSlidePageFragment extends Fragment{
 		GlobalV global = ((GlobalV) this.getActivity().getApplicationContext());
 		global.pastList.setPast(global.calMapEvent.getDayEvent(date), date);
 		global.pastList.saveToFile(getActivity());
+		global.flexList.saveToFile(getActivity());
 	}
 
 	@Override

@@ -81,7 +81,7 @@ public class ListOfEvent implements Serializable{
 		this.add(event);
 	}
 
-	public void saveToFile(Service runing) {
+	public void saveToFile(Context runing) {
 		FileOutputStream fout = null;
 		ObjectOutputStream oos = null;
 		try {
@@ -109,7 +109,7 @@ public class ListOfEvent implements Serializable{
 	}
 
 	
-	public void readFromFile(Activity runing) {
+	public void readFromFile(Context runing) {
 		FileInputStream fin = null;
 		ObjectInputStream ois = null;
 		try {
