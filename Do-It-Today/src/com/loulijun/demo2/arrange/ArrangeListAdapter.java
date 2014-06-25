@@ -107,8 +107,13 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> implements Serial
 		if (data.get(position) != null) {
 			if(data.get(position).type.compareTo("Fixed")==0){	
 				convertView.setBackgroundColor(Color.rgb(173, 206, 247));}
-			else if(isSet){
+			else if (current.compareTo(thisTime)>=0) {
+				convertView.setBackgroundColor(Color.argb(125, 75, 236, 90));
+			} else if(isSet && data.get(position) != null)  {
+				if(data.get(position).type.compareTo("Flex") == 0)
 				convertView.setBackgroundColor(Color.argb(255, 255, 200, 200));
+			} else{
+				convertView.setBackgroundColor(Color.argb(255, 255, 255, 255));
 			}
 		}else if (current.compareTo(thisTime)>=0) {
 			convertView.setBackgroundColor(Color.argb(125, 75, 236, 90));
