@@ -129,6 +129,8 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 
 		public void onClick(View v) {
 			check.set(position, !check.get(position));
+			//CalEvent event = data.get(position);
+			
 			notifyDataSetChanged();
 		}
 	}

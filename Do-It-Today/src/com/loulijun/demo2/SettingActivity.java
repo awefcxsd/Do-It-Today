@@ -61,11 +61,16 @@ public class SettingActivity extends Activity {
 			GlobalV global = ((GlobalV) getApplicationContext());
 			global.freeTime.calculateFreeMap();
 			isChangeBoolean = false;
-		
-			String strInputMsg = "reAssignTask";
+			
+			String strInputMsg = "maintainList";
 			Intent msgIntent = new Intent(this, PriorityService.class);
 			msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
 			startService(msgIntent);
+		
+			String strInputMsg2 = "reAssignTask";
+			Intent msgIntent2 = new Intent(this, PriorityService.class);
+			msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+			startService(msgIntent2);
 		
 		}
 		super.onPause();

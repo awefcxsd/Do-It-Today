@@ -51,11 +51,14 @@ public class ArangeActivity extends FragmentActivity {
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem( 500, false); // set current item in the adapter to middle
         
+        CheckTimeSpend();
+        
         IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 		receiver = new ResponseReceiver();
 		registerReceiver(receiver, filter);
-        
+		
+		
 	}
 	
 	
@@ -110,6 +113,53 @@ public class ArangeActivity extends FragmentActivity {
 		}
 	}
     
-    
+	@Override
+	public void onResume(){
+		super.onResume();
+		CheckTimeSpend();
+		
+	
+		
+	}
+	
+	public void CheckTimeSpend() {
+		Log.d("add Timespend", "IN");
+		GlobalV global = ((GlobalV) getApplicationContext());
+		global.checkDate.readFromFile(this);
+		Calendar yesterday = new GregorianCalendar();
+		yesterday.set(yesterday.get(Calendar.YEAR),
+				yesterday.get(Calendar.MONTH), yesterday.get(Calendar.DATE), 0,
+				0, 0);
+		if (global.checkDate.d == null) {
+			Log.d("add Timespend", "null");
+			global.checkDate.d = new GregorianCalendar();
+			global.checkDate.d.set(global.checkDate.d.get(Calendar.YEAR),
+					global.checkDate.d.get(Calendar.MONTH),
+					global.checkDate.d.get(Calendar.DATE), 12, 0, 0);
+			global.checkDate.saveToFile(this);
+		} else {
+			Log.d("add Timespend", global.checkDate.d.get(Calendar.YEAR) + "/"
+					+ (global.checkDate.d.get(Calendar.MONTH) + 1) + "/"
+					+ global.checkDate.d.get(Calendar.DATE));
+			while (yesterday.compareTo(global.checkDate.d) >= 1) {
+				String date = global.checkDate.d.get(Calendar.YEAR) + "/"
+						+ (global.checkDate.d.get(Calendar.MONTH) + 1) + "/"
+						+ global.checkDate.d.get(Calendar.DATE);
+				if (global.pastList.map.containsKey(date)) {
+					CalDay day = global.pastList.map.get(date);
+					for (int i = 0; i < 24; i++) {
+						if (day.calArray[i] != null) {
+							Log.d("add Timespend", day.calArray[i].title+day.calArray[i].timeSpent);
+							day.calArray[i].timeSpent += 60 * 60;
+							Log.d("add Timespend", day.calArray[i].title+day.calArray[i].timeSpent);
+						}
+					}
+				}
+				global.checkDate.d.add(Calendar.DATE, 1);
+			}
+			global.checkDate.saveToFile(this);
+		}
+	}
+	
 
 }

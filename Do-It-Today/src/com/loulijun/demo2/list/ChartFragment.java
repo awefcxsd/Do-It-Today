@@ -95,7 +95,7 @@ public class ChartFragment extends Fragment {
 					
 					titleE.setText(titleS);
 					descriptionE.setText(descriptionS);
-					durationE.setText(durationS+" hours ");
+					durationE.setText(durationS+" hours "+global.flexList.list.get(id_).machineTimeSpent + " " + global.flexList.list.get(id_).timeSpent);
 					progressBar.setProgress((int)(timeSpend/(dur+1)*100));
 					progressValue.setText(String.valueOf((int)(timeSpend/(dur+1)*100))+"%");
 					
