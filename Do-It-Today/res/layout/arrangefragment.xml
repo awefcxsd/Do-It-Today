@@ -9,7 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp" >
 
         <TextView
             android:id="@+id/textViewFragment"
@@ -23,10 +24,13 @@
 
         <Button
             android:id="@+id/set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Set" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="0.001"
+            android:background="@drawable/ic_action_refresh"
+            android:focusable="false"
+            android:paddingRight="10dp" />
 
     </LinearLayout>
 
