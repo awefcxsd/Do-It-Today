@@ -80,7 +80,7 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> {
 					false);
 			if (data.get(position) != null) {
 				if (data.get(position).type.compareTo("Flex") == 0 && current.compareTo(thisTime)>=0 && isSet) {
-					convertView = inflater.inflate(R.layout.arragelistflexitem,parent, false);
+					convertView = inflater.inflate(R.layout.arrangelistflexitem,parent, false);
 					Button b = (Button) convertView.findViewById(R.id.check);
 					b.setOnClickListener(new ItemButton_Click(this.running,position));
 				}

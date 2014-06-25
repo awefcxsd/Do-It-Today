@@ -33,7 +33,7 @@ public class MainTabActivity extends TabActivity implements
 	public void setFont(String string) {
 		SpannableString s;
 		s = new SpannableString((CharSequence) string);
-		s.setSpan(new TypefaceSpan(this, "RobotoCondensed-Light.ttf"), 0,
+		s.setSpan(new TypefaceSpan(this, "ARIALN.TTF"), 0,
 				s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		getActionBar().setTitle(s);
 	}
