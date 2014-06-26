@@ -62,6 +62,21 @@ public class SettingActivity extends Activity {
 				// TODO Auto-generated method stub
 				global.factor.factorI=progress;
 				global.factor.saveToFile(SettingActivity.this);
+				
+				//maintain
+				String strInputMsg = "maintainList";
+				Intent msgIntent = new Intent(SettingActivity.this, PriorityService.class);
+				msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+				SettingActivity.this.startService(msgIntent);
+				
+				
+				String strInputMsg2 = "reAssignTask";
+				Intent msgIntent2 = new Intent(SettingActivity.this, PriorityService.class);
+				msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+				SettingActivity.this.startService(msgIntent2);
+				
+				
+				
 			}
 
 			@Override

@@ -109,7 +109,7 @@ public class CalEvent implements Serializable, Cloneable{
 				emrgencyFactor = 1;
 			}
 			
-			priority = importance + emrgencyFactor*10; 
+			priority = importance + emrgencyFactor*global.factor.factorI; 
 			
 		}
 		//Log.d("CalPri",Double.toString(emrgencyFactor));

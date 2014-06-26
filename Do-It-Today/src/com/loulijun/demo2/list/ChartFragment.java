@@ -3,8 +3,10 @@ package com.loulijun.demo2.list;
 import java.util.concurrent.TimeUnit;
 
 import com.loulijun.demo2.GlobalV;
+import com.loulijun.demo2.PriorityService;
 import com.loulijun.demo2.R;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -182,6 +184,23 @@ public class ChartFragment extends Fragment {
 								progressValue.setText(String.valueOf(100) + "%");
 							}
 
+							//maintain
+							
+							String strInputMsg = "maintainList";
+							Intent msgIntent = new Intent(getActivity(), PriorityService.class);
+							msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+							getActivity().startService(msgIntent);
+							
+							
+							String strInputMsg2 = "reAssignTask";
+							Intent msgIntent2 = new Intent(getActivity(), PriorityService.class);
+							msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+							getActivity().startService(msgIntent2);
+							
+							
+							
+							
+							
 						}
 					});
 
