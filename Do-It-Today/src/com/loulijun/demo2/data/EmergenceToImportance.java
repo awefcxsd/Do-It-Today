@@ -10,16 +10,19 @@ import java.util.ArrayList;
 
 import android.content.Context;
 
-public class EmergenceToImportance implements Serializable{
-	public double factorI=10;
-	
+public class EmergenceToImportance implements Serializable {
+	public double factorI = 10;
+	public int time = 2;
+
 	public void saveToFile(Context runing) {
 		FileOutputStream fout = null;
 		ObjectOutputStream oos = null;
 		try {
-			fout = runing.openFileOutput("EmergenceToImportance", Context.MODE_PRIVATE);
+			fout = runing.openFileOutput("EmergenceToImportance",
+					Context.MODE_PRIVATE);
 			oos = new ObjectOutputStream(fout);
 			oos.writeObject(factorI);
+			oos.writeObject(time);
 		} catch (Exception e) {
 
 		} finally {
@@ -40,15 +43,16 @@ public class EmergenceToImportance implements Serializable{
 		}
 	}
 
-	
 	public void readFromFile(Context runing) {
 		FileInputStream fin = null;
 		ObjectInputStream ois = null;
 		try {
 			fin = runing.openFileInput("EmergenceToImportance");
 			ois = new ObjectInputStream(fin);
-			if(fin != null && ois != null)
+			if (fin != null && ois != null) {
 				factorI = (Double) ois.readObject();
+				time = (Integer) ois.readObject();
+			}
 		} catch (Exception e) {
 
 		} finally {

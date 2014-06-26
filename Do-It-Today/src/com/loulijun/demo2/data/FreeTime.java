@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.loulijun.demo2.GlobalV;
+
 import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -45,8 +48,9 @@ public class FreeTime implements Serializable{
 		}
 	}
 	@SuppressLint("UseSparseArrays")
-	public void calculateFreeMap()
+	public void calculateFreeMap(Context running)
 	{
+		GlobalV global = ((GlobalV) running.getApplicationContext());
 		freeMaps.clear();
 		boolean isFirst = true;
 		Integer start = new Integer(0);
@@ -58,7 +62,7 @@ public class FreeTime implements Serializable{
 			{
 				if(freeTime[i][j])
 				{
-					if(duration.intValue()>=2)
+					if(duration.intValue()>=global.factor.time)
 					{
 						isFirst=true;
 						freeMaps.get(i).put(start, duration);

@@ -100,7 +100,7 @@ public class MainTabActivity extends TabActivity implements
 
 		global.fixedList.reAssignMap();
 
-		global.freeTime.calculateFreeMap();
+		global.freeTime.calculateFreeMap(this);
 
 		String strInputMsg = "maintainList";
 		Intent msgIntent = new Intent(this, PriorityService.class);
