@@ -59,15 +59,15 @@ public class ListOfEvent implements Serializable{
 		title="專題演講心得";
 	    description="專題演講心得";
 	    duration = (long)2;
-		deadline.set(2014, 6, 20, 0, 0);
-		importance = 40;
+		deadline.set(2014, 6, 3, 0, 0);
+		importance = 20;
 		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
 		this.add(event);
 		
 		title="網多FINAL實驗";
 	    description="網多FINAL實驗";
 	    duration = (long)40;
-		deadline.set(2014, 6, 20, 0, 0);
+		deadline.set(2014, 6, 18, 0, 0);
 		importance = 80;
 		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
 		this.add(event);
@@ -75,8 +75,24 @@ public class ListOfEvent implements Serializable{
 		title="數位語音期末報告";
 	    description="數位語音期末報告";
 	    duration = (long)10;
-		deadline.set(2014, 6, 20, 0, 0);
-		importance = 80;
+		deadline.set(2014, 6, 7, 0, 0);
+		importance = 85;
+		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
+		this.add(event);
+		
+		title="電子電路實驗期末考";
+	    description="電子電路實驗期末考";
+	    duration = (long)8;
+		deadline.set(2014, 5, 29, 0, 0);
+		importance = 36;
+		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
+		this.add(event);
+		
+		title="機率與統計";
+	    description="機率與統計";
+	    duration = (long)5;
+		deadline.set(2014, 6, 6, 0, 0);
+		importance = 50;
 		event = new CalEvent(title, description, duration, (Calendar) deadline.clone(), importance);
 		this.add(event);
 	}

@@ -191,7 +191,7 @@ public class ArrangeListAdapter extends ArrayAdapter<CalEvent> implements Serial
 			running.startService(msgIntent);
 
 			
-			
+			global.pastList.saveToFile(mContext);
 			notifyDataSetChanged();
 		}
 	}

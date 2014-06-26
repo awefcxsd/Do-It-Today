@@ -48,11 +48,11 @@ public class MainTabActivity extends TabActivity implements
 		setFont(" Plan");
 
 		GlobalV global = ((GlobalV) getApplicationContext());
-		global.flexList.readFromFile(runing);
+		/*global.flexList.readFromFile(runing);
 		global.freeTime.readFromFile(runing);
 		global.fixedList.readFromFile(runing);
 		global.pastList.readFromFile(runing);
-		global.factor.readFromFile(runing);
+		global.factor.readFromFile(runing);*/
 
 
 		// DEBUG!!!!
@@ -129,6 +129,11 @@ public class MainTabActivity extends TabActivity implements
 				String strInputMsg = "arrangeUncheck";
 				Intent msgIntent = new Intent(this, PriorityService.class);
 				msgIntent.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg);
+				
+				String strInputMsg2 = "reAssignTask";
+				Intent msgIntent2 = new Intent(this, PriorityService.class);
+				msgIntent2.putExtra(PriorityService.PARAM_IN_MSG, strInputMsg2);
+				startService(msgIntent2);
 				
 				startService(msgIntent);
 				
