@@ -105,9 +105,7 @@ public class ChartFragment extends Fragment {
 							.findViewById(R.id.seekBar1);
 
 					titleE.setText(titleS);
-					durationE.setText(durationS + " hours "
-							+ global.flexList.list.get(id_).machineTimeSpent
-							+ " " + global.flexList.list.get(id_).timeSpent);
+					durationE.setText(durationS + " hours ");
 					if (dur > 0) {
 						progressBar
 								.setProgress((int) (timeSpend / (dur) * 100));

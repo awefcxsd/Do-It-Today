@@ -75,6 +75,7 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 			String date = check.get(Calendar.YEAR) + "/"
 					+ (check.get(Calendar.MONTH) + 1) + "/"
 					+ check.get(Calendar.DATE);
+			
 			if (global.pastList.map.containsKey(date)) {
 				today = global.pastList.map.get(date);
 			} else {
@@ -83,7 +84,7 @@ public class GanttItemAdapter extends ArrayAdapter<String> {
 			boolean doit=false;
 			for(int i=0;i<24;i++){
 				if(today.calArray[i]!=null){
-					if(today.calArray[i].equals(global.flexList.list.get(eventNum))){
+					if(today.calArray[i].title.compareTo(global.flexList.list.get(eventNum).title)==0){
 						doit=true;
 						break;
 					}
